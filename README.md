@@ -2,17 +2,27 @@
 
 타겟 디바이스 및 기준 사이즈: iPhone 13
 미니멈 배포버전: iOS 15.0
+
 Xcode 14.1 (Pods 호환 문제로 Project Format은 Xcode 13.0 Compatible로 설정)
+
 iOS 개발 명세
 
 디자인 패턴: MVC
+
 UI: Storyboard
+
 언어: Swift
+
 라이브러리 (CocoaPods, SPM)
+
 IQKeyboardManager: 텍스트필드 키보드 등 제어 
+
 Alamofire: 네트워크 통신 
+
 Toast: 토스트 메시지 
+
 그 외 추후 추가
+
 작업 시 주의사항
 
 작업파일 
