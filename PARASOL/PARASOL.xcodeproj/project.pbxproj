@@ -1,0 +1,594 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
+		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
+		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
+		09CF04B92A65335C002C9F8B /* SetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B82A65335C002C9F8B /* SetColor.swift */; };
+		09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C12A6533E6002C9F8B /* SampleModel.swift */; };
+		09CF04C42A6533F8002C9F8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C32A6533F8002C9F8B /* Endpoint.swift */; };
+		09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C52A653415002C9F8B /* SampleManager.swift */; };
+		09CF04C82A65342B002C9F8B /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C72A65342B002C9F8B /* SampleAPI.swift */; };
+		09CF04D02A653477002C9F8B /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04CF2A653477002C9F8B /* Auth.storyboard */; };
+		09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04D12A6534A0002C9F8B /* LoginVC.swift */; };
+		09CF04D62A6534D2002C9F8B /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04D52A6534D2002C9F8B /* UserVC.swift */; };
+		09CF04D82A6534DB002C9F8B /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04D72A6534DB002C9F8B /* User.storyboard */; };
+		09CF04DA2A6534EC002C9F8B /* Owner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04D92A6534EC002C9F8B /* Owner.storyboard */; };
+		09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04DB2A6534F6002C9F8B /* OwnerVC.swift */; };
+		09CF04DE2A65350D002C9F8B /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04DD2A65350D002C9F8B /* Menu.storyboard */; };
+		09CF04E02A653519002C9F8B /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04DF2A653519002C9F8B /* MenuVC.swift */; };
+		09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04E12A653537002C9F8B /* MypageVC.swift */; };
+		09CF04E42A65353D002C9F8B /* Mypage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04E32A65353D002C9F8B /* Mypage.storyboard */; };
+		09DD5B4F2A65308000EF986E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B4E2A65308000EF986E /* AppDelegate.swift */; };
+		09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B502A65308000EF986E /* SceneDelegate.swift */; };
+		09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */; };
+		09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5A2A65308000EF986E /* Assets.xcassets */; };
+		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
+		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
+		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
+		09CF04B82A65335C002C9F8B /* SetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetColor.swift; sourceTree = "<group>"; };
+		09CF04C12A6533E6002C9F8B /* SampleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModel.swift; sourceTree = "<group>"; };
+		09CF04C32A6533F8002C9F8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		09CF04C52A653415002C9F8B /* SampleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
+		09CF04C72A65342B002C9F8B /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
+		09CF04CF2A653477002C9F8B /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		09CF04D12A6534A0002C9F8B /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		09CF04D52A6534D2002C9F8B /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		09CF04D72A6534DB002C9F8B /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		09CF04D92A6534EC002C9F8B /* Owner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Owner.storyboard; sourceTree = "<group>"; };
+		09CF04DB2A6534F6002C9F8B /* OwnerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerVC.swift; sourceTree = "<group>"; };
+		09CF04DD2A65350D002C9F8B /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		09CF04DF2A653519002C9F8B /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		09CF04E12A653537002C9F8B /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
+		09CF04E32A65353D002C9F8B /* Mypage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mypage.storyboard; sourceTree = "<group>"; };
+		09DD5B4B2A65308000EF986E /* PARASOL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARASOL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		09DD5B4E2A65308000EF986E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		09DD5B502A65308000EF986E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		09DD5B582A65308000EF986E /* PARASOL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PARASOL.xcdatamodel; sourceTree = "<group>"; };
+		09DD5B5A2A65308000EF986E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09DD5B5D2A65308000EF986E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		09DD5B482A65308000EF986E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		09CF04AF2A6532D8002C9F8B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04B02A6532E9002C9F8B /* SetLayout.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		09CF04B22A653325002C9F8B /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04B32A65333C002C9F8B /* SampleVC.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		09CF04B52A65334D002C9F8B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04B62A653355002C9F8B /* SetFont.swift */,
+				09CF04B82A65335C002C9F8B /* SetColor.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		09CF04BA2A653365002C9F8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		09CF04BB2A653379002C9F8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
+		09CF04BC2A65338A002C9F8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		09CF04BD2A653397002C9F8B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04CC2A65345B002C9F8B /* Auth */,
+				09CF04CB2A653452002C9F8B /* Home */,
+				09CF04CA2A65344C002C9F8B /* Menu */,
+				09CF04C92A653445002C9F8B /* Mypage */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		09CF04BE2A6533B3002C9F8B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04C02A6533CE002C9F8B /* Network */,
+				09CF04BF2A6533C7002C9F8B /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		09CF04BF2A6533C7002C9F8B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04C12A6533E6002C9F8B /* SampleModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		09CF04C02A6533CE002C9F8B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04C32A6533F8002C9F8B /* Endpoint.swift */,
+				09CF04C52A653415002C9F8B /* SampleManager.swift */,
+				09CF04C72A65342B002C9F8B /* SampleAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		09CF04C92A653445002C9F8B /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04E32A65353D002C9F8B /* Mypage.storyboard */,
+				09CF04E12A653537002C9F8B /* MypageVC.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		09CF04CA2A65344C002C9F8B /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04DD2A65350D002C9F8B /* Menu.storyboard */,
+				09CF04DF2A653519002C9F8B /* MenuVC.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		09CF04CB2A653452002C9F8B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04D42A6534C3002C9F8B /* UserHome */,
+				09CF04D32A6534B9002C9F8B /* OwnerHome */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		09CF04CC2A65345B002C9F8B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04CF2A653477002C9F8B /* Auth.storyboard */,
+				09CF04D12A6534A0002C9F8B /* LoginVC.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		09CF04D32A6534B9002C9F8B /* OwnerHome */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04D92A6534EC002C9F8B /* Owner.storyboard */,
+				09CF04DB2A6534F6002C9F8B /* OwnerVC.swift */,
+			);
+			path = OwnerHome;
+			sourceTree = "<group>";
+		};
+		09CF04D42A6534C3002C9F8B /* UserHome */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04D72A6534DB002C9F8B /* User.storyboard */,
+				09CF04D52A6534D2002C9F8B /* UserVC.swift */,
+			);
+			path = UserHome;
+			sourceTree = "<group>";
+		};
+		09DD5B422A65307F00EF986E = {
+			isa = PBXGroup;
+			children = (
+				09DD5B4D2A65308000EF986E /* PARASOL */,
+				09DD5B4C2A65308000EF986E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		09DD5B4C2A65308000EF986E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				09DD5B4B2A65308000EF986E /* PARASOL.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		09DD5B4D2A65308000EF986E /* PARASOL */ = {
+			isa = PBXGroup;
+			children = (
+				09DD5B652A65308E00EF986E /* App */,
+				09DD5B662A6530B800EF986E /* Global */,
+				09CF04BE2A6533B3002C9F8B /* Data */,
+				09CF04BD2A653397002C9F8B /* Scenes */,
+				09CF04BA2A653365002C9F8B /* Frameworks */,
+				09CF04BB2A653379002C9F8B /* Products */,
+				09CF04BC2A65338A002C9F8B /* Pods */,
+			);
+			path = PARASOL;
+			sourceTree = "<group>";
+		};
+		09DD5B652A65308E00EF986E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				09DD5B502A65308000EF986E /* SceneDelegate.swift */,
+				09DD5B4E2A65308000EF986E /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		09DD5B662A6530B800EF986E /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				09CF04B52A65334D002C9F8B /* Util */,
+				09CF04B22A653325002C9F8B /* Templates */,
+				09CF04AF2A6532D8002C9F8B /* Extension */,
+				09DD5B5F2A65308000EF986E /* Info.plist */,
+				09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */,
+				09DD5B682A65313300EF986E /* Resources */,
+				09DD5B672A65311800EF986E /* SupportingFiles */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		09DD5B672A65311800EF986E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		09DD5B682A65313300EF986E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				09DD5B5A2A65308000EF986E /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		09DD5B4A2A65308000EF986E /* PARASOL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09DD5B622A65308000EF986E /* Build configuration list for PBXNativeTarget "PARASOL" */;
+			buildPhases = (
+				09DD5B472A65308000EF986E /* Sources */,
+				09DD5B482A65308000EF986E /* Frameworks */,
+				09DD5B492A65308000EF986E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PARASOL;
+			productName = PARASOL;
+			productReference = 09DD5B4B2A65308000EF986E /* PARASOL.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		09DD5B432A65307F00EF986E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					09DD5B4A2A65308000EF986E = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 09DD5B462A65307F00EF986E /* Build configuration list for PBXProject "PARASOL" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 09DD5B422A65307F00EF986E;
+			productRefGroup = 09DD5B4C2A65308000EF986E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				09DD5B4A2A65308000EF986E /* PARASOL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		09DD5B492A65308000EF986E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CF04DE2A65350D002C9F8B /* Menu.storyboard in Resources */,
+				09CF04D02A653477002C9F8B /* Auth.storyboard in Resources */,
+				09CF04D82A6534DB002C9F8B /* User.storyboard in Resources */,
+				09CF04E42A65353D002C9F8B /* Mypage.storyboard in Resources */,
+				09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */,
+				09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */,
+				09CF04DA2A6534EC002C9F8B /* Owner.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		09DD5B472A65308000EF986E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */,
+				09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */,
+				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
+				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
+				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,
+				09CF04E02A653519002C9F8B /* MenuVC.swift in Sources */,
+				09DD5B4F2A65308000EF986E /* AppDelegate.swift in Sources */,
+				09CF04C42A6533F8002C9F8B /* Endpoint.swift in Sources */,
+				09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */,
+				09CF04D62A6534D2002C9F8B /* UserVC.swift in Sources */,
+				09CF04B92A65335C002C9F8B /* SetColor.swift in Sources */,
+				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
+				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
+				09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */,
+				09CF04C82A65342B002C9F8B /* SampleAPI.swift in Sources */,
+				09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09DD5B5D2A65308000EF986E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		09DD5B602A65308000EF986E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		09DD5B612A65308000EF986E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		09DD5B632A65308000EF986E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PARASOL/Global/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PARASOL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		09DD5B642A65308000EF986E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PARASOL/Global/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PARASOL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		09DD5B462A65307F00EF986E /* Build configuration list for PBXProject "PARASOL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09DD5B602A65308000EF986E /* Debug */,
+				09DD5B612A65308000EF986E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09DD5B622A65308000EF986E /* Build configuration list for PBXNativeTarget "PARASOL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09DD5B632A65308000EF986E /* Debug */,
+				09DD5B642A65308000EF986E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				09DD5B582A65308000EF986E /* PARASOL.xcdatamodel */,
+			);
+			currentVersion = 09DD5B582A65308000EF986E /* PARASOL.xcdatamodel */;
+			path = PARASOL.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 09DD5B432A65307F00EF986E /* Project object */;
+}
