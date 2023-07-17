@@ -96,27 +96,6 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		09CF04BA2A653365002C9F8B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		09CF04BB2A653379002C9F8B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Products;
-			sourceTree = "<group>";
-		};
-		09CF04BC2A65338A002C9F8B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		09CF04BD2A653397002C9F8B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +188,27 @@
 			path = UserHome;
 			sourceTree = "<group>";
 		};
+		09CF04E52A65397C002C9F8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		09CF04E62A653985002C9F8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		09CF04E72A653991002C9F8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
 		09DD5B422A65307F00EF986E = {
 			isa = PBXGroup;
 			children = (
@@ -228,13 +228,13 @@
 		09DD5B4D2A65308000EF986E /* PARASOL */ = {
 			isa = PBXGroup;
 			children = (
+				09CF04E72A653991002C9F8B /* Products */,
+				09CF04E62A653985002C9F8B /* Pods */,
+				09CF04E52A65397C002C9F8B /* Frameworks */,
 				09DD5B652A65308E00EF986E /* App */,
 				09DD5B662A6530B800EF986E /* Global */,
 				09CF04BE2A6533B3002C9F8B /* Data */,
 				09CF04BD2A653397002C9F8B /* Scenes */,
-				09CF04BA2A653365002C9F8B /* Frameworks */,
-				09CF04BB2A653379002C9F8B /* Products */,
-				09CF04BC2A65338A002C9F8B /* Pods */,
 			);
 			path = PARASOL;
 			sourceTree = "<group>";
