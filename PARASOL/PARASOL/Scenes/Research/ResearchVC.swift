@@ -1,13 +1,13 @@
 //
-//  MenuVC.swift
+//  ResearchVC.swift
 //  PARASOL
 //
-//  Created by 장윤정 on 2023/07/17.
+//  Created by 장윤정 on 2023/07/18.
 //
 
 import UIKit
 
-class MenuVC: UIViewController {
+class ResearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
