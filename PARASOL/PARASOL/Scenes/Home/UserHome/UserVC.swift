@@ -11,7 +11,6 @@ class UserVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*파일 수정*/
         // Do any additional setup after loading the view.
     }
     
