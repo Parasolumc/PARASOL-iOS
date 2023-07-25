@@ -124,11 +124,11 @@ class StoreInfoVC: UIViewController {
     }()
     
     let umbrellaImage: UIImageView = {
-            let ImageView = UIImageView()
+            let imageView = UIImageView()
         
-            ImageView.image = UIImage(named: "umbrella")
+            imageView.image = UIImage(named: "umbrella")
         
-            return ImageView
+            return imageView
     }()
     
     lazy var tag2Label: UILabel = {
@@ -153,7 +153,7 @@ class StoreInfoVC: UIViewController {
     }()
     
     // 대여/반납 버튼 생성
-    let rentalButton: UIButton = {
+    lazy var rentalButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("대여", for: .normal)
@@ -161,18 +161,34 @@ class StoreInfoVC: UIViewController {
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
+        
+        let goToRentalVCAction = UIAction { _ in
+            let rentalVC = Rental_ReturnVC()
+            rentalVC.nowFun = "Rental"
+            self.navigationController?.pushViewController(rentalVC, animated: true)
+            }
+            
+        button.addAction(goToRentalVCAction, for: .touchUpInside)
         
         return button
     }()
     
-    let returnButton: UIButton = {
+    lazy var returnButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("대여", for: .normal)
+        button.setTitle("반납", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
+        
+        let goToReturnVCAction = UIAction { _ in
+            let returnVC = Rental_ReturnVC()
+            returnVC.nowFun = "Return"
+            self.navigationController?.pushViewController(returnVC, animated: true)
+            }
+            
+        button.addAction(goToReturnVCAction, for: .touchUpInside)
         
         return button
     }()
@@ -202,6 +218,7 @@ class StoreInfoVC: UIViewController {
     
     // UI 레이아웃 세팅
     func configureUI() {
+        view.backgroundColor = .white
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
         // 스크롤뷰 이미지 넣기
