@@ -11,6 +11,8 @@ class Rental_ReturnVC: UIViewController {
 
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    
+    // 대여/반납 페이지 종류 결정 변수
     var nowFun = "Rental"
 
     // 화면 사이즈
@@ -70,7 +72,7 @@ class Rental_ReturnVC: UIViewController {
             let doneVC = DoneVC()
             doneVC.nowFun = self.nowFun
             self.navigationController?.pushViewController(doneVC, animated: true)
-            }
+        }
             
         button.addAction(goToDoneVCAction, for: .touchUpInside)
         

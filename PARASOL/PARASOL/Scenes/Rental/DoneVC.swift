@@ -11,10 +11,6 @@ class DoneVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    // 화면 사이즈
-    var bounds = UIScreen.main.bounds
-    lazy var screenWidth = bounds.size.width //화면 너비
-    lazy var screenHeight = bounds.size.height //화면 높이
 
     var nowFun = "Rental"
     
@@ -104,7 +100,7 @@ class DoneVC: UIViewController {
     }
     
     @objc func dismissFunc() {
-        let root = StoreInfoVC()
+        let root = UserVC()
         let vc = UINavigationController(rootViewController: root)
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
     }
