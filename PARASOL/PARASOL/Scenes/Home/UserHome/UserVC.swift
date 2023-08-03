@@ -24,20 +24,6 @@ class UserVC: UIViewController {
     var umbrellaNum = 9
     
     // MARK: [UI components]
-    let toolbar = UIToolbar()
-    // Toolbar items
-    lazy var menuBarItem = UIBarButtonItem.menuButton(self, action: #selector(testAc), imageName: "menu", size: 24, color: "black")
-    lazy var selectHomeBarItem = UIBarButtonItem.menuButton(self, action: #selector(testAc), imageName: "select_home", size: 24, color: "main")
-    lazy var myPageBarItem = UIBarButtonItem.menuButton(self, action: #selector(testAc), imageName: "mypage", size: 24, color: "black")
-    lazy var flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-    lazy var toolItems = [self.flexibleSpace, self.menuBarItem, self.flexibleSpace, self.selectHomeBarItem, self.flexibleSpace, self.myPageBarItem, self.flexibleSpace]
-
-    @objc func testAc() {
-        let rentalVC = Rental_ReturnVC()
-        rentalVC.nowFun = "Rental"
-        self.navigationController?.pushViewController(rentalVC, animated: true)
-    }
-    
     // 검색 바 요소들
     let searchbar: UISearchBar = {
         let searchbar = UISearchBar()
@@ -248,12 +234,10 @@ class UserVC: UIViewController {
         introView.addSubview(findLoadButton)
         introView.addSubview(umbrellaHStackView)
         introView.addSubview(buttonHStackView)
-        setupToolbar()
-        
 
         searchbar.anchor(top:view.topAnchor, paddingTop: 10)
         searchbar.centerX(inView: view)
-        introView.anchor(left: view.leftAnchor, bottom: toolbar.topAnchor)
+        introView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor)
         vStackView.anchor(top: introView.topAnchor, paddingTop: 41)
         vStackView.centerX(inView: introView)
         findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
@@ -263,12 +247,6 @@ class UserVC: UIViewController {
         buttonHStackView.centerX(inView: introView)
     }
     
-    func setupToolbar() {
-        toolbar.barTintColor = UIColor(named: "white")
-        view.addSubview(toolbar)
-        toolbar.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor)
-        toolbar.setItems(toolItems, animated: false)
-    }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
