@@ -12,7 +12,8 @@ class DoneVC: UIViewController {
     // 변수 및 상수, IBOutlet
     
 
-    var nowFun = "Rental"
+    var nowFun = "Rental" // 대여/반납 중 어떤 페이지에서 넘어온 페이지인지 체크
+    var nowUser = "일반" // 현재 사용자가 일반 사용자인지 사장님인지 체크
     
     // MARK: [UI components]
     var logoImage: UIImageView = {
@@ -75,7 +76,12 @@ class DoneVC: UIViewController {
         
         navigationController?.isNavigationBarHidden = true
         configureUI()
-        doDismissVC()
+        
+        if nowUser == "일반" {
+            goToUserHome()
+        }else if nowUser == "사장님" {
+            goToOwnerHome()
+        }
     }
     
     // MARK: - Actions
@@ -95,13 +101,21 @@ class DoneVC: UIViewController {
         vStackView.centerX(inView: view)
     }
     
-    func doDismissVC() {
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(dismissFunc), userInfo: nil, repeats: false)
+    func goToUserHome() {
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(goToUserFunc), userInfo: nil, repeats: false)
     }
     
-    @objc func dismissFunc() {
-        let root = UserVC()
-        let vc = UINavigationController(rootViewController: root)
+    @objc func goToUserFunc() {
+        let vc = UserTabBarVC()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+    }
+    
+    func goToOwnerHome() {
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(goToOwnerFunc), userInfo: nil, repeats: false)
+    }
+    
+    @objc func goToOwnerFunc() {
+        let vc = OwnerTabBarVC()
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
     }
     
