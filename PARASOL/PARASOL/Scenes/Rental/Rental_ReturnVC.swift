@@ -85,7 +85,7 @@ class Rental_ReturnVC: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        setNC()
+        setNavigationBar()
         
     }
     
@@ -93,7 +93,7 @@ class Rental_ReturnVC: UIViewController {
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
     // method - setting navigation bar
-    func setNC() {
+    func setNavigationBar() {
         if nowFun == "Rental" {
             self.navigationItem.title = "대여하기"
         } else if nowFun == "Return" {
