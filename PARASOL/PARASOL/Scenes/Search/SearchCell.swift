@@ -1,5 +1,5 @@
 //
-//  ResearchCell.swift
+//  SearchCell.swift
 //  PARASOL
 //
 //  Created by 장윤정 on 2023/07/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResearchCell: UITableViewCell {
+class SearchCell: UITableViewCell {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
 
