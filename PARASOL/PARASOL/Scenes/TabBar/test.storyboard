@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUd-5F-6z5">
-                                <rect key="frame" x="232" y="409" width="54" height="35"/>
+                                <rect key="frame" x="215" y="409" width="88" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="사장"/>
+                                <buttonConfiguration key="configuration" style="plain" title="사장님 홈"/>
                                 <connections>
                                     <action selector="goToOwnerHome:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="lZR-Bs-zgp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="be7-KY-cpc">
-                                <rect key="frame" x="89" y="409" width="69" height="35"/>
+                                <rect key="frame" x="78" y="409" width="92" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="사용자"/>
+                                <buttonConfiguration key="configuration" style="plain" title=" 사용자 홈"/>
                                 <connections>
                                     <action selector="goToUserHome:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Oe-sg-5Uq"/>
                                 </connections>
