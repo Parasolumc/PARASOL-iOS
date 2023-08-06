@@ -14,6 +14,7 @@ class DoneVC: UIViewController {
 
     var nowFun = "Rental" // 대여/반납 중 어떤 페이지에서 넘어온 페이지인지 체크
     var nowUser = "일반" // 현재 사용자가 일반 사용자인지 사장님인지 체크
+    var fee = 100
     
     // MARK: [UI components]
     var logoImage: UIImageView = {
@@ -69,6 +70,21 @@ class DoneVC: UIViewController {
         return stackView
     }()
     
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        
+        if (self.fee>0) && (self.nowFun=="Return") {
+            label.text = "연체료 " + String(fee) + "원이\n자동 결제될 예정입니다."
+        } else {
+            label.text = ""
+        }
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        return label
+    }()
+    
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
@@ -92,6 +108,7 @@ class DoneVC: UIViewController {
         view.addSubview(logoImage)
         view.addSubview(doneLabel)
         view.addSubview(vStackView)
+        view.addSubview(infoLabel)
         
         logoImage.anchor(top: view.topAnchor, paddingTop: 250)
         logoImage.centerX(inView: view)
@@ -99,6 +116,8 @@ class DoneVC: UIViewController {
         doneLabel.centerX(inView: view)
         vStackView.anchor(top: doneLabel.bottomAnchor, paddingTop: 20)
         vStackView.centerX(inView: view)
+        infoLabel.anchor(bottom: view.bottomAnchor, paddingBottom: 92)
+        infoLabel.centerX(inView: view)
     }
     
     func goToUserHome() {
