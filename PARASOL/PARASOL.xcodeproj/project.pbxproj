@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
+		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
 		0963D12A2A80DD070070D9ED /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1202A80DD070070D9ED /* LICENSE.txt */; };
 		0963D12B2A80DD070070D9ED /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1212A80DD070070D9ED /* Pretendard-Thin.otf */; };
 		0963D12C2A80DD070070D9ED /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1222A80DD070070D9ED /* Pretendard-Black.otf */; };
@@ -17,8 +19,7 @@
 		0963D1312A80DD070070D9ED /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1272A80DD070070D9ED /* Pretendard-SemiBold.otf */; };
 		0963D1322A80DD070070D9ED /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1282A80DD070070D9ED /* Pretendard-Bold.otf */; };
 		0963D1332A80DD070070D9ED /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1292A80DD070070D9ED /* Pretendard-Light.otf */; };
-		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
-		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
+		0963D1352A80E9230070D9ED /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0963D1342A80E9230070D9ED /* mapMarker.swift */; };
 		096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DAF2A80CED000708B51 /* ChangePwVC.swift */; };
 		096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DB02A80CED000708B51 /* ContractVC.swift */; };
 		096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DB32A80CF0200708B51 /* OwnerMenuEditVC.swift */; };
@@ -66,6 +67,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
+		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
 		0963D1202A80DD070070D9ED /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0963D1212A80DD070070D9ED /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		0963D1222A80DD070070D9ED /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
@@ -76,8 +79,7 @@
 		0963D1272A80DD070070D9ED /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		0963D1282A80DD070070D9ED /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		0963D1292A80DD070070D9ED /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
-		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
-		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
+		0963D1342A80E9230070D9ED /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = mapMarker.swift; path = "../../../../../../.Trash/PARASOL-iOS/PARASOL/PARASOL/Global/Util/mapMarker.swift"; sourceTree = "<group>"; };
 		096D1DAF2A80CED000708B51 /* ChangePwVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePwVC.swift; sourceTree = "<group>"; };
 		096D1DB02A80CED000708B51 /* ContractVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractVC.swift; sourceTree = "<group>"; };
 		096D1DB32A80CF0200708B51 /* OwnerMenuEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerMenuEditVC.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				09CF04B62A653355002C9F8B /* SetFont.swift */,
+				0963D1342A80E9230070D9ED /* mapMarker.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */,
 				09CF04D62A6534D2002C9F8B /* UserVC.swift in Sources */,
 				09CF04EC2A66B899002C9F8B /* OwnerMenuVC.swift in Sources */,
+				0963D1352A80E9230070D9ED /* mapMarker.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
 				096D1DBD2A80CF4C00708B51 /* StoreInfoVC.swift in Sources */,

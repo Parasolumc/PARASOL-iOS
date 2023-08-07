@@ -225,72 +225,42 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return stackView
     }()
     
-    // 지도 마커 버튼
-    lazy var mapMarkButton: UIButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "umbrella"), for: .normal)
-        button.setTitle(" 9", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 44, width: 60)
-        button.layer.cornerRadius = 22
-        button.backgroundColor = UIColor(named: "main")
+//    // 지도 마커 버튼
+//    lazy var mapMarkButton: UIButton = {
+//        let button = UIButton()
+//
+//        button.setImage(UIImage(named: "umbrella"), for: .normal)
+//        button.setTitle(" 9", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.setDimensions(height: 44, width: 60)
+//        button.layer.cornerRadius = 22
+//        button.backgroundColor = UIColor(named: "main")
+//
+//        // 마커에 그림자 추가
+//        button.layer.shadowColor = UIColor.gray.cgColor
+//        button.layer.shadowOpacity = 0.3
+//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        button.layer.shadowRadius = 2
+//
+//        let showAction = UIAction { _ in
+//            self.showStoreInfo()
+//            }
+//
+//        button.addAction(showAction, for: .touchUpInside)
+//
+//        return button
+//    }()
+    
+    lazy var mapMarkButton: mapMarker = {
+        let button = mapMarker(umbrellaNum)
         
         let showAction = UIAction { _ in
             self.showStoreInfo()
             }
-            
+
         button.addAction(showAction, for: .touchUpInside)
         
         return button
-    }()
-    
-    // 시연 영상 찍고 지우기
-    lazy var mapMarkButton2: UIButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "umbrella"), for: .normal)
-        button.setTitle(" 5", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 44, width: 60)
-        button.layer.cornerRadius = 22
-        button.backgroundColor = UIColor(named: "main")
-        
-        let showAction = UIAction { _ in
-            self.showStoreInfo()
-            }
-            
-        button.addAction(showAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var mapMarkButton3: UIButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "umbrella"), for: .normal)
-        button.setTitle(" 3", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 44, width: 60)
-        button.layer.cornerRadius = 22
-        button.backgroundColor = UIColor(named: "main")
-        
-        let showAction = UIAction { _ in
-            self.showStoreInfo()
-            }
-            
-        button.addAction(showAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    var Label: UILabel = {
-        let label = UILabel()
-        
-        label.text = "네이버 지도 곧 연결 예정"
-        label.font = .systemFont(ofSize: 15)
-        label.textColor = .black
-        return label
     }()
     
     
@@ -312,15 +282,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
         view.addSubview(mapMarkButton)
         mapMarkButton.centerY(inView: view)
         mapMarkButton.centerX(inView: view)
-        
-        // 시연 영상 찍고 지우기
-        view.addSubview(mapMarkButton2)
-        mapMarkButton2.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 500, paddingLeft: 78)
-        view.addSubview(mapMarkButton3)
-        mapMarkButton3.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 600, paddingLeft: 200)
-        view.addSubview(Label)
-        Label.anchor(bottom: mapMarkButton.topAnchor, paddingBottom: 20)
-        Label.centerX(inView: view)
         
     }
     
