@@ -44,7 +44,7 @@ class UserJoinVC : UIViewController {
         let emailtf = UITextField()
         emailtf.placeholder = "이메일을 입력하세요."
         emailtf.textColor = UIColor(named: "gray11")
-        emailtf.textAlignment = .center
+        emailtf.textAlignment = .left
         emailtf.font = UIFont(name: "Pretendard-Regular", size: 14)
         emailtf.borderStyle = .none
         
@@ -91,7 +91,7 @@ class UserJoinVC : UIViewController {
         let pwtf = UITextField()
         pwtf.placeholder = "8~12자리 영문, 숫자 조합"
         pwtf.textColor = UIColor(named: "gray")
-        pwtf.textAlignment = .center
+        pwtf.textAlignment = .left
         pwtf.font = UIFont(name: "Pretendard-Regular", size: 14)
         pwtf.borderStyle = .none
         
@@ -137,7 +137,7 @@ class UserJoinVC : UIViewController {
         let pwchecktf = UITextField()
         pwchecktf.placeholder = "8~12자리 영문, 숫자 조합"
         pwchecktf.textColor = UIColor(named: "gray11")
-        pwchecktf.textAlignment = .center
+        pwchecktf.textAlignment = .left
         pwchecktf.font = UIFont(name: "Pretendard-Regular", size: 14)
         pwchecktf.borderStyle = .none
         
@@ -185,7 +185,7 @@ class UserJoinVC : UIViewController {
         let nametf = UITextField()
         nametf.placeholder = "이름을 입력하세요."
         nametf.textColor = UIColor(named: "gray11")
-        nametf.textAlignment = .center
+        nametf.textAlignment = .left
         nametf.font = UIFont(name: "Pretendard-Regular", size: 14)
         nametf.borderStyle = .none
         
@@ -481,6 +481,9 @@ class UserJoinVC : UIViewController {
         view.addSubview(joinLabel)
         view.addSubview(joinStackView)
         view.addSubview(nextButton)
+        
+        self.emailTextField.autocapitalizationType = .none
+        self.pwTextField.autocapitalizationType = .none
         
         joinLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
