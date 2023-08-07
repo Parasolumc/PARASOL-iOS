@@ -31,6 +31,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
         searchbar.tintColor = .blue
         searchbar.setImage(UIImage(named: "search"), for: UISearchBar.Icon.search, state: .normal)
         searchbar.setImage(UIImage(named: "icCancel"), for: .clear, state: .normal)
+        // 서치바에 그림자 추가
+        searchbar.layer.shadowColor = UIColor.gray.cgColor
+        searchbar.layer.shadowOpacity = 0.3
+        searchbar.layer.shadowOffset = CGSize(width: 0, height: 3)
+        searchbar.layer.shadowRadius = 2
         
         return searchbar
     }()
@@ -45,6 +50,10 @@ class UserVC: UIViewController, UISearchBarDelegate {
         view.layer.maskedCorners = CACornerMask(arrayLiteral: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         view.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
         view.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -342,7 +351,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
             textfield.clipsToBounds = true
         }
         
-        // 알림 벨 넣기
+        // 네비게이션 바 아이템 넣기
         setNCRB()
     }
     
@@ -375,23 +384,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
         guard let searchText = searchBar.text else { return }
         print(searchText)
         if searchText != "" {
-            let SearchVC = SearchVC()
-            self.navigationController?.pushViewController(SearchVC, animated: true)
+            let root = SearchVC()
+            let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+            root.searchText = searchText
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         searchBar.resignFirstResponder() // 키보드를 닫습니다.
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // 왼쪽 이미지를 눌렀을 때의 액션 처리
-        if let leftView = searchBar.subviews.first?.subviews.compactMap({ $0 as? UITextField }).first?.leftView as? UIImageView {
-            let touchPoint = leftView.convert(CGPoint.zero, to: searchBar)
-            if searchBar.bounds.contains(touchPoint) {
-                // 왼쪽 이미지를 눌렀을 때 실행될 코드
-                print("Left Image Tapped!")
-                return false // 이미지를 눌렀을 때 서치바의 텍스트 변경을 방지
-            }
-        }
-        return true
     }
     
     func showStoreInfo() {
@@ -417,6 +415,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
         UIView.animate(withDuration: 1, animations: {
             self.introView.alpha = 1.0 // 뷰를 완전히 보이도록 알파값을 변경
         })
+    }
+    
+    @objc func goToStoreInfoFunc() {
+        let root = StoreInfoVC()
+        let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
     }
     
     
