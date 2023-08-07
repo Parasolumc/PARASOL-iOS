@@ -104,6 +104,8 @@ class RecordVC: UIViewController{
     }
     
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
+        
         view.addSubview(backgroundView)
         backgroundView.addSubview(recordStackview)
         

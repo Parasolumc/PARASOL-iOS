@@ -114,7 +114,7 @@ class SoldVC: UIViewController{
     }
     
     func configureUI() {
-        
+        view.backgroundColor = UIColor(named: "white")
         view.addSubview(titleLabel)
         view.addSubview(soldStackView)
         view.addSubview(mycabonLabel)
@@ -135,5 +135,3 @@ class SoldVC: UIViewController{
 }
 
 // MARK: - Extensions
-
-
