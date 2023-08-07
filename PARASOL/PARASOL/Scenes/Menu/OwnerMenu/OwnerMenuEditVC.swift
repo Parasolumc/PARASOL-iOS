@@ -92,15 +92,25 @@ class OwnerMenuEditVC: UIViewController {
     
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "신촌 디저트 최고 맛집 \n비오는 날엔 갓구운 휘낭시에"
-        label.font = .systemFont(ofSize: 14)
+        label.text = "매장 설명"
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
         
         return label
+    }()
+    
+    lazy var introduceTextView: UITextView = {
+        let textview = UITextView()
+        textview.setDimensions(height: 167, width: 342)
+        textview.layer.cornerRadius = 20
+        textview.backgroundColor = UIColor(named: "gray00")
+        textview.textContainerInset = .init(top: 30, left: 20, bottom: 30, right: 20)
+        textview.font = UIFont.systemFont(ofSize: 14)
+        
+        return textview
     }()
     
     let confirmButton: UIButton = {
@@ -123,10 +133,15 @@ class OwnerMenuEditVC: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        setNavigationBar()
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
+    
+    func setNavigationBar() {
+        self.navigationItem.title = "정보 수정"
+    }
     
     // UI 레이아웃 세팅
     func configureUI() {
@@ -134,6 +149,7 @@ class OwnerMenuEditVC: UIViewController {
         view.addSubview(vStackView)
         // 스크롤뷰 이미지 넣기
         view.addSubview(introduceLabel)
+        view.addSubview(introduceTextView)
         view.addSubview(confirmButton)
         
         // 스크롤뷰 이미지 추가한 후 삭제하기
@@ -144,10 +160,11 @@ class OwnerMenuEditVC: UIViewController {
         samplePicsView.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
         samplePicsView.heightAnchor.constraint(equalToConstant: 107).isActive = true
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 65)
+        vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 5)
         vStackView.centerX(inView: view)
         samplePicsView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
         introduceLabel.anchor(top: samplePicsView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
+        introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
         confirmButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor,paddingBottom: 20)
         confirmButton.centerX(inView: view.self)
     }

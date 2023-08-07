@@ -12,7 +12,7 @@ enum BasicFont: String {
     case regular = "Pretendard-Regular"
     case medium = "Pretendard-Medium"
     case semibold = "Pretendard-SemiBold"
-    case bold = "Pretendard-Bold" 
+    case bold = "Pretendard-Bold"
 }
 extension UIFont {
     // bold

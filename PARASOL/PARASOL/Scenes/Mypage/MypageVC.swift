@@ -9,10 +9,6 @@ import UIKit
 
 class MypageVC: UIViewController {
     
-    //let navigationController = UINavigationController(rootViewController: ViewController())
-    
-    
-    
     let tableView: UITableView = {
         let tableview = UITableView(frame: .zero, style: .insetGrouped)
         
@@ -52,10 +48,6 @@ class MypageVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
-    /*@objc func alarmButtonTapped() {
-        
-    }*/
     
     func showLogoutAlert() {
         let alert = UIAlertController(title: "로그아웃하시겠습니까?", message: "로그아웃을 해도 정보가 삭제되지 않습니다.", preferredStyle: .alert)
