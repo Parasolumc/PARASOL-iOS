@@ -131,9 +131,9 @@ class SelectVC : UIViewController {
         ownerLabelVStackView.centerX(inView: view)
         ownerLabelVStackView.centerY(inView: view)
         
-        //view.isUserInteractionEnabled = true
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
-        //view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerJoinVC))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -196,6 +196,12 @@ class SelectVC : UIViewController {
             userjoinVC.join = "UserJoin"
             self.navigationController?.pushViewController(userjoinVC, animated: true)
         }
+    @objc func goToOwnerJoinVC() {
+            let ownerjoinVC = OwnerJoinVC()
+            ownerjoinVC.join2 = "OwnerJoin"
+            self.navigationController?.pushViewController(ownerjoinVC, animated: true)
+        }
+    
 }
 
 
