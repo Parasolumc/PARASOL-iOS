@@ -28,8 +28,9 @@ class LoginVC: UIViewController {
         textField.placeholder = "아이디 (이메일)"
         textField.borderStyle = .none
         textField.textAlignment = .left
-        textField.textColor = UIColor(named: "gray22")
-        textField.font = .systemFont(ofSize: 14)
+        textField.textColor = UIColor(named: "black")
+        textField.setPlaceholder(color: UIColor(named: "gray22") ?? .gray)
+        textField.font = UIFont(name: "Pretendard-Medium", size: 14)
 
         
         return textField
@@ -49,8 +50,9 @@ class LoginVC: UIViewController {
         textField.isSecureTextEntry = true
         textField.borderStyle = .none
         textField.textAlignment = .left
-        textField.textColor = UIColor(named: "gray22")
-        textField.font = .systemFont(ofSize: 14)
+        textField.textColor = UIColor(named: "black")
+        textField.setPlaceholder(color: UIColor(named: "gray22") ?? .gray)
+        textField.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return textField
     }()
