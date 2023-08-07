@@ -190,7 +190,7 @@ class UserMenuVC: UIViewController {
         let label = UILabel()
         label.text = "관리"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(named: "gray")
+        label.textColor = UIColor(named: "gray22")
         
         return label
     }()
