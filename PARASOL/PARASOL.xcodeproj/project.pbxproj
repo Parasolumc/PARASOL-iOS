@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
+		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
 		096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DAF2A80CED000708B51 /* ChangePwVC.swift */; };
 		096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DB02A80CED000708B51 /* ContractVC.swift */; };
 		096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DB32A80CF0200708B51 /* OwnerMenuEditVC.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
+		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
 		096D1DAF2A80CED000708B51 /* ChangePwVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePwVC.swift; sourceTree = "<group>"; };
 		096D1DB02A80CED000708B51 /* ContractVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractVC.swift; sourceTree = "<group>"; };
 		096D1DB32A80CF0200708B51 /* OwnerMenuEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerMenuEditVC.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 			children = (
 				09CF04CF2A653477002C9F8B /* Auth.storyboard */,
 				09CF04D12A6534A0002C9F8B /* LoginVC.swift */,
+				0941D3A22A80D73700153D92 /* SelectVC.swift */,
+				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -476,7 +482,9 @@
 				09CF04F62A66B98C002C9F8B /* AlarmVC.swift in Sources */,
 				09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */,
 				09D04EC42A80D1E0002F73A9 /* OwnerTabBarVC.swift in Sources */,
+				0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */,
 				09D04EC32A80D1E0002F73A9 /* UserTabBarVC.swift in Sources */,
+				0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
