@@ -9,28 +9,33 @@ import UIKit
 
 class UserJoinVC : UIViewController {
     
+    // MARK: - Properties
+    // 변수 및 상수, IBOutlet
+    
+    var join = "UserJoin"
+    
+    // 화면 사이즈
     var bounds = UIScreen.main.bounds
     lazy var screenWidth = bounds.size.width //화면 너비
     lazy var screenHeight = bounds.size.height //화면 높이
     
-    let joinNavigationBar : UINavigationBar = {
-        let navigator = UINavigationBar()
-        
-        return navigator
-    }()
-    
     let joinLabel : UILabel = {
         let label = UILabel()
-        label.text = "파라솔과 함께 \n우산을 빌리러 가볼까요 ?"
+        label.text = "파라솔과 함께 \n우산을 빌리러 가볼까요?"
         label.textColor = UIColor(named: "black")
+        label.textAlignment = .left
+        label.font = UIFont(name: "Pretendard-Regular", size: 18)
+        label.numberOfLines = 0
         
         return label
     }()
     
+    // 이메일 설정
     let emailLabel : UILabel = {
         let label = UILabel()
         label.text = "이메일"
         label.textColor = UIColor(named: "black")
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
@@ -38,22 +43,25 @@ class UserJoinVC : UIViewController {
     let emailTextField : UITextField = {
         let emailtf = UITextField()
         emailtf.placeholder = "이메일을 입력하세요."
-        emailtf.textColor = UIColor(named: "gray")
-        emailtf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: emailtf.frame.size.height-1, width: emailtf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        emailtf.layer.addSublayer((border))
+        emailtf.textColor = UIColor(named: "gray11")
         emailtf.textAlignment = .center
+        emailtf.font = UIFont(name: "Pretendard-Regular", size: 14)
+        emailtf.borderStyle = .none
         
         return emailtf
     }()
     
+    let emailLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
+    }()
+    
     // 이메일 입력 스택 뷰
     lazy var emailStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.emailLabel, self.emailTextField])
+        let stackView = UIStackView(arrangedSubviews: [self.emailLabel, self.emailTextField, self.emailLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -69,10 +77,12 @@ class UserJoinVC : UIViewController {
         return stackView
     }()
     
+    // 비밀번호 설정
     let pwLabel : UILabel = {
         let label = UILabel()
         label.text = "비밀번호"
         label.textColor = UIColor(named: "black")
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
@@ -81,21 +91,24 @@ class UserJoinVC : UIViewController {
         let pwtf = UITextField()
         pwtf.placeholder = "8~12자리 영문, 숫자 조합"
         pwtf.textColor = UIColor(named: "gray")
-        pwtf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: pwtf.frame.size.height-1, width: pwtf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        pwtf.layer.addSublayer((border))
         pwtf.textAlignment = .center
+        pwtf.font = UIFont(name: "Pretendard-Regular", size: 14)
+        pwtf.borderStyle = .none
         
         return pwtf
     }()
     
+    let pwLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
+    }()
+    
     // 비밀번호 설정 스택 뷰
     lazy var pwStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.pwLabel, self.pwTextField])
+        let stackView = UIStackView(arrangedSubviews: [self.pwLabel, self.pwTextField, self.pwLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -114,7 +127,8 @@ class UserJoinVC : UIViewController {
     let pwcheckLabel : UILabel = {
         let label = UILabel()
         label.text = "비밀번호 확인"
-        label.textColor = UIColor(named: "gray")
+        label.textColor = UIColor(named: "black")
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
@@ -122,22 +136,25 @@ class UserJoinVC : UIViewController {
     let pwcheckTextField : UITextField = {
         let pwchecktf = UITextField()
         pwchecktf.placeholder = "8~12자리 영문, 숫자 조합"
-        pwchecktf.textColor = UIColor(named: "gray")
-        pwchecktf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: pwchecktf.frame.size.height-1, width: pwchecktf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        pwchecktf.layer.addSublayer((border))
+        pwchecktf.textColor = UIColor(named: "gray11")
         pwchecktf.textAlignment = .center
+        pwchecktf.font = UIFont(name: "Pretendard-Regular", size: 14)
+        pwchecktf.borderStyle = .none
         
         return pwchecktf
     }()
     
+    let pwcheckLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
+    }()
+    
     // 비밀번호 확인 스택 뷰
     lazy var pwcheckStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.pwcheckLabel, self.pwcheckTextField])
+        let stackView = UIStackView(arrangedSubviews: [self.pwcheckLabel, self.pwcheckTextField, self.pwcheckLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -154,10 +171,12 @@ class UserJoinVC : UIViewController {
         return stackView
     }()
     
+    // 이름 설정
     let nameLabel : UILabel = {
         let label = UILabel()
         label.text = "이름"
         label.textColor = UIColor(named: "black")
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
@@ -165,22 +184,25 @@ class UserJoinVC : UIViewController {
     let nameTextField : UITextField = {
         let nametf = UITextField()
         nametf.placeholder = "이름을 입력하세요."
-        nametf.textColor = UIColor(named: "gray")
-        nametf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: nametf.frame.size.height-1, width: nametf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        nametf.layer.addSublayer((border))
+        nametf.textColor = UIColor(named: "gray11")
         nametf.textAlignment = .center
+        nametf.font = UIFont(name: "Pretendard-Regular", size: 14)
+        nametf.borderStyle = .none
         
         return nametf
     }()
     
+    let nameLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
+    }()
+    
     // 이름 입력 스택 뷰
     lazy var nameStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.emailLabel, self.emailTextField])
+        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.nameTextField, self.nameLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -197,10 +219,14 @@ class UserJoinVC : UIViewController {
         return stackView
     }()
     
-    let authLabel: UILabel = {
+    // 인증
+    
+    let phoneauthLabel: UILabel = {
         let label = UILabel()
         label.text = "휴대폰 인증"
         label.textColor = UIColor(named: "black")
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
+        
         
         return label
     }()
@@ -210,38 +236,60 @@ class UserJoinVC : UIViewController {
         phonenumtf.placeholder = "휴대폰 번호를 입력하세요."
         phonenumtf.textColor = UIColor(named: "gray")
         phonenumtf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: phonenumtf.frame.size.height-1, width: phonenumtf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        phonenumtf.layer.addSublayer((border))
-        phonenumtf.textAlignment = .center
+        phonenumtf.textAlignment = .left
+        phonenumtf.font = UIFont(name: "Pretendard-Regular", size: 14)
         
         return phonenumtf
     }()
     
-    let authButton: UIButton = {
-        let authbtn = UIButton()
-        authbtn.setTitle("인증요청", for: .normal)
-        authbtn.setTitleColor(UIColor(named: "black"), for: .normal)
-        authbtn.backgroundColor = UIColor(named: "main")
+    let authLabel: UILabel = {
+        var label = UILabel()
+        label.text = "인증요청"
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
+        label.textColor = UIColor(named: "black")
         
-        return authbtn
+        return label
     }()
     
-    // 휴대폰 입력 칸 스택 뷰
-    lazy var numInputStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.authnumTextField, self.confirmButton])
+    lazy var authButton: UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 84).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        view.layer.cornerRadius = 17
+        view.backgroundColor = UIColor(named: "main")
+        view.addSubview(authLabel)
+        authLabel.centerX(inView: view)
+        authLabel.centerY(inView: view)
+        
+        //view.isUserInteractionEnabled = true
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
+        //view.addGestureRecognizer(tapGesture)
+        
+        return view
+    }()
+    
+    let phonenumLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
+    }()
+    
+    // 휴대폰 입력 칸 스택 뷰 : [휴대폰 번호 입력 - 인증요청 버튼]
+    lazy var phonenumStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.phonenumTextField, self.authButton])
             
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         // 레이아웃 설정
-        stackView.alignment = .leading
+        stackView.alignment = .center
         stackView.distribution = .fillProportionally
         // 요소간 간격 조정
         stackView.spacing = 113
-        stackView.setDimensions(height: 42, width: (screenWidth - 50)) // 스택뷰 사이즈 설정
+        stackView.setDimensions(height: 34, width: (screenWidth - 49)) // 스택뷰 사이즈 설정
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -250,17 +298,20 @@ class UserJoinVC : UIViewController {
     let authnumTextField: UITextField = {
         let authnumtf = UITextField()
         authnumtf.placeholder = "인증 번호를 입력하세요."
-        authnumtf.textColor = UIColor(named: "gray")
+        authnumtf.textColor = UIColor(named: "gray11")
+        authnumtf.textAlignment = .left
+        authnumtf.font = UIFont(name: "Pretendard-Regular", size: 14)
         authnumtf.borderStyle = .none
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: authnumtf.frame.size.height-1, width: authnumtf.frame.width, height: 1)
-        if let uiColor = UIColor(named: "lightgray") {
-            border.backgroundColor = uiColor.cgColor
-        }
-        authnumtf.layer.addSublayer((border))
-        authnumtf.textAlignment = .center
         
         return authnumtf
+    }()
+    
+    let authnumLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray00")
+        view.setDimensions(height: 1, width: 342)
+        
+        return view
     }()
     
     let timeLabel: UILabel = {
@@ -268,17 +319,38 @@ class UserJoinVC : UIViewController {
         label.text = "05:00"
         label.textColor = UIColor(named: "red")
         label.backgroundColor = .clear
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
     
-    let confirmButton: UIButton = {
-        let confbtn = UIButton()
-        confbtn.setTitle("확인", for: .normal)
-        confbtn.setTitleColor(UIColor(named: "black"), for: .normal)
-        confbtn.backgroundColor = UIColor(named: "main")
+    let confirmLabel: UILabel = {
+        var label = UILabel()
         
-        return confbtn
+        label.text = "확인"
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
+        label.textColor = .black
+        
+        return label
+    }()
+    
+    lazy var confirmButton: UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 84).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        view.layer.cornerRadius = 17
+        view.backgroundColor = UIColor(named: "main")
+        view.addSubview(confirmLabel)
+        confirmLabel.centerX(inView: view)
+        confirmLabel.centerY(inView: view)
+        
+        //view.isUserInteractionEnabled = true
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
+        //view.addGestureRecognizer(tapGesture)
+        
+        return view
     }()
     
     lazy var labelNbtnStackView: UIStackView = {
@@ -287,12 +359,12 @@ class UserJoinVC : UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         // 레이아웃 설정
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
         // 요소간 간격 조정
         stackView.spacing = 10
         // 스택뷰 사이즈 조정
-        stackView.setDimensions(height: 34, width: 62)
+        stackView.setDimensions(height: 34, width: 135)
         stackView.alignment = .center
         
         return stackView
@@ -304,8 +376,8 @@ class UserJoinVC : UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         // 레이아웃 설정
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
         // 요소간 간격 조정
         stackView.spacing = 74
         // 스택뷰 사이즈 조정
@@ -316,13 +388,13 @@ class UserJoinVC : UIViewController {
     }()
     
     lazy var authnumStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.numInputStackView, self.authInputStackView])
+        let stackView = UIStackView(arrangedSubviews: [self.phonenumStackView, self.phonenumLineView, self.authInputStackView, self.authnumLineView])
             
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         // 레이아웃 설정
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .equalCentering
         // 요소간 간격 조정
         stackView.spacing = 7
         // 스택뷰 사이즈 조정
@@ -333,17 +405,17 @@ class UserJoinVC : UIViewController {
     }()
     
     lazy var authStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.authLabel, self.authnumStackView])
+        let stackView = UIStackView(arrangedSubviews: [self.phoneauthLabel, self.authnumStackView])
             
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         // 레이아웃 설정
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .equalCentering
         // 요소간 간격 조정
         stackView.spacing = 15
         // 스택뷰 사이즈 조정
-        stackView.setDimensions(height: 43, width: (screenWidth - 50))
+        stackView.setDimensions(height: 122, width: (screenWidth - 48))
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -360,39 +432,89 @@ class UserJoinVC : UIViewController {
         // 요소간 간격 조정
         stackView.spacing = 40
         // 스택뷰 사이즈 조정
-        stackView.setDimensions(height: 501, width: (screenWidth - 48))
+        stackView.setDimensions(height: 522, width: (screenWidth - 48))
         
         return stackView
     }()
     
-    let nextButton: UIButton = {
-        let nextbtn = UIButton()
-        nextbtn.setTitle("다음", for: .normal)
-        nextbtn.backgroundColor = UIColor(named: "main")
+    let nextLabel: UILabel = {
+        var label = UILabel()
         
-        return nextbtn
+        label.text = "다음"
+        label.font = UIFont(name: "Pretendard-Medium", size: 18)
+        label.textColor = .black
+        
+        return label
+    }()
+    
+    lazy var nextButton: UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 390).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 72).isActive = true
+        view.layer.cornerRadius = 0
+        view.backgroundColor = UIColor(named: "main")
+        view.addSubview(nextLabel)
+        nextLabel.centerX(inView: view)
+        nextLabel.centerY(inView: view)
+        
+        //view.isUserInteractionEnabled = true
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
+        //view.addGestureRecognizer(tapGesture)
+        
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setNavigator()
+    }
+    func setNavigator() {
+
     }
     
     func configureUI() {
         
-        view.addSubview(joinNavigationBar)
+        
         view.addSubview(joinLabel)
         view.addSubview(joinStackView)
         view.addSubview(nextButton)
         
-        joinNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         joinLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailLineView.translatesAutoresizingMaskIntoConstraints = false
+        pwLabel.translatesAutoresizingMaskIntoConstraints = false
+        pwTextField.translatesAutoresizingMaskIntoConstraints = false
+        pwLineView.translatesAutoresizingMaskIntoConstraints = false
+        pwcheckLabel.translatesAutoresizingMaskIntoConstraints = false
+        pwcheckTextField.translatesAutoresizingMaskIntoConstraints = false
+        pwcheckLineView.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameLineView.translatesAutoresizingMaskIntoConstraints = false
+        phoneauthLabel.translatesAutoresizingMaskIntoConstraints = false
+        phonenumTextField.translatesAutoresizingMaskIntoConstraints = false
+        authLabel.translatesAutoresizingMaskIntoConstraints = false
+        authButton.translatesAutoresizingMaskIntoConstraints = false
+        phonenumLineView.translatesAutoresizingMaskIntoConstraints = false
+        authnumTextField.translatesAutoresizingMaskIntoConstraints = false
+        authnumLineView.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        confirmLabel.translatesAutoresizingMaskIntoConstraints = false
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.backgroundColor = UIColor(named: "white")
         
-        joinNavigationBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
-        joinLabel.anchor(top: joinNavigationBar.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 24)
-        joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24)
-        nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingRight: 0)
+        
+        joinLabel.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 127, paddingLeft: 24, paddingRight: 192, width: 174, height: 46)
+        phonenumTextField.anchor(width: 144, height: 17)
+        authnumTextField.anchor(width: 132, height: 17)
+        joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24, paddingRight: 24)
+        nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     }
 }
+
