@@ -11,6 +11,8 @@ class UserTabBarVC: UITabBarController {
     
     let HEIGHT_TAB_BAR: CGFloat = 100
     
+    // 시작 페이지 지정
+    var startIndex: Int = 1
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -50,7 +52,7 @@ class UserTabBarVC: UITabBarController {
         
         viewControllers = [Menu, Home, Mypage]
         
-        self.selectedIndex = 1 // 현재 선택된 탭 바 아이템을 두 번째 탭 바 아이템으로 변경
+        self.selectedIndex = startIndex // 현재 선택된 탭 바 아이템을 두 번째 탭 바 아이템으로 변경
         
         self.setViewControllers(viewControllers, animated: true)
         

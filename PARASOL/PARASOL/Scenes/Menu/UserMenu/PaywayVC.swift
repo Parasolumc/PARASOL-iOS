@@ -59,6 +59,8 @@ class PaywayVC: UIViewController{
     }
     
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
+        
         view.addSubview(guidelabel)
         view.addSubview(registerlabel)
         view.addSubview(registerbutton)

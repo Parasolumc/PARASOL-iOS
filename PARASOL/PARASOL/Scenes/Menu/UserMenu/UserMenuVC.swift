@@ -246,6 +246,7 @@ class UserMenuVC: UIViewController {
     
     // UI 설정들 관련 method
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(titleLabel)
         view.addSubview(info)
