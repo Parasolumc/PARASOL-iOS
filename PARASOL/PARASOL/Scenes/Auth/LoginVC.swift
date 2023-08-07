@@ -272,6 +272,8 @@ class LoginVC: UIViewController {
         view.addSubview(socialLoginLabel)
 //        view.addSubview(kakaoLoginButton)
         
+        self.idTextField.autocapitalizationType = .none
+        self.pwTextField.autocapitalizationType = .none
         
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
