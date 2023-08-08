@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import NMapsMap
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
