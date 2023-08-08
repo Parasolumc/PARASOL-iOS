@@ -234,14 +234,14 @@ class StoreInfoVC: UIViewController {
         samplePicsView.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
         samplePicsView.heightAnchor.constraint(equalToConstant: 107).isActive = true
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 65)
+        vStackView.anchor(top: view.topAnchor, paddingTop: 79)
         vStackView.centerX(inView: view)
         findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
         samplePicsView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
         introduceLabel.anchor(top: samplePicsView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 50)
         umbrellaHStackView.centerX(inView: view)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 30)
+        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
         buttonHStackView.centerX(inView: view)
         
         
