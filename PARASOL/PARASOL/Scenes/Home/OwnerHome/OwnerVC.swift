@@ -24,8 +24,8 @@ class OwnerVC: UIViewController {
         let label = UILabel()
         
         label.text = "상점명"
-        label.font = .boldSystemFont(ofSize: 24)
-        label.textColor = .black
+        label.font = .B24
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -33,8 +33,8 @@ class OwnerVC: UIViewController {
         let label = UILabel()
         
         label.text = "서울 서대문구 이화여대길 77"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -47,7 +47,7 @@ class OwnerVC: UIViewController {
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
         
-        stackView.setDimensions(height: 100, width: (screenWidth - 50))
+        stackView.setDimensions(height: 56, width: (screenWidth - 50))
         return stackView
     }()
     
@@ -56,8 +56,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "대여가능 우산"
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = .B20
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -73,8 +73,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = ": " + String(self.umbrellaNum) + "개"
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = .B20
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -95,8 +95,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "손님에게"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -105,8 +105,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "우산을"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -115,8 +115,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "빌려줄래요"
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = .B20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -157,8 +157,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "손님이"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -167,8 +167,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "우산을"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -177,8 +177,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "반납했어요"
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = .B20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -231,8 +231,8 @@ class OwnerVC: UIViewController {
         var label = UILabel()
         
         label.text = "손님에게 중고 우산을 구매해요"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -273,7 +273,7 @@ class OwnerVC: UIViewController {
         view.addSubview(buttonHStackView)
         view.addSubview(buyButton)
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 65)
+        vStackView.anchor(top: view.topAnchor, paddingTop: 69)
         vStackView.centerX(inView: view)
         umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 50)
         umbrellaHStackView.centerX(inView: view)
