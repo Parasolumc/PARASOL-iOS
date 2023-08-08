@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OwnerMenuEditVC: UIViewController {
+class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
@@ -88,12 +88,127 @@ class OwnerMenuEditVC: UIViewController {
         return stackView
     }()
     
-    let samplePicsView = UIView()
+    lazy var imagePickerController: UIImagePickerController = {
+        let imagepickercontroller = UIImagePickerController()
+        imagepickercontroller.sourceType = .photoLibrary
+       
+        return imagepickercontroller
+    }()
+    
+    let picsScrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.showsHorizontalScrollIndicator = false
+        scrollview.isPagingEnabled = true
+        
+        return scrollview
+    }()
+    
+    lazy var picsStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.addPicsView1, self.addPicsView2, self.addPicsView3, self.addPicsView4, self.addPicsView5])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 8
+        
+        return stackview
+    }()
+    
+    lazy var plusImageView1: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "plus"))
+        imageview.setDimensions(height: 30, width: 30)
+        imageview.alpha = 1.0
+        
+        return imageview
+    }()
+    
+    lazy var plusImageView2: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "plus"))
+        imageview.setDimensions(height: 30, width: 30)
+        imageview.alpha = 1.0
+        
+        return imageview
+    }()
+    
+    lazy var plusImageView3: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "plus"))
+        imageview.setDimensions(height: 30, width: 30)
+        imageview.alpha = 1.0
+        
+        return imageview
+    }()
+    
+    
+    lazy var plusImageView4: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "plus"))
+        imageview.setDimensions(height: 30, width: 30)
+        imageview.alpha = 1.0
+        
+        return imageview
+    }()
+    
+    lazy var plusImageView5: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "plus"))
+        imageview.setDimensions(height: 30, width: 30)
+        imageview.alpha = 1.0
+        
+        return imageview
+    }()
+    
+    
+    lazy var addPicsView1: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    lazy var addPicsView2: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    lazy var addPicsView3: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    lazy var addPicsView4: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    lazy var addPicsView5: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
     
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
         label.text = "매장 설명"
-        label.font = .systemFont(ofSize: 16)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
@@ -107,6 +222,7 @@ class OwnerMenuEditVC: UIViewController {
         textview.setDimensions(height: 167, width: 342)
         textview.layer.cornerRadius = 20
         textview.backgroundColor = UIColor(named: "gray00")
+        textview.alpha = 0.4
         textview.textContainerInset = .init(top: 30, left: 20, bottom: 30, right: 20)
         textview.font = UIFont.systemFont(ofSize: 14)
         
@@ -134,6 +250,14 @@ class OwnerMenuEditVC: UIViewController {
         
         configureUI()
         setNavigationBar()
+        
+        // 각 addPicsView에 대한 탭 제스처 및 인터랙션 설정
+        for addPicsView in [addPicsView1, addPicsView2, addPicsView3, addPicsView4, addPicsView5] {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddPicsView(_:)))
+            addPicsView.addGestureRecognizer(tapGesture)
+            addPicsView.isUserInteractionEnabled = true
+        }
+        
     }
     
     // MARK: - Actions
@@ -147,26 +271,70 @@ class OwnerMenuEditVC: UIViewController {
     func configureUI() {
         view.backgroundColor = .white
         view.addSubview(vStackView)
-        // 스크롤뷰 이미지 넣기
         view.addSubview(introduceLabel)
         view.addSubview(introduceTextView)
+        view.addSubview(picsScrollView)
         view.addSubview(confirmButton)
-        
-        // 스크롤뷰 이미지 추가한 후 삭제하기
-        view.addSubview(samplePicsView)
-        samplePicsView.translatesAutoresizingMaskIntoConstraints = false
-        samplePicsView.backgroundColor = .lightGray
-        samplePicsView.layer.cornerRadius = 20
-        samplePicsView.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
-        samplePicsView.heightAnchor.constraint(equalToConstant: 107).isActive = true
         
         vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 5)
         vStackView.centerX(inView: view)
-        samplePicsView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
-        introduceLabel.anchor(top: samplePicsView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
+        
+        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
+        picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
+        //picsScrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        picsScrollView.addSubview(picsStackView)
+        
+        picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
+        
+        picsStackView.addSubview(plusImageView1)
+        picsStackView.addSubview(plusImageView2)
+        picsStackView.addSubview(plusImageView3)
+        picsStackView.addSubview(plusImageView4)
+        picsStackView.addSubview(plusImageView5)
+        
+        plusImageView1.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 50)
+        plusImageView2.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 188)
+        plusImageView3.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 326)
+        plusImageView4.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 464)
+        plusImageView5.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 602)
+        
+        introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
+        
         confirmButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor,paddingBottom: 20)
-        confirmButton.centerX(inView: view.self)
+        confirmButton.centerX(inView: view)
+        
+        imagePickerController.delegate = self
+        
+    }
+    
+    @objc func didTapAddPicsView(_ gesture: UITapGestureRecognizer) {
+        if let addPicsView = gesture.view {
+            present(imagePickerController, animated: true)
+        }
+    }
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let selectedImage = info[.originalImage] as? UIImage {
+            // 이미지를 표시할 UIImageView 생성
+            let picView = UIImageView(image: selectedImage)
+            picView.contentMode = .scaleAspectFill
+            picView.clipsToBounds = true
+            picView.layer.cornerRadius = 20
+            picView.setDimensions(height: 107, width: 129)
+            
+            // 선택한 addPicsView를 찾아서 제거하고, 선택한 이미지로 대체
+            for (index, addPicsView) in [addPicsView1, addPicsView2, addPicsView3, addPicsView4, addPicsView5].enumerated() {
+                if let subviews = picsStackView.arrangedSubviews as? [UIView], subviews.contains(addPicsView) {
+                    picsStackView.removeArrangedSubview(addPicsView)
+                    addPicsView.removeFromSuperview()
+                    picsStackView.insertArrangedSubview(picView, at: index)
+                    break
+                }
+            }
+        }
     }
     
     // MARK: - Helpers
