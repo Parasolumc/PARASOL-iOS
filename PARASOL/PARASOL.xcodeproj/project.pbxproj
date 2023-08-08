@@ -270,6 +270,7 @@
 				09CF04D12A6534A0002C9F8B /* LoginVC.swift */,
 				0941D3A22A80D73700153D92 /* SelectVC.swift */,
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
+				09FA31472A82296F00EA1C07 /* OwnerJoinVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
