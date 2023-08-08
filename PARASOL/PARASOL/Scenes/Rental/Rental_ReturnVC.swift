@@ -94,6 +94,8 @@ class Rental_ReturnVC: UIViewController {
     
     // method - setting navigation bar
     func setNavigationBar() {
+        navigationController?.navigationBar.isHidden = false
+        
         if nowFun == "Rental" {
             self.navigationItem.title = "대여하기"
         } else if nowFun == "Return" {

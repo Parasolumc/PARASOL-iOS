@@ -90,7 +90,7 @@ class DoneVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
+        setNavigationBar()
         configureUI()
         
         if nowUser == "일반" {
@@ -102,6 +102,10 @@ class DoneVC: UIViewController {
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
+    func setNavigationBar() {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func configureUI() {
         view.backgroundColor = .white
         
