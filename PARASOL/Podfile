@@ -9,5 +9,7 @@ target 'PARASOL' do
 	
   ## 키보드 매니저
   pod 'IQKeyboardManagerSwift'
+  ## 네이버 지도
+  pod 'NMapsMap'
 
 end
