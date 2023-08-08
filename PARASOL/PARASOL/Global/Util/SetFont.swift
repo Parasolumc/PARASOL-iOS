@@ -15,17 +15,19 @@ enum BasicFont: String {
     case bold = "Pretendard-Bold"
 }
 extension UIFont {
-    // bold
+    // bold(width:700)
     static let B14 = UIFont(name: BasicFont.bold.rawValue, size: 14)
     static let B16 = UIFont(name: BasicFont.bold.rawValue, size: 16)
     static let B18 = UIFont(name: BasicFont.bold.rawValue, size: 18)
-    // semibold
+    static let B20 = UIFont(name: BasicFont.bold.rawValue, size: 20)
+    static let B24 = UIFont(name: BasicFont.bold.rawValue, size: 24)
+    // semibold(width:600)
     static let SB16 = UIFont(name: BasicFont.semibold.rawValue, size: 16)
-    // medium
+    // medium(width:500)
     static let M14 = UIFont(name: BasicFont.medium.rawValue, size: 14)
     static let M16 = UIFont(name: BasicFont.medium.rawValue, size: 16)
     static let M18 = UIFont(name: BasicFont.medium.rawValue, size: 18)
-    // regular
+    // regular(width:400)
     static let R14 = UIFont(name: BasicFont.regular.rawValue, size: 14)
     static let R16 = UIFont(name: BasicFont.regular.rawValue, size: 16)
 }
