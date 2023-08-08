@@ -103,8 +103,8 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return scrollview
     }()
     
-    lazy var picsStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.addPicsView1, self.addPicsView2, self.addPicsView3, self.addPicsView4, self.addPicsView5])
+    let picsStackView: UIStackView = {
+        let stackview = UIStackView()
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .horizontal
         stackview.spacing = 8
@@ -112,23 +112,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return stackview
     }()
     
-    lazy var plusImageView1: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "plus"))
-        imageview.setDimensions(height: 30, width: 30)
-        imageview.alpha = 1.0
-        
-        return imageview
-    }()
-    
-    lazy var plusImageView2: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "plus"))
-        imageview.setDimensions(height: 30, width: 30)
-        imageview.alpha = 1.0
-        
-        return imageview
-    }()
-    
-    lazy var plusImageView3: UIImageView = {
+    let plusImageView: UIImageView = {
         let imageview = UIImageView(image: UIImage(named: "plus"))
         imageview.setDimensions(height: 30, width: 30)
         imageview.alpha = 1.0
@@ -137,73 +121,15 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }()
     
     
-    lazy var plusImageView4: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "plus"))
-        imageview.setDimensions(height: 30, width: 30)
-        imageview.alpha = 1.0
-        
-        return imageview
-    }()
-    
-    lazy var plusImageView5: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "plus"))
-        imageview.setDimensions(height: 30, width: 30)
-        imageview.alpha = 1.0
-        
-        return imageview
-    }()
-    
-    
-    lazy var addPicsView1: UIView = {
+    let addPicsView: UIView = {
         let view = UIView()
-        view.setDimensions(height: 107, width: 129)
+        view.setDimensions(height: 107, width: 70)
         view.backgroundColor = UIColor(named: "gray00")
         view.alpha = 0.4
         view.layer.cornerRadius = 20
         
         return view
     }()
-    
-    lazy var addPicsView2: UIView = {
-        let view = UIView()
-        view.setDimensions(height: 107, width: 129)
-        view.backgroundColor = UIColor(named: "gray00")
-        view.alpha = 0.4
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
-    lazy var addPicsView3: UIView = {
-        let view = UIView()
-        view.setDimensions(height: 107, width: 129)
-        view.backgroundColor = UIColor(named: "gray00")
-        view.alpha = 0.4
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
-    lazy var addPicsView4: UIView = {
-        let view = UIView()
-        view.setDimensions(height: 107, width: 129)
-        view.backgroundColor = UIColor(named: "gray00")
-        view.alpha = 0.4
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
-    lazy var addPicsView5: UIView = {
-        let view = UIView()
-        view.setDimensions(height: 107, width: 129)
-        view.backgroundColor = UIColor(named: "gray00")
-        view.alpha = 0.4
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
     
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
@@ -251,13 +177,9 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         configureUI()
         setNavigationBar()
         
-        // 각 addPicsView에 대한 탭 제스처 및 인터랙션 설정
-        for addPicsView in [addPicsView1, addPicsView2, addPicsView3, addPicsView4, addPicsView5] {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddPicsView(_:)))
-            addPicsView.addGestureRecognizer(tapGesture)
-            addPicsView.isUserInteractionEnabled = true
-        }
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPlusButton))
+        addPicsView.addGestureRecognizer(tapGesture)
+        addPicsView.isUserInteractionEnabled = true
     }
     
     // MARK: - Actions
@@ -286,17 +208,10 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
         
-        picsStackView.addSubview(plusImageView1)
-        picsStackView.addSubview(plusImageView2)
-        picsStackView.addSubview(plusImageView3)
-        picsStackView.addSubview(plusImageView4)
-        picsStackView.addSubview(plusImageView5)
+        picsStackView.addArrangedSubview(addPicsView)
+        picsStackView.addSubview(plusImageView)
         
-        plusImageView1.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 50)
-        plusImageView2.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 188)
-        plusImageView3.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 326)
-        plusImageView4.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 464)
-        plusImageView5.anchor(top:picsStackView.topAnchor, left: picsStackView.leftAnchor, paddingTop: 38, paddingLeft: 602)
+        plusImageView.anchor(top:addPicsView.topAnchor, left: addPicsView.leftAnchor, paddingTop: 38, paddingLeft: 20)
         
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
@@ -308,32 +223,20 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
     }
     
-    @objc func didTapAddPicsView(_ gesture: UITapGestureRecognizer) {
-        if let addPicsView = gesture.view {
-            present(imagePickerController, animated: true)
-        }
+    @objc func didTapPlusButton() {
+        present(imagePickerController, animated: true)
     }
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
         if let selectedImage = info[.originalImage] as? UIImage {
-            // 이미지를 표시할 UIImageView 생성
             let picView = UIImageView(image: selectedImage)
             picView.contentMode = .scaleAspectFill
             picView.clipsToBounds = true
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
-            
-            // 선택한 addPicsView를 찾아서 제거하고, 선택한 이미지로 대체
-            for (index, addPicsView) in [addPicsView1, addPicsView2, addPicsView3, addPicsView4, addPicsView5].enumerated() {
-                if let subviews = picsStackView.arrangedSubviews as? [UIView], subviews.contains(addPicsView) {
-                    picsStackView.removeArrangedSubview(addPicsView)
-                    addPicsView.removeFromSuperview()
-                    picsStackView.insertArrangedSubview(picView, at: index)
-                    break
-                }
-            }
+            picsStackView.addArrangedSubview(picView)
         }
     }
     
