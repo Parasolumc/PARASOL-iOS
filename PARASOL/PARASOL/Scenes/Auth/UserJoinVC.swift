@@ -459,9 +459,9 @@ class UserJoinVC : UIViewController {
         nextLabel.centerX(inView: view)
         nextLabel.centerY(inView: view)
         
-        //view.isUserInteractionEnabled = true
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
-        //view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToUserPaymentVC))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -469,11 +469,12 @@ class UserJoinVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        setNavigator()
+        setNavigationBar()
     }
-    func setNavigator() {
-
-    }
+    
+    func setNavigationBar() {
+            self.navigationItem.title = "회원가입"
+        }
     
     func configureUI() {
         
@@ -518,6 +519,12 @@ class UserJoinVC : UIViewController {
         authnumTextField.anchor(width: 132, height: 17)
         joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24, paddingRight: 24)
         nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
+    }
+    
+    @objc func goToUserPaymentVC() {
+        let userpaymentVC = UserPaymentVC()
+        userpaymentVC.payment = "UserPayment"
+        self.navigationController?.pushViewController(userpaymentVC, animated: true)
     }
 }
 
