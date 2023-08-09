@@ -459,9 +459,9 @@ class OwnerJoinVC : UIViewController {
         nextLabel.centerX(inView: view)
         nextLabel.centerY(inView: view)
         
-        //view.isUserInteractionEnabled = true
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
-        //view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerStoreVC))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -469,10 +469,6 @@ class OwnerJoinVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        setNavigator()
-    }
-    func setNavigator() {
-
     }
     
     func configureUI() {
@@ -518,6 +514,13 @@ class OwnerJoinVC : UIViewController {
         authnumTextField.anchor(width: 132, height: 17)
         joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24, paddingRight: 24)
         nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
+    }
+    
+    // MARK: - Helpers
+    @objc func goToOwnerStoreVC() {
+        let ownerstoreVC = OwnerStoreVC()
+        ownerstoreVC.signUp = "OwnerStore"
+        self.navigationController?.pushViewController(ownerstoreVC, animated: true)
     }
 }
 
