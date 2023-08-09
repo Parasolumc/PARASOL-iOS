@@ -176,9 +176,9 @@ class OwnerStoreVC : UIViewController {
         nextLabel.centerX(inView: view)
         nextLabel.centerY(inView: view)
         
-        //view.isUserInteractionEnabled = true
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
-        //view.addGestureRecognizer(tapGesture)
+//        view.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerStoreVC))
+//        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -188,21 +188,9 @@ class OwnerStoreVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-//        buttonActionUI()
-        
     }
     
     // MARK: - Actions
-//    func buttonActionUI() {
-//
-//        let goToselectVCAction = UIAction {[weak self] _ in
-//            guard let self = self else { return }
-//            let selectVC = SelectVC()
-//            self.navigationController?.pushViewController(selectVC, animated: true)
-//        }
-//
-//        joinButton.addAction(goToselectVCAction, for: .touchUpInside)
-//    }
     
     func configureUI() {
         
