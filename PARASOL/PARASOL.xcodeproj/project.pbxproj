@@ -33,6 +33,7 @@
 		096D1DC32A80CF5600708B51 /* StoreInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */; };
 		096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */; };
 		096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC52A80CF8800708B51 /* SearchCell.swift */; };
+		0973AFEC2A823F1A003CF02D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0973AFEB2A823F1A003CF02D /* OwnerStoreVC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -96,6 +97,7 @@
 		096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoreInfo.storyboard; sourceTree = "<group>"; };
 		096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rental_ReturnVC.swift; sourceTree = "<group>"; };
 		096D1DC52A80CF8800708B51 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		0973AFEB2A823F1A003CF02D /* OwnerStoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerStoreVC.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
+				0973AFEC2A823F1A003CF02D /* OwnerStoreVC.swift in Sources */,
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,
 				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
 				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,

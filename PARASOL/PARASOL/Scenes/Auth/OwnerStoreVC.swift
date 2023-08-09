@@ -1,5 +1,5 @@
 //
-//  StoreInfoVC.swift
+//  OwnerStoreVC.swift
 //  PARASOL
 //
 //  Created by 서주영 on 2023/08/08.
@@ -19,10 +19,12 @@ class OwnerStoreVC : UIViewController {
     lazy var screenWidth = bounds.size.width //화면 너비
     lazy var screenHeight = bounds.size.height //화면 높이
     
+    // 화면 구성
+    
     let storeNameLabel : UILabel = {
         let label = UILabel()
         label.text = "매장명"
-        label.textColor = UIColor(named:"black")
+        label.textColor = UIColor(named: "black")
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
         label.textAlignment = .left
         
@@ -33,14 +35,14 @@ class OwnerStoreVC : UIViewController {
         let textfield = UITextField()
         textfield.placeholder = "매장명을 입력하세요."
         textfield.setPlaceholder(color: UIColor(named: "gray11") ?? .gray)
+        textfield.textColor = UIColor(named: "black")
         textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         textfield.textAlignment = .left
-        textfield.borderStyle = .none
-
+        
         return textfield
     }()
     
-    let storeNameLineView: UIView = {
+    let storeNameLineView : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "gray00")
         view.setDimensions(height: 1, width: 342)
@@ -48,7 +50,7 @@ class OwnerStoreVC : UIViewController {
         return view
     }()
     
-    lazy var storeNameStackView: UIStackView = {
+    lazy var storeNameStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.storeNameLabel, self.storeNameTextField, self.storeNameLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,58 +60,74 @@ class OwnerStoreVC : UIViewController {
         stackView.distribution = .fillProportionally
         // 요소간 간격 조정
         stackView.spacing = 13
-        // 스택뷰 사이즈 조정
+        // 스택뷰 사이즈 설정
         stackView.setDimensions(height: 60, width: (screenWidth - 48))
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    let locationLabel : UILabel = {
+    let locaLabel : UILabel = {
         let label = UILabel()
         label.text = "위치 찾기"
         label.textColor = UIColor(named: "black")
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         label.textAlignment = .left
+        label.font = UIFont(name: "Pretendard-Medium", size: 14)
         
         return label
     }()
     
-    let locationBoxView : UIView = {
+    let locaTextField : UITextField = {
+        let textfield = UITextField()
+        textfield.placeholder = "지번, 도로명, 건물명으로 검색"
+        textfield.setPlaceholder(color: UIColor(named: "gray11") ?? .gray)
+        textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
+        textfield.textColor = UIColor(named: "black")
+        textfield.textAlignment = .left
+        
+        return textfield
+    }()
+
+    lazy var locaSearchButton:UIButton = {
+        let button = UIButton()
+
+        button.setImage(UIImage(named: "search"), for: .normal)
+        button.setDimensions(height: 22, width: 22)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.layer.cornerRadius = 22 / 2
+        button.clipsToBounds = true
+
+//        let goToEditVCAction = UIAction { [weak self] _ in
+//            let editVC = OwnerMenuEditVC()
+//            self?.navigationController?.pushViewController(editVC, animated: true)
+//            print("gg")
+//        }
+//
+//        button.addAction(goToEditVCAction, for: .touchUpInside)
+
+        return button
+    }()
+    
+    let locaSearchView : UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        view.setDimensions(height: 42, width: 342)
+        view.widthAnchor.constraint(equalToConstant: 84).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 34).isActive = true
         view.layer.cornerRadius = 5
+        view.layer.borderColor = UIColor(named: "gray00")?.cgColor
         
         return view
     }()
     
-    lazy var locationStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.locationLabel, self.locationBoxView])
+    let addressTextField : UITextField = {
+        let textfield = UITextField()
+        textfield.placeholder = "상세주소를 입력하세요."
+        textfield.setPlaceholder(color: UIColor(named: "gray11") ?? .gray)
+        textfield.textColor = UIColor(named: "black")
+        textfield.textAlignment = .left
+        textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        // 레이아웃 설정
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
-        // 요소간 간격 조정
-        stackView.spacing = 13
-        // 스택뷰 사이즈 조정
-        stackView.setDimensions(height: 72, width: (screenWidth - 48))
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
-    let addressTextfield : UITextField = {
-        let addtextfield = UITextField()
-        addtextfield.placeholder = "상세주소를 입력하세요."
-        addtextfield.setPlaceholder(color: UIColor(named: "gray11") ?? .gray)
-        addtextfield.font = UIFont(name: "Pretendard-Regular", size: 14)
-        addtextfield.textAlignment = .left
-        addtextfield.borderStyle = .none
-        
-        return addtextfield
+        return textfield
     }()
     
     let addressLineView : UIView = {
@@ -121,7 +139,7 @@ class OwnerStoreVC : UIViewController {
     }()
     
     lazy var addressStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.addressTextfield, self.addressLineView])
+        let stackView = UIStackView(arrangedSubviews: [self.addressTextField, self.addressLineView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -130,9 +148,8 @@ class OwnerStoreVC : UIViewController {
         stackView.distribution = .fillProportionally
         // 요소간 간격 조정
         stackView.spacing = 13
-        // 스택뷰 사이즈 조정
+        // 스택뷰 사이즈 설정
         stackView.setDimensions(height: 30, width: (screenWidth - 48))
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
@@ -166,38 +183,67 @@ class OwnerStoreVC : UIViewController {
         return view
     }()
     
+    // MARK: - Lifecycle
+    // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+//        buttonActionUI()
+        
     }
+    
+    // MARK: - Actions
+//    func buttonActionUI() {
+//
+//        let goToselectVCAction = UIAction {[weak self] _ in
+//            guard let self = self else { return }
+//            let selectVC = SelectVC()
+//            self.navigationController?.pushViewController(selectVC, animated: true)
+//        }
+//
+//        joinButton.addAction(goToselectVCAction, for: .touchUpInside)
+//    }
     
     func configureUI() {
         
-        
         view.addSubview(storeNameStackView)
-        view.addSubview(locationStackView)
+        view.addSubview(locaLabel)
+        view.addSubview(locaSearchView)
+        view.addSubview(locaTextField)
+        view.addSubview(locaSearchButton)
         view.addSubview(addressStackView)
-        view.addSubview(nextButton)
         
         self.storeNameTextField.autocapitalizationType = .none
-        self.addressTextfield.autocapitalizationType = .none
-        
+        self.locaTextField.autocapitalizationType = .none
+        self.addressTextField.autocapitalizationType = .none
+
         storeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        storeNameLineView.translatesAutoresizingMaskIntoConstraints = false
         storeNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationBoxView.translatesAutoresizingMaskIntoConstraints = false
-        addressTextfield.translatesAutoresizingMaskIntoConstraints = false
+        storeNameLineView.translatesAutoresizingMaskIntoConstraints = false
+        locaLabel.translatesAutoresizingMaskIntoConstraints = false
+        locaSearchView.translatesAutoresizingMaskIntoConstraints = false
+        locaTextField.translatesAutoresizingMaskIntoConstraints = false
+        locaSearchButton.translatesAutoresizingMaskIntoConstraints = false
+        addressTextField.translatesAutoresizingMaskIntoConstraints = false
         addressLineView.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.backgroundColor = UIColor(named: "white")
         
+        storeNameStackView.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 132, paddingLeft: 24, paddingRight: 24)
         
-        storeNameStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom : locationStackView.bottomAnchor, right: view.rightAnchor, paddingTop: 132, paddingLeft: 24, paddingBottom: 40, paddingRight: 24)
-        locationStackView.anchor(top: storeNameStackView.bottomAnchor, left: view.leftAnchor, bottom: addressStackView.topAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 24, paddingBottom: 25, paddingRight: 24)
-        addressStackView.anchor(top: locationStackView.bottomAnchor, left: view.leftAnchor, bottom: nextButton.topAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 24, paddingBottom: 413, paddingRight: 24)
-        nextButton.anchor(top: addressStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 413, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
+        locaLabel.anchor(top: storeNameStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 24, paddingRight: 314)
+                                
+        locaSearchView.anchor(top: locaLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 13, paddingLeft: 24, paddingRight: 24)
+        
+        locaTextField.anchor(top: locaSearchView.topAnchor, left: locaSearchView.leftAnchor, bottom: locaSearchView.bottomAnchor, right: locaSearchButton.leftAnchor, paddingTop: 12, paddingLeft: 9, paddingBottom: 13, paddingRight: 138)
+        
+        locaSearchButton.anchor(top: locaSearchView.topAnchor, left: locaTextField.rightAnchor, bottom: locaSearchView.bottomAnchor, right: locaSearchView.rightAnchor, paddingTop: 10, paddingLeft: 138, paddingBottom: 10, paddingRight: 10)
+        
+        addressStackView.anchor(top: locaSearchView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 24, paddingBottom: 413, paddingRight: 24)
+        
+        nextButton.anchor(top: addressStackView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 413, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
+    
     }
+    
+    // MARK: - Helpers
 }
