@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NMapsMap
 
 class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Properties
@@ -232,32 +233,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return stackView
     }()
     
-//    // 지도 마커 버튼
-//    lazy var mapMarkButton: UIButton = {
-//        let button = UIButton()
-//
-//        button.setImage(UIImage(named: "umbrella"), for: .normal)
-//        button.setTitle(" 9", for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.setDimensions(height: 44, width: 60)
-//        button.layer.cornerRadius = 22
-//        button.backgroundColor = UIColor(named: "main")
-//
-//        // 마커에 그림자 추가
-//        button.layer.shadowColor = UIColor.gray.cgColor
-//        button.layer.shadowOpacity = 0.3
-//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        button.layer.shadowRadius = 2
-//
-//        let showAction = UIAction { _ in
-//            self.showStoreInfo()
-//            }
-//
-//        button.addAction(showAction, for: .touchUpInside)
-//
-//        return button
-//    }()
-    
     lazy var mapMarkButton: mapMarker = {
         let button = mapMarker(umbrellaNum)
         
@@ -281,12 +256,22 @@ class UserVC: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNMap()
         configureUI()
         setNavigationBar()
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
+    
+    // MARK: [Naver Map]
+    func setNMap() {
+        let mapView = NMFMapView()
+        view.addSubview(mapView)
+        mapView.anchor(top: view.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
+        
+    }
+    
     func configureUI() {
         view.backgroundColor = UIColor(named: "light")
         

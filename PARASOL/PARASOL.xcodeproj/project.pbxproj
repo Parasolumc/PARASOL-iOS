@@ -272,7 +272,6 @@
 				09CF04D12A6534A0002C9F8B /* LoginVC.swift */,
 				0941D3A22A80D73700153D92 /* SelectVC.swift */,
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
-				0973AFEB2A823F1A003CF02D /* OwnerStoreVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -756,8 +755,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PARASOL/Global/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "파라솔";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
@@ -784,8 +785,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PARASOL/Global/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "파라솔";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
