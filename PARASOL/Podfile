@@ -6,10 +6,13 @@ target 'PARASOL' do
   use_frameworks!
 
   # Pods for PARASOL
-	
+
+  ## 통신 
+  pod 'Moya'
   ## 키보드 매니저
   pod 'IQKeyboardManagerSwift'
   ## 네이버 지도
   pod 'NMapsMap'
+  
 
 end
