@@ -124,8 +124,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     let addPicsView: UIView = {
         let view = UIView()
         view.setDimensions(height: 107, width: 70)
-        view.backgroundColor = UIColor(named: "gray00")
-        view.alpha = 0.4
+        view.backgroundColor = UIColor(named: "gray00_opacity")
         view.layer.cornerRadius = 20
         
         return view
@@ -145,10 +144,9 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     
     lazy var introduceTextView: UITextView = {
         let textview = UITextView()
-        textview.setDimensions(height: 167, width: 342)
+        textview.setDimensions(height: 253, width: 342)
         textview.layer.cornerRadius = 20
-        textview.backgroundColor = UIColor(named: "gray00")
-        textview.alpha = 0.4
+        textview.backgroundColor = UIColor(named: "gray00_opacity")
         textview.textContainerInset = .init(top: 30, left: 20, bottom: 30, right: 20)
         textview.font = UIFont.systemFont(ofSize: 14)
         
@@ -211,7 +209,9 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         picsStackView.addArrangedSubview(addPicsView)
         picsStackView.addSubview(plusImageView)
         
-        plusImageView.anchor(top:addPicsView.topAnchor, left: addPicsView.leftAnchor, paddingTop: 38, paddingLeft: 20)
+        addPicsView.addSubview(plusImageView)
+        plusImageView.centerX(inView: addPicsView)
+        plusImageView.centerY(inView: addPicsView)
         
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
@@ -227,6 +227,12 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         present(imagePickerController, animated: true)
     }
     
+    @objc func didTapDeleteButton(sender: UIButton) {
+        if let picView = sender.superview as? UIImageView {
+            picView.removeFromSuperview()
+        }
+    }
+    
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -236,8 +242,10 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             picView.clipsToBounds = true
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
+            
             picsStackView.addArrangedSubview(picView)
         }
+
     }
     
     // MARK: - Helpers

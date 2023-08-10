@@ -19,8 +19,8 @@ class OwnerMenuVC: UIViewController {
     // 소개 라벨 최대 사이즈
     lazy var labelMaxWidth = screenWidth - 50
     
-    // 대여중인 우산의 개수
-    var rentNum = 3
+    // 총 우산 개수
+    var totalNum = 3
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
@@ -34,23 +34,20 @@ class OwnerMenuVC: UIViewController {
         return label
     }()
     
-    lazy var editButton:UIButton = {
+    lazy var editButton: UIButton = {
         let button = UIButton()
-        
         button.setImage(UIImage(named: "edit"), for: .normal)
         button.setDimensions(height: 22, width: 22)
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
         button.layer.cornerRadius = 22 / 2
-        button.clipsToBounds = true
+        //button.contentVerticalAlignment = .fill
+        //button.contentHorizontalAlignment = .fill
         
-        let goToEditVCAction = UIAction { [weak self] _ in
+        /*let goToEditVCAction = UIAction { _ in
             let editVC = OwnerMenuEditVC()
-            self?.navigationController?.pushViewController(editVC, animated: true)
-            print("gg")
+            self.navigationController?.pushViewController(editVC, animated: true)
         }
             
-        button.addAction(goToEditVCAction, for: .touchUpInside)
+        button.addAction(goToEditVCAction, for: .touchUpInside)*/
         
         return button
     }()
@@ -67,7 +64,7 @@ class OwnerMenuVC: UIViewController {
         return stackView
     }()
     
-    let findLoadButton:UIButton = {
+    let findLoadButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(named: "find_load"), for: .normal)
@@ -133,7 +130,32 @@ class OwnerMenuVC: UIViewController {
         return stackView
     }()
     
-    let samplePicsView = UIView()
+    let picsScrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.showsHorizontalScrollIndicator = false
+        scrollview.isPagingEnabled = true
+        
+        return scrollview
+    }()
+    
+    let picsStackView: UIStackView = {
+        let stackview = UIStackView()
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 8
+        
+        return stackview
+    }()
+    
+    let addPicsView: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00_opacity")
+        view.alpha = 0.4
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
     
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
@@ -152,18 +174,17 @@ class OwnerMenuVC: UIViewController {
     var tag1Label: UILabel = {
         var label = UILabel()
         
-        label.text = "매장 우산 관리"
+        label.text = "우리 매장 우산 관리"
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = UIColor(named: "black")
         return label
     }()
     
     let umbrellaImage: UIImageView = {
-            let imageView = UIImageView()
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "umbrella")
         
-            imageView.image = UIImage(named: "umbrella")
-        
-            return imageView
+        return imageView
     }()
     
     lazy var umbrellaHStackView: UIStackView = {
@@ -182,7 +203,7 @@ class OwnerMenuVC: UIViewController {
     var rentLabel: UILabel = {
         var label = UILabel()
         
-        label.text = "대여중인 우산"
+        label.text = "총 우산"
         label.font = .systemFont(ofSize: 16)
         label.textColor = UIColor(named: "black")
         return label
@@ -191,7 +212,7 @@ class OwnerMenuVC: UIViewController {
     lazy var rentNumLabel: UILabel = {
         var label = UILabel()
         
-        label.text = String(rentNum) + "개"
+        label.text = String(totalNum) + "개"
         label.font = .boldSystemFont(ofSize: 22)
         label.textColor = UIColor(named: "black")
         return label
@@ -257,6 +278,10 @@ class OwnerMenuVC: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEditButton))
+        vStackView.addGestureRecognizer(tapGesture)
+        vStackView.isUserInteractionEnabled = true
     }
     
     // MARK: - Actions
@@ -267,24 +292,25 @@ class OwnerMenuVC: UIViewController {
         view.backgroundColor = .white
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
-        // 스크롤뷰 이미지 넣기
+        view.addSubview(picsScrollView)
         view.addSubview(introduceLabel)
         view.addSubview(umbrellaHStackView)
         view.addSubview(labelHStackView)
         
-        // 스크롤뷰 이미지 추가한 후 삭제하기
-        view.addSubview(samplePicsView)
-        samplePicsView.translatesAutoresizingMaskIntoConstraints = false
-        samplePicsView.backgroundColor = .lightGray
-        samplePicsView.layer.cornerRadius = 20
-        samplePicsView.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
-        samplePicsView.heightAnchor.constraint(equalToConstant: 107).isActive = true
-        
         vStackView.anchor(top: view.topAnchor, paddingTop: 65)
         vStackView.centerX(inView: view)
         findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
-        samplePicsView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
-        introduceLabel.anchor(top: samplePicsView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
+        
+        
+        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
+        picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
+        picsScrollView.addSubview(picsStackView)
+        
+        picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
+        
+        picsStackView.addArrangedSubview(addPicsView)
+        
+        introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 50)
         umbrellaHStackView.centerX(inView: view)
         labelHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 55)
@@ -294,5 +320,11 @@ class OwnerMenuVC: UIViewController {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    @objc func didTapEditButton(sender: UIButton) {
+        let editVC = OwnerMenuEditVC()
+        self.navigationController?.pushViewController(editVC, animated: true)
+        
+    }
 
 }
