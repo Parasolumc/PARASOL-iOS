@@ -258,6 +258,14 @@ class LoginVC: UIViewController {
         }
         
         joinButton.addAction(goToselectVCAction, for: .touchUpInside)
+        
+        let goTofindVCAction = UIAction {[weak self] _ in
+            guard let self = self else { return }
+            let findVC = FindTabBarVC()
+            self.navigationController?.pushViewController(findVC, animated: true)
+        }
+        
+        findButton.addAction(goTofindVCAction, for: .touchUpInside)
     }
     
     func configureUI() {
