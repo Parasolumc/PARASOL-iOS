@@ -9,12 +9,7 @@
 /* Begin PBXBuildFile section */
 		0913631F2A80F13E0028669A /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0913631E2A80F13E0028669A /* mapMarker.swift */; };
 		092037332A810022003FA716 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092037322A810022003FA716 /* TextField.swift */; };
-		092E0E742A866C64007A8DAF /* FindTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E0E732A866C64007A8DAF /* FindTabBarVC.swift */; };
-		092E0E762A8690F2007A8DAF /* FindIDTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E0E752A8690F1007A8DAF /* FindIDTabBarVC.swift */; };
-		092E0E7A2A86AE29007A8DAF /* FindPWTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E0E792A86AE29007A8DAF /* FindPWTabBarVC.swift */; };
-		092E0EA42A86D113007A8DAF /* FindIDPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E0EA32A86D113007A8DAF /* FindIDPopUpVC.swift */; };
 		092E0EA72A86D149007A8DAF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 092E0EA62A86D149007A8DAF /* SnapKit */; };
-		092E0EA92A86D468007A8DAF /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E0EA82A86D468007A8DAF /* AgreementVC.swift */; };
 		093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
 		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
@@ -40,6 +35,9 @@
 		096D1DC32A80CF5600708B51 /* StoreInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */; };
 		096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */; };
 		096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC52A80CF8800708B51 /* SearchCell.swift */; };
+		09A45AA82A86EB7300CF1780 /* FindTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */; };
+		09A45AAA2A86EB9500CF1780 /* FindIDTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */; };
+		09A45AAC2A86EBD100CF1780 /* FindPWTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -73,20 +71,13 @@
 		09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5A2A65308000EF986E /* Assets.xcassets */; };
 		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
 		09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */; };
-		09F55CC52A83E4CD00AAA4A7 /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC42A83E4CD00AAA4A7 /* Agreement1VC.swift */; };
 		55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */; };
-		55ED7FDF2A86A99C0079B485 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ED7FDE2A86A99C0079B485 /* PopupVC.swift */; };
 		84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1BA60A43B688696059FBECE /* Pods_PARASOL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0913631E2A80F13E0028669A /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapMarker.swift; sourceTree = "<group>"; };
 		092037322A810022003FA716 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		092E0E732A866C64007A8DAF /* FindTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTabBarVC.swift; sourceTree = "<group>"; };
-		092E0E752A8690F1007A8DAF /* FindIDTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDTabBarVC.swift; sourceTree = "<group>"; };
-		092E0E792A86AE29007A8DAF /* FindPWTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWTabBarVC.swift; sourceTree = "<group>"; };
-		092E0EA32A86D113007A8DAF /* FindIDPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDPopUpVC.swift; sourceTree = "<group>"; };
-		092E0EA82A86D468007A8DAF /* AgreementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerStoreVC.swift; sourceTree = "<group>"; };
 		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
 		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
@@ -112,6 +103,9 @@
 		096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoreInfo.storyboard; sourceTree = "<group>"; };
 		096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rental_ReturnVC.swift; sourceTree = "<group>"; };
 		096D1DC52A80CF8800708B51 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindTabBarVC.swift; path = "/Users/seojooyoung/Desktop/Github/PARASOL-iOS/PARASOL/PARASOL/Scenes/Auth/FindTabBarVC.swift"; sourceTree = "<absolute>"; };
+		09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDTabBarVC.swift; sourceTree = "<group>"; };
+		09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWTabBarVC.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -147,7 +141,6 @@
 		09DD5B5D2A65308000EF986E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentVC.swift; sourceTree = "<group>"; };
-		09F55CC42A83E4CD00AAA4A7 /* Agreement1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement1VC.swift; sourceTree = "<group>"; };
 		55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerJoinVC.swift; sourceTree = "<group>"; };
 		55ED7FDE2A86A99C0079B485 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		7F0289CCCC0DCC3A7DA1A916 /* Pods-PARASOL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARASOL.release.xcconfig"; path = "Target Support Files/Pods-PARASOL/Pods-PARASOL.release.xcconfig"; sourceTree = "<group>"; };
@@ -292,12 +285,9 @@
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
-				092E0EA82A86D468007A8DAF /* AgreementVC.swift */,
-				09F55CC42A83E4CD00AAA4A7 /* Agreement1VC.swift */,
-				092E0E732A866C64007A8DAF /* FindTabBarVC.swift */,
-				092E0E792A86AE29007A8DAF /* FindPWTabBarVC.swift */,
-				092E0E752A8690F1007A8DAF /* FindIDTabBarVC.swift */,
-				092E0EA32A86D113007A8DAF /* FindIDPopUpVC.swift */,
+				09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */,
+				09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */,
+				09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -406,7 +396,6 @@
 		09DD5B4D2A65308000EF986E /* PARASOL */ = {
 			isa = PBXGroup;
 			children = (
-				092E0E722A866132007A8DAF /* PARASOL.entitlements */,
 				09DD5B652A65308E00EF986E /* App */,
 				09DD5B662A6530B800EF986E /* Global */,
 				09CF04BE2A6533B3002C9F8B /* Data */,
@@ -613,14 +602,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */,
-				092E0E7A2A86AE29007A8DAF /* FindPWTabBarVC.swift in Sources */,
+				09A45AAC2A86EBD100CF1780 /* FindPWTabBarVC.swift in Sources */,
 				096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */,
 				09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */,
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
-				092E0EA92A86D468007A8DAF /* AgreementVC.swift in Sources */,
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
@@ -629,8 +617,7 @@
 				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,
 				09CF04E02A653519002C9F8B /* UserMenuVC.swift in Sources */,
 				096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */,
-				092E0EA42A86D113007A8DAF /* FindIDPopUpVC.swift in Sources */,
-				092E0E762A8690F2007A8DAF /* FindIDTabBarVC.swift in Sources */,
+				09A45AAA2A86EB9500CF1780 /* FindIDTabBarVC.swift in Sources */,
 				09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */,
 				09DD5B4F2A65308000EF986E /* AppDelegate.swift in Sources */,
 				092037332A810022003FA716 /* TextField.swift in Sources */,
@@ -641,7 +628,7 @@
 				0913631F2A80F13E0028669A /* mapMarker.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
-				092E0E742A866C64007A8DAF /* FindTabBarVC.swift in Sources */,
+				09A45AA82A86EB7300CF1780 /* FindTabBarVC.swift in Sources */,
 				096D1DBD2A80CF4C00708B51 /* StoreInfoVC.swift in Sources */,
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
 				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
