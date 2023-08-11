@@ -82,7 +82,6 @@
 /* Begin PBXFileReference section */
 		0913631E2A80F13E0028669A /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapMarker.swift; sourceTree = "<group>"; };
 		092037322A810022003FA716 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		092E0E722A866132007A8DAF /* PARASOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PARASOL.entitlements; sourceTree = "<group>"; };
 		092E0E732A866C64007A8DAF /* FindTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTabBarVC.swift; sourceTree = "<group>"; };
 		092E0E752A8690F1007A8DAF /* FindIDTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDTabBarVC.swift; sourceTree = "<group>"; };
 		092E0E792A86AE29007A8DAF /* FindPWTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWTabBarVC.swift; sourceTree = "<group>"; };
