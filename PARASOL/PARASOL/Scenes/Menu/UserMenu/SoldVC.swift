@@ -149,7 +149,7 @@ class SoldVC: UIViewController{
         view.addSubview(cabonLabel)
         
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 26, paddingBottom: 8)
-        SoldrecordStackview.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 26)
+        SoldrecordStackview.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 26, paddingRight: 26)
         mycabonLabel.anchor(top: SoldrecordStackview.bottomAnchor, left: view.leftAnchor, paddingTop: 50, paddingLeft: 26)
         earthImage.anchor(top: mycabonLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 26)
         cabonLabel.anchor(top: mycabonLabel.bottomAnchor, left: earthImage.rightAnchor, paddingTop: 20, paddingLeft: 10)
@@ -172,21 +172,21 @@ class SoldVC: UIViewController{
         numLabel.text = "\(num)개"
         numLabel.font = UIFont.systemFont(ofSize: 16)
         
-        let spacerView = UIView()  // 간격을 위한 빈 뷰
-        
-        let infoStackView = UIStackView(arrangedSubviews: [dateLabel, locationLabel, spacerView])
+    
+        let infoStackView = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
         infoStackView.translatesAutoresizingMaskIntoConstraints = false
         infoStackView.axis = .horizontal
-        infoStackView.alignment = .center
+        infoStackView.alignment = .leading
         infoStackView.spacing = 8
-        infoStackView.distribution = .fill
+        infoStackView.distribution = .equalSpacing
         
         let soldStackView = UIStackView(arrangedSubviews: [infoStackView, numLabel])
         soldStackView.translatesAutoresizingMaskIntoConstraints = false
         soldStackView.axis = .horizontal
         soldStackView.alignment = .center
-        soldStackView.distribution = .fill
-        soldStackView.spacing = 20
+        soldStackView.distribution = .equalSpacing
+        soldStackView.spacing = 10
+        soldStackView.setDimensions(height: 25, width: 305)
         
         return soldStackView
     }
