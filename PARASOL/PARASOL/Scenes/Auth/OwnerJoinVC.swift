@@ -469,6 +469,11 @@ class OwnerJoinVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setNavigationBar()
+    }
+    
+    func setNavigationBar() {
+            self.navigationItem.title = "회원가입"
     }
     
     func configureUI() {
