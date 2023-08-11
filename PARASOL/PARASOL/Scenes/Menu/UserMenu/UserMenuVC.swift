@@ -9,13 +9,34 @@ import UIKit
 
 class UserMenuVC: UIViewController {
     
+    var state = 1 //대여중   대여중x:0
+    var start = "2023/07/02 16:45"
+    var end = "2023/07/04 16:50"
+    
+    lazy var titleStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.titleLabel, self.umbrellaImageView])
+        stackview.axis = .horizontal
+        stackview.spacing = 8
+        stackview.alignment = .center
+        
+        return stackview
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "내 대여 현황"
-        label.font = .boldSystemFont(ofSize: 25)
+        label.text = "내 우산"
+        label.font = .systemFont(ofSize: 25, weight: .bold)
         
         return label
     }()
+    
+    let umbrellaImageView: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "umbrella_color"))
+        imageview.setDimensions(height: 30, width: 29)
+        
+        return imageview
+    }()
+    
     
     let info: UIView = {
         let view = UIView()
@@ -26,23 +47,47 @@ class UserMenuVC: UIViewController {
         return view
     }()
     
-    let statelabel: UILabel = {
+    lazy var statelabel: UILabel = {
         let label = UILabel()
-        label.text = "2023/07/02 16:45 에 빌렸어요"
-        label.font = .boldSystemFont(ofSize: 16)
-        
+        if state == 0 { // 대여중이 아닌 상태
+            label.text = "아직 빌린 우산이 없어요!"
+            label.font = .boldSystemFont(ofSize: 16)
+        }
+        else if state == 1 { // 대여중인 상태
+            label.text = String(self.start) + " 에 빌렸어요"
+            label.font = .boldSystemFont(ofSize: 16)
+        }
         
         return label
     }()
     
-    let freestatelabel: UILabel = {
+    lazy var freestatelabel: UILabel = {
         let label = UILabel()
-        label.text = "2023/07/02 16:45 까지 반납하면 무료 !"
+        label.text = String(self.end) + " 까지 반납하면 무료!"
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .blue
         
         
         return label
+    }()
+    
+    lazy var rentalbutton: UIButton = {
+        let button = UIButton()
+        button.setTitle("바로 대여하러 가기", for: .normal)
+        button.backgroundColor = UIColor(named: "main")
+        button.layer.cornerRadius = 20
+        button.setDimensions(height: 45, width: 242)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        let goToUserVCAction = UIAction { _ in
+            let userVC = UserVC()
+            self.navigationController?.pushViewController(userVC, animated: true)
+        }
+        
+        button.addAction(goToUserVCAction, for: .touchUpInside)
+        
+        return button
     }()
     
     let warninglabel: UILabel = {
@@ -136,7 +181,7 @@ class UserMenuVC: UIViewController {
         return label
     }()
     
-    lazy var stateStackView: UIStackView = { // 파란색
+    lazy var stateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.excesstimeStackView, self.feeStackView])
         stackView.axis = .horizontal
         stackView.spacing = 50
@@ -248,30 +293,21 @@ class UserMenuVC: UIViewController {
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
         
-        view.addSubview(titleLabel)
+        view.addSubview(titleStackView)
         view.addSubview(info)
         info.addSubview(statelabel)
-        info.addSubview(freestatelabel)
-        info.addSubview(warninglabel)
-        view.addSubview(stateStackView)
+
         view.addSubview(sellbutton)
         view.addSubview(soldbutton)
         view.addSubview(manageLabel)
         view.addSubview(payLabel)
         view.addSubview(rentalLabel)
-        //view.addSubview(tableView)
         
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingLeft: 24)
+        titleStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingLeft: 24)
         
-        info.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
+        info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         
-        statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
-        
-        freestatelabel.anchor(top: statelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
-        warninglabel.anchor(top: freestatelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
-        
-        stateStackView.centerX(inView: info)
-        stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
+        showView()
         
         sellbutton.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         soldbutton.anchor(top: sellbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
@@ -282,34 +318,35 @@ class UserMenuVC: UIViewController {
         payLabel.anchor(top: manageLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 24)
         rentalLabel.anchor(top: payLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
         
-        /*tableView.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 30, height: 200)
+    }
+    
+    func showView() {
+        if state == 0 { // 대여중이 아닌 상태
+            view.addSubview(rentalbutton)
+            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
+            
+            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
+            rentalbutton.centerX(inView: view)
+        }
+        else if state == 1 { // 대여중인 상태
+            info.addSubview(freestatelabel)
+            info.addSubview(warninglabel)
+            view.addSubview(stateStackView)
+            
+            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
+            
+            freestatelabel.anchor(top: statelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
+            warninglabel.anchor(top: freestatelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
+            
+            stateStackView.centerX(inView: info)
+            stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
+        }
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.delegate = self
-        tableView.dataSource = self*/
+        
+        
     }
     
 
 }
 
-/*extension UserMenuVC: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manageItems.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-
-        cell.textLabel?.text = manageItems[indexPath.row]
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
-    }
-}*/
 
