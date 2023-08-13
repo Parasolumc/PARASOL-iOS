@@ -38,6 +38,7 @@
 		097F0B8D2A84D00900955BB1 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8C2A84D00900955BB1 /* HomeAPI.swift */; };
 		097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8E2A84E61200955BB1 /* HomeModel.swift */; };
 		097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B942A88F0BD00955BB1 /* PopupVC.swift */; };
+		09A0A3E62A89746F006FB24E /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E52A89746F006FB24E /* Agreement1VC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -107,6 +108,7 @@
 		097F0B8C2A84D00900955BB1 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		097F0B8E2A84E61200955BB1 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		097F0B942A88F0BD00955BB1 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
+		09A0A3E52A89746F006FB24E /* Agreement1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Agreement1VC.swift; path = "/Users/seojooyoung/Desktop/Github/PARASOL-iOS/PARASOL/PARASOL/Scenes/Auth/Agreement1VC.swift"; sourceTree = "<absolute>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
+				09A0A3E52A89746F006FB24E /* Agreement1VC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
+				09A0A3E62A89746F006FB24E /* Agreement1VC.swift in Sources */,
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
