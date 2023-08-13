@@ -7,12 +7,16 @@
 
 import UIKit
 
+// 판매 기록 데이터 모델
+struct SoldRecord {
+    var date: String
+    var location: String
+    var num: Int
+}
+
 class SoldVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
-    var date = "2023.06.07"
-    var location = "신촌 홍익문고점"
-    var num = 1
 
     // MARK: [UI components]
     let titleLabel: UILabel = {
@@ -23,10 +27,11 @@ class SoldVC: UIViewController{
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    /*lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.text = String(self.date)
         label.font = UIFont.systemFont(ofSize: 16)
+        label.sizeToFit()
         
         return label
     }()
@@ -47,25 +52,36 @@ class SoldVC: UIViewController{
         return label
     }()
     
+    lazy var spacerView = UIView()
+    
     lazy var infoStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.dateLabel, self.locationLabel])
+        let stackview = UIStackView(arrangedSubviews: [self.dateLabel, self.locationLabel, self.spacerView])
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .horizontal
-        stackview.alignment = .leading
-        stackview.spacing = 10
+        stackview.alignment = .center
+        stackview.spacing = 8
         stackview.distribution = .fill
-        stackview.setDimensions(height: 25, width: 248)
+        //stackview.setDimensions(height: 25, width: 248)
         
         return stackview
     }()
-    
     
     lazy var soldStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.infoStackView, self.numLabel])
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .horizontal
-        stackview.alignment = .leading
+        stackview.alignment = .center
+        stackview.distribution = .fill
         stackview.spacing = 20
+        
+        return stackview
+    }()*/
+    
+    lazy var SoldrecordStackview: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .vertical
+        stackview.spacing = 12
         
         return stackview
     }()
@@ -91,7 +107,7 @@ class SoldVC: UIViewController{
         let label = UILabel()
         label.text = "3049 G"
         label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .blue
+        label.textColor = UIColor(named: "blue")
         
         return label
     }()
@@ -104,6 +120,17 @@ class SoldVC: UIViewController{
         
         configureUI()
         setNavigationBar()
+        
+        let soldRecords: [SoldRecord] = [
+            SoldRecord(date: "2023.06.07", location: "신촌 카페플레이스점", num: 1),
+            SoldRecord(date: "2023.07.07", location: "신촌 홍익문고점", num: 2)
+            // 다른 판매 기록 데이터들도 추가
+        ]
+        
+        for record in soldRecords {
+            let recordView = createSoldStackview(date: record.date, location: record.location, num: record.num)
+            SoldrecordStackview.addArrangedSubview(recordView)  // SoldrecordStackview에 추가
+        }
     }
     
     // MARK: - Actions
@@ -116,14 +143,14 @@ class SoldVC: UIViewController{
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
         view.addSubview(titleLabel)
-        view.addSubview(soldStackView)
+        view.addSubview(SoldrecordStackview)
         view.addSubview(mycabonLabel)
         view.addSubview(earthImage)
         view.addSubview(cabonLabel)
         
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 26, paddingBottom: 8)
-        soldStackView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 26)
-        mycabonLabel.anchor(top: soldStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 50, paddingLeft: 26)
+        SoldrecordStackview.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 26, paddingRight: 26)
+        mycabonLabel.anchor(top: SoldrecordStackview.bottomAnchor, left: view.leftAnchor, paddingTop: 50, paddingLeft: 26)
         earthImage.anchor(top: mycabonLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 26)
         cabonLabel.anchor(top: mycabonLabel.bottomAnchor, left: earthImage.rightAnchor, paddingTop: 20, paddingLeft: 10)
         
@@ -132,6 +159,37 @@ class SoldVC: UIViewController{
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
 
+    func createSoldStackview(date: String, location: String, num: Int) -> UIView {
+        let dateLabel = UILabel()
+        dateLabel.text = date
+        dateLabel.font = UIFont.systemFont(ofSize: 16)
+        
+        let locationLabel = UILabel()
+        locationLabel.text = location
+        locationLabel.font = UIFont.systemFont(ofSize: 16)
+        
+        let numLabel = UILabel()
+        numLabel.text = "\(num)개"
+        numLabel.font = UIFont.systemFont(ofSize: 16)
+        
+    
+        let infoStackView = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
+        infoStackView.translatesAutoresizingMaskIntoConstraints = false
+        infoStackView.axis = .horizontal
+        infoStackView.alignment = .leading
+        infoStackView.spacing = 8
+        infoStackView.distribution = .equalSpacing
+        
+        let soldStackView = UIStackView(arrangedSubviews: [infoStackView, numLabel])
+        soldStackView.translatesAutoresizingMaskIntoConstraints = false
+        soldStackView.axis = .horizontal
+        soldStackView.alignment = .center
+        soldStackView.distribution = .equalSpacing
+        soldStackView.spacing = 10
+        soldStackView.setDimensions(height: 25, width: 305)
+        
+        return soldStackView
+    }
 }
 
 // MARK: - Extensions

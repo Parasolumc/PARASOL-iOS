@@ -7,18 +7,26 @@
 
 import UIKit
 
+// 대여 기록 데이터 모델
+struct RentalRecord {
+    var date: String
+    var location: String
+    var state: Int
+}
+
 class RecordVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
     var date = "2023년 6월 5일"
     var location = "홍익문고"
+    var state = 1 //대여중   반납완료:0
 
     // MARK: [UI components]
 
-    let backgroundView: UIView = {
+    /*let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "main")
+        view.backgroundColor = UIColor(named: "light")
         view.setDimensions(height: 81, width: 342)
         view.layer.cornerRadius = 20
         
@@ -85,6 +93,15 @@ class RecordVC: UIViewController{
         stackview.spacing = 9
         
         return stackview
+    }()*/
+    
+    lazy var RentalrecordStackview: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .vertical
+        stackview.spacing = 10
+        
+        return stackview
     }()
     
     // MARK: - Lifecycle
@@ -94,6 +111,17 @@ class RecordVC: UIViewController{
         
         configureUI()
         setNavigationBar()
+        
+        let rentalRecords: [RentalRecord] = [
+            //RentalRecord(date: "2023년 6월 5일", location: "홍익문고", state: 1),
+            //RentalRecord(date: "2023년 6월 9일", location: "동대문구", state: 0)
+            // 다른 대여 기록 데이터들도 추가
+        ]
+        
+        for record in rentalRecords {
+            let recordView = createRecordStackview(date: record.date, location: record.location, state: record.state)
+            RentalrecordStackview.addArrangedSubview(recordView)  // RentalrecordStackview에 추가
+        }
     }
     
     // MARK: - Actions
@@ -105,20 +133,24 @@ class RecordVC: UIViewController{
     
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
-        
-        view.addSubview(backgroundView)
+         
+        /*view.addSubview(backgroundView)
         backgroundView.addSubview(recordStackview)
-        
+        view.addSubview(RentalrecordStackview)
         
         backgroundView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 24)
         
-        recordStackview.anchor(top: backgroundView.topAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 50)
+        recordStackview.anchor(top: backgroundView.topAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 50)*/
+        
+        view.addSubview(RentalrecordStackview)
+        
+        RentalrecordStackview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 24)
         
     }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-    func createRecordStackview(date: String, location: String, state: String) -> UIStackView {
+    func createRecordStackview(date: String, location: String, state: Int) -> UIView {
         let dateLabel = UILabel()
         dateLabel.text = date
         dateLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -127,11 +159,15 @@ class RecordVC: UIViewController{
         locationLabel.text = location
         locationLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         
-        let clockImage = UIImageView(image: UIImage(named: "time"))
+        let clockImage = UIImageView(image: UIImage(named: "clock"))
         clockImage.setDimensions(height: 19, width: 19)
         
         let stateLabel = UILabel()
-        stateLabel.text = state
+        if state == 1 {
+            stateLabel.text = "대여중"
+        } else if state == 0 {
+            stateLabel.text = "48시간 이용"
+        }
         stateLabel.font = UIFont.systemFont(ofSize: 16)
         
         let dlStackview = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
@@ -147,10 +183,36 @@ class RecordVC: UIViewController{
         let recordStackview = UIStackView(arrangedSubviews: [dlStackview, stateStackview])
         recordStackview.axis = .vertical
         recordStackview.alignment = .leading
-        recordStackview.distribution = .fillEqually
+        recordStackview.distribution = .fill
         recordStackview.spacing = 5
         
-        return recordStackview
+        let paddingContainerView = UIView()
+        paddingContainerView.addSubview(recordStackview)
+        paddingContainerView.backgroundColor = .clear
+        
+        recordStackview.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            recordStackview.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            recordStackview.leadingAnchor.constraint(equalTo: paddingContainerView.leadingAnchor, constant: 12),
+            recordStackview.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -12),
+            recordStackview.bottomAnchor.constraint(equalTo: paddingContainerView.bottomAnchor, constant: -8)
+        ])
+        
+        let containerView = UIView()
+        containerView.addSubview(paddingContainerView)
+        containerView.backgroundColor = UIColor(named: "light")
+        containerView.setDimensions(height: 81, width: 342)
+        containerView.layer.cornerRadius = 20
+        
+        paddingContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            paddingContainerView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            paddingContainerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            paddingContainerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            paddingContainerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
+        ])
+        
+        return containerView
     }
 
 
