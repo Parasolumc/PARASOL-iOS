@@ -37,6 +37,7 @@
 		097F0B8B2A84C96A00955BB1 /* HomeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8A2A84C96A00955BB1 /* HomeManager.swift */; };
 		097F0B8D2A84D00900955BB1 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8C2A84D00900955BB1 /* HomeAPI.swift */; };
 		097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8E2A84E61200955BB1 /* HomeModel.swift */; };
+		097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B942A88F0BD00955BB1 /* PopupVC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -71,7 +72,6 @@
 		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
 		09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */; };
 		55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */; };
-		55ED7FDF2A86A99C0079B485 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ED7FDE2A86A99C0079B485 /* PopupVC.swift */; };
 		84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1BA60A43B688696059FBECE /* Pods_PARASOL.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +106,7 @@
 		097F0B8A2A84C96A00955BB1 /* HomeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeManager.swift; sourceTree = "<group>"; };
 		097F0B8C2A84D00900955BB1 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		097F0B8E2A84E61200955BB1 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		097F0B942A88F0BD00955BB1 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentVC.swift; sourceTree = "<group>"; };
 		55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerJoinVC.swift; sourceTree = "<group>"; };
-		55ED7FDE2A86A99C0079B485 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		7F0289CCCC0DCC3A7DA1A916 /* Pods-PARASOL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARASOL.release.xcconfig"; path = "Target Support Files/Pods-PARASOL/Pods-PARASOL.release.xcconfig"; sourceTree = "<group>"; };
 		B1BA60A43B688696059FBECE /* Pods_PARASOL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PARASOL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4F505D63B149AD3B00A99 /* Pods-PARASOL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARASOL.debug.xcconfig"; path = "Target Support Files/Pods-PARASOL/Pods-PARASOL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 			children = (
 				09CF04EB2A66B899002C9F8B /* OwnerMenuVC.swift */,
 				096D1DB32A80CF0200708B51 /* OwnerMenuEditVC.swift */,
-				55ED7FDE2A86A99C0079B485 /* PopupVC.swift */,
+				097F0B942A88F0BD00955BB1 /* PopupVC.swift */,
 				09CF04ED2A66B8A6002C9F8B /* OwnerMenu.storyboard */,
 			);
 			path = OwnerMenu;
@@ -607,7 +607,6 @@
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,
 				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
 				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,
-				55ED7FDF2A86A99C0079B485 /* PopupVC.swift in Sources */,
 				09CF04E02A653519002C9F8B /* UserMenuVC.swift in Sources */,
 				096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */,
 				09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */,
@@ -632,6 +631,7 @@
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,
 				09CF04F62A66B98C002C9F8B /* AlarmVC.swift in Sources */,
 				09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */,
+				097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */,
 				09D04EC42A80D1E0002F73A9 /* OwnerTabBarVC.swift in Sources */,
 				097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */,
 				0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */,
