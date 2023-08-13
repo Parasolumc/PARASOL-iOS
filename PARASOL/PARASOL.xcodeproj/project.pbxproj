@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0913631F2A80F13E0028669A /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0913631E2A80F13E0028669A /* mapMarker.swift */; };
 		092037332A810022003FA716 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092037322A810022003FA716 /* TextField.swift */; };
+		092E0EA72A86D149007A8DAF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 092E0EA62A86D149007A8DAF /* SnapKit */; };
 		093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
 		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
@@ -34,6 +35,9 @@
 		096D1DC32A80CF5600708B51 /* StoreInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */; };
 		096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */; };
 		096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC52A80CF8800708B51 /* SearchCell.swift */; };
+		09A45AA82A86EB7300CF1780 /* FindTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */; };
+		09A45AAA2A86EB9500CF1780 /* FindIDTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */; };
+		09A45AAC2A86EBD100CF1780 /* FindPWTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -100,6 +104,9 @@
 		096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoreInfo.storyboard; sourceTree = "<group>"; };
 		096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rental_ReturnVC.swift; sourceTree = "<group>"; };
 		096D1DC52A80CF8800708B51 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindTabBarVC.swift; path = "/Users/seojooyoung/Desktop/Github/PARASOL-iOS/PARASOL/PARASOL/Scenes/Auth/FindTabBarVC.swift"; sourceTree = "<absolute>"; };
+		09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDTabBarVC.swift; sourceTree = "<group>"; };
+		09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWTabBarVC.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -148,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */,
+				092E0EA72A86D149007A8DAF /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +286,9 @@
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
+				09A45AA72A86EB7300CF1780 /* FindTabBarVC.swift */,
+				09A45AA92A86EB9500CF1780 /* FindIDTabBarVC.swift */,
+				09A45AAB2A86EBD100CF1780 /* FindPWTabBarVC.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -469,6 +480,9 @@
 			dependencies = (
 			);
 			name = PARASOL;
+			packageProductDependencies = (
+				092E0EA62A86D149007A8DAF /* SnapKit */,
+			);
 			productName = PARASOL;
 			productReference = 09DD5B4B2A65308000EF986E /* PARASOL.app */;
 			productType = "com.apple.product-type.application";
@@ -497,6 +511,9 @@
 				Base,
 			);
 			mainGroup = 09DD5B422A65307F00EF986E;
+			packageReferences = (
+				092E0EA52A86D149007A8DAF /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 09DD5B4C2A65308000EF986E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -586,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */,
+				09A45AAC2A86EBD100CF1780 /* FindPWTabBarVC.swift in Sources */,
 				096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */,
 				09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */,
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
@@ -601,6 +619,7 @@
 				555F05452A887D4700A8B1B4 /* PopupVC.swift in Sources */,
 				09CF04E02A653519002C9F8B /* UserMenuVC.swift in Sources */,
 				096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */,
+				09A45AAA2A86EB9500CF1780 /* FindIDTabBarVC.swift in Sources */,
 				09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */,
 				09DD5B4F2A65308000EF986E /* AppDelegate.swift in Sources */,
 				092037332A810022003FA716 /* TextField.swift in Sources */,
@@ -611,6 +630,7 @@
 				0913631F2A80F13E0028669A /* mapMarker.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
+				09A45AA82A86EB7300CF1780 /* FindTabBarVC.swift in Sources */,
 				096D1DBD2A80CF4C00708B51 /* StoreInfoVC.swift in Sources */,
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
 				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
@@ -762,6 +782,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PARASOL/PARASOL.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -792,6 +813,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PARASOL/PARASOL.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -838,6 +860,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		092E0EA52A86D149007A8DAF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		092E0EA62A86D149007A8DAF /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 092E0EA52A86D149007A8DAF /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */ = {
