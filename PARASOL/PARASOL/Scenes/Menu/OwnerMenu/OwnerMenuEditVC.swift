@@ -178,6 +178,11 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPlusButton))
         addPicsView.addGestureRecognizer(tapGesture)
         addPicsView.isUserInteractionEnabled = true
+        
+        let timetapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTimeLabel))
+        timeLabel.addGestureRecognizer(timetapGesture)
+        timeLabel.isUserInteractionEnabled = true
+        
     }
     
     // MARK: - Actions
@@ -246,6 +251,13 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             picsStackView.addArrangedSubview(picView)
         }
 
+    }
+    
+    @objc func didTapTimeLabel() {
+        let popupVC = PopupVC() // 팝업 뷰 컨트롤러 인스턴스 생성
+        
+        popupVC.modalPresentationStyle = .overCurrentContext
+        present(popupVC, animated: true, completion: nil)
     }
     
     // MARK: - Helpers
