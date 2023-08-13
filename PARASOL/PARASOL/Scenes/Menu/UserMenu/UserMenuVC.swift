@@ -202,12 +202,13 @@ class UserMenuVC: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
-        /*let goTosellVCAction = UIAction { _ in
-            let sellVC = SellVC()
-            self.navigationController?.pushViewController(sellVC, animated: true)
-        }
-        
-        button.addAction(goTosellVCAction, for: .touchUpInside)*/
+        let goToSellVCAction = UIAction { _ in
+            let rentalVC = Rental_ReturnVC()
+            rentalVC.nowFun = "Sell"
+            self.navigationController?.pushViewController(rentalVC, animated: true)
+            }
+            
+        button.addAction(goToSellVCAction, for: .touchUpInside)
         
         return button
     }()
@@ -348,5 +349,3 @@ class UserMenuVC: UIViewController {
     
 
 }
-
-

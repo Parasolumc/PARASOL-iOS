@@ -12,7 +12,7 @@ class Rental_ReturnVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    // 대여/반납 페이지 종류 결정 변수
+    // 대여/반납/판매 페이지 종류 결정 변수
     var nowFun = "Rental"
 
     // 화면 사이즈
@@ -47,6 +47,8 @@ class Rental_ReturnVC: UIViewController {
             label.text = "대여를 원하시면 QR코드를 \n사장님께 보여주세요."
         } else if nowFun == "Return" {
             label.text = "반납을 원하시면 QR코드를 \n사장님께 보여주세요."
+        } else if nowFun == "Sell" {
+            label.text = "판매를 원하시면 QR코드를 \n사장님께 보여주세요."
         }
         label.font = .systemFont(ofSize: 16)
         label.numberOfLines = 0
@@ -62,6 +64,8 @@ class Rental_ReturnVC: UIViewController {
             button.setTitle("대여완료", for: .normal)
         } else if nowFun == "Return" {
             button.setTitle("반납완료", for: .normal)
+        } else if nowFun == "Sell" {
+            button.setTitle("판매완료", for: .normal)
         }
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 30, width: 100)
@@ -100,6 +104,8 @@ class Rental_ReturnVC: UIViewController {
             self.navigationItem.title = "대여하기"
         } else if nowFun == "Return" {
             self.navigationItem.title = "반납하기"
+        } else if nowFun == "Sell" {
+            self.navigationItem.title = "판매신청"
         }
     }
     

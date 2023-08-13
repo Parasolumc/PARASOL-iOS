@@ -12,7 +12,7 @@ class DoneVC: UIViewController {
     // 변수 및 상수, IBOutlet
     
 
-    var nowFun = "Rental" // 대여/반납 중 어떤 페이지에서 넘어온 페이지인지 체크
+    var nowFun = "Rental" // 대여/반납/판매 중 어떤 페이지에서 넘어온 페이지인지 체크
     var nowUser = "일반" // 현재 사용자가 일반 사용자인지 사장님인지 체크
     var fee = 100
     
@@ -33,6 +33,8 @@ class DoneVC: UIViewController {
             label.text = "대여가 완료되었습니다"
         } else if nowFun == "Return" {
             label.text = "반납이 완료되었습니다"
+        } else if nowFun == "Sell" {
+            label.text = "판매가 완료되었습니다"
         }
         label.font = .boldSystemFont(ofSize: 24)
         
@@ -75,6 +77,8 @@ class DoneVC: UIViewController {
         
         if (self.fee>0) && (self.nowFun=="Return") {
             label.text = "연체료 " + String(fee) + "원이\n자동 결제될 예정입니다."
+        } else if self.nowFun == "Sell" {
+            label.text = "우산 컨디션 확인 후 7-10일 이내 \n고객님의 계좌에 금액이 자동입금됩니다."
         } else {
             label.text = ""
         }
