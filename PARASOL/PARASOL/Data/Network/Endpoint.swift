@@ -8,5 +8,5 @@
 import Foundation
 
 enum ServiceAPI {
-    static let baseURL = "https://www.umc-parasol.p-e.kr"
+    static let baseURL = URL(string: "https://www.umc-parasol.r-e.kr/")
 }
