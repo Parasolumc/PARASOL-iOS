@@ -200,13 +200,11 @@ class SelectVC : UIViewController {
     @objc func goToUserJoinVC() {
         let agreeVC = AgreementVC()
         agreeVC.agree = "User"
-        SelectVC.shared.user = agreeVC.agree
         self.navigationController?.pushViewController(agreeVC, animated: true)
     }
     @objc func goToOwnerJoinVC() {
         let agreeVC = AgreementVC()
         agreeVC.agree = "Owner"
-        SelectVC.shared.owner = agreeVC.agree
         self.navigationController?.pushViewController(agreeVC, animated: true)
     }
     
