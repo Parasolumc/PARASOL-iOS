@@ -10,6 +10,7 @@ import Moya
 
 enum HomeAPI {
     case storeList
+    case store(id: Int)
 }
 
 extension HomeAPI: TargetType {
@@ -23,6 +24,8 @@ extension HomeAPI: TargetType {
         switch self {
         case .storeList:
             return "/api/shop"
+        case .store(let id):
+            return "/api/shop/\(id)"
         }
     }
     
@@ -30,6 +33,8 @@ extension HomeAPI: TargetType {
     var method: Moya.Method {
         switch self {
         case .storeList:
+            return .get
+        case .store:
             return .get
         }
     }
@@ -39,6 +44,8 @@ extension HomeAPI: TargetType {
         switch self {
         case .storeList:
             return .requestPlain
+        case .store:
+            return .requestPlain
         }
     }
     
@@ -47,7 +54,7 @@ extension HomeAPI: TargetType {
         switch self {
         default:
             return ["Content-Type": "application/json",
-                    "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjkxNjU4NzExLCJleHAiOjE2OTE2NjIzMTF9.sLpsryfJODY0ftUxyUFVp1YiV9zw1GMfXZBvnKrQnVPvEvrVnBGJWGE4GBMbi0zkHysgPg_ebgbGuxh6VwVIbA" ]
+                    "Authorization": "Bearer \(ServiceAPI.token)" ]
         }
     }
     
