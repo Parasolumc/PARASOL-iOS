@@ -52,3 +52,44 @@ struct StoreImage: Codable {
 struct editUmbrellaModel: Codable {
     let count: Int
 }
+
+// MARK: - 매장 검색
+// MARK: [SearchStoreModel]
+struct SearchStoreModel: Codable {
+    let keyword, userLatitude, userLongitude: String
+}
+
+// MARK: - SearchedStoreModel
+struct SearchedStoreModel: Codable {
+    let check: Bool
+    let information: [SearchedStoreInformation]
+}
+
+// MARK: - SearchedStoreInformation
+struct SearchedStoreInformation: Codable {
+    let id: Int
+    let shopName, roadNameAddress, distance: String
+}
+
+// MARK: - 사장님 본인 매장 조회
+// MARK: - OwnerStoreModel
+struct OwnerStoreModel: Codable {
+    let check: Bool
+    let information: OwnerStoreInformation
+}
+
+// MARK: - OwnerStoreInformation
+struct OwnerStoreInformation: Codable {
+    let id: Int
+    let shopName, desc: String
+    let latitude, longitude: Double
+    let roadNameAddress, openTime, closeTime: String
+    let availableUmbrella: Int
+    let image: [Image]
+}
+
+// MARK: - Image
+struct Image: Codable {
+    let id: Int
+    let url: String
+}

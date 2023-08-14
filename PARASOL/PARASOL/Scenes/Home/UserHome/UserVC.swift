@@ -375,9 +375,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     func fetchData() {
+        // 매장 리스트 조회
         HomeManager.shared.user_getStoreList { result in
             switch result {
             case .success(let data):
+                print("매장 리스트 조회")
                 print(data) // 데이터 확인용
                 self.stores.removeAll()
                 for store in data.information {
@@ -394,9 +396,34 @@ class UserVC: UIViewController, UISearchBarDelegate {
                 }
                 print(self.stores) // 데이터 확인용
             case .failure(let error):
-                print(error)
+                print("매장 리스트 조회 에러\n\(error)")
             }
         }
+        
+        // 특정 매장 조회
+        HomeManager.shared.user_getStore(1) { result in
+            switch result {
+            case .success(let data):
+                print("특정 매장 조회")
+                print(data) // 데이터 확인용
+            case .failure(let error):
+                print("특정 매장 조회 에러\n\(error)")
+            }
+        }
+        
+        // 매장 검색
+        let searchedModel: SearchStoreModel = SearchStoreModel(keyword: "매장1", userLatitude: "37", userLongitude: "127")
+        HomeManager.shared.searchStores(SearchStoreModel: searchedModel) { result in
+            switch result {
+            case .success(let data):
+                print("매장 검색")
+                print(data)
+            case .failure(let error):
+                print("매장 검색 에러\n\(error)")
+            }
+        }
+        
+        
     }
 
 }
