@@ -11,6 +11,7 @@ import Moya
 enum HomeAPI {
     case storeList
     case store(id: Int)
+    case editUmbrella(param: editUmbrellaModel)
 }
 
 extension HomeAPI: TargetType {
@@ -26,6 +27,8 @@ extension HomeAPI: TargetType {
             return "/api/shop"
         case .store(let id):
             return "/api/shop/\(id)"
+        case .editUmbrella(param: _):
+            return "/api/umbrella/add"
         }
     }
     
@@ -36,6 +39,8 @@ extension HomeAPI: TargetType {
             return .get
         case .store:
             return .get
+        case .editUmbrella(param: _):
+            return .post
         }
     }
     
@@ -46,6 +51,8 @@ extension HomeAPI: TargetType {
             return .requestPlain
         case .store:
             return .requestPlain
+        case .editUmbrella(param: let param):
+            return .requestJSONEncodable(param)
         }
     }
     

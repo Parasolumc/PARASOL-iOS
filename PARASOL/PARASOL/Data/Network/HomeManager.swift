@@ -13,6 +13,7 @@ class HomeManager {
     static let shared = HomeManager()
     lazy var provider = MoyaProvider<HomeAPI>()
     
+    // 매장 리스트 조회
     func user_getStoreList(completion: @escaping (Result<StoreListModel, Error>) -> Void ) {
         provider.request(.storeList) { result in
             switch result {
@@ -31,6 +32,7 @@ class HomeManager {
         }
     }
     
+    // 특정 매장 조회
     func user_getStore(_ id: Int, completion: @escaping (Result<StoreModel, Error>) -> Void ) {
         provider.request(.store(id: id)) { result in
             switch result {
@@ -48,4 +50,20 @@ class HomeManager {
             
         }
     }
+    
+    // 우산 추가 등록
+    func editUmbrella(editUmbrellaData: editUmbrellaModel, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
+        provider.request(.editUmbrella(param: editUmbrellaData)) { result in
+            switch result {
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error):
+                completion(.failure(Error))
+            }
+        }
+    }
+    
+    
 }

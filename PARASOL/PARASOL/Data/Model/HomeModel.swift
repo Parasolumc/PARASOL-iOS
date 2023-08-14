@@ -46,3 +46,9 @@ struct StoreImage: Codable {
     let id: Int
     let url: String
 }
+
+// MARK: - 우산 추가 등록
+// MARK: [editUmbrellaModel]
+struct editUmbrellaModel: Codable {
+    let count: Int
+}
