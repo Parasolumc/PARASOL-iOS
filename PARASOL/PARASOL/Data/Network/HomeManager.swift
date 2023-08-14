@@ -11,7 +11,7 @@ import Moya
 class HomeManager {
     private init() {}
     static let shared = HomeManager()
-    let provider = MoyaProvider<HomeAPI>()
+    lazy var provider = MoyaProvider<HomeAPI>()
     
     func user_getStoreList(completion: @escaping (Result<StoreListModel, Error>) -> Void ) {
         provider.request(.storeList) { result in

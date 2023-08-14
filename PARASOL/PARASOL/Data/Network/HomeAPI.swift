@@ -47,7 +47,7 @@ extension HomeAPI: TargetType {
         switch self {
         default:
             return ["Content-Type": "application/json",
-                    "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjkxNjU4NzExLCJleHAiOjE2OTE2NjIzMTF9.sLpsryfJODY0ftUxyUFVp1YiV9zw1GMfXZBvnKrQnVPvEvrVnBGJWGE4GBMbi0zkHysgPg_ebgbGuxh6VwVIbA" ]
+                    "Authorization": "Bearer \(ServiceAPI.token)" ]
         }
     }
     
