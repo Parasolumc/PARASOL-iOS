@@ -258,6 +258,11 @@ class OwnerVC: UIViewController {
     
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -306,5 +311,20 @@ class OwnerVC: UIViewController {
     }
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-
+    func postData() {
+        let umbrellaCnt: editUmbrellaModel = editUmbrellaModel(count: 1)
+        HomeManager.shared.editUmbrella(editUmbrellaData: umbrellaCnt) { result in
+            switch result {
+            case .success(let data):
+                if data["check"] as? Bool == true {
+                    print("우산 \(umbrellaCnt.count)개 추가등록이 완료되었습니다.")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
+        
+    }
+    
 }
