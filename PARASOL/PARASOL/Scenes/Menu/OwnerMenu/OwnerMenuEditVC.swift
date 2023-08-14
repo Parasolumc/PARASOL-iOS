@@ -25,6 +25,13 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
+    // 영업중인 요일
+    var workingday = ""
+    
+    // 영업 시작, 종료 시간
+    var starttime = ""
+    var endtime = ""
+    
     // MARK: [UI components]
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -54,10 +61,10 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return label
     }()
     
-    var timeLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "09:00에 영업 시작"
+        label.text = String(self.workingday) + " " + String(self.starttime) + " - " + String(self.endtime)
         label.font = .systemFont(ofSize: 14)
         label.textColor = UIColor(named: "black")
         return label
@@ -153,11 +160,24 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return textview
     }()
     
+    let cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("취소", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setDimensions(height: 69, width: 166)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        
+        button.backgroundColor = UIColor(named: "main")
+        
+        return button
+    }()
+    
     let confirmButton: UIButton = {
         let button = UIButton()
         button.setTitle("수정완료", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 69, width: 342)
+        button.setDimensions(height: 69, width: 166)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
         
@@ -185,6 +205,12 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        timeLabel.text = String(workingday) + " " + String(starttime) + " - " + String(endtime)
+    }
+    
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
@@ -199,6 +225,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         view.addSubview(introduceLabel)
         view.addSubview(introduceTextView)
         view.addSubview(picsScrollView)
+        view.addSubview(cancelButton)
         view.addSubview(confirmButton)
         
         vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 5)
@@ -221,8 +248,9 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
         
-        confirmButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor,paddingBottom: 20)
-        confirmButton.centerX(inView: view)
+        cancelButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  paddingLeft: 24, paddingBottom: 20)
+        
+        confirmButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 20, paddingRight: 24)
         
         imagePickerController.delegate = self
         
@@ -258,6 +286,14 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         popupVC.modalPresentationStyle = .overCurrentContext
         present(popupVC, animated: true, completion: nil)
+    }
+    
+    func updateWorking(workingday: String, starttime: String, endtime: String) {
+        self.workingday = workingday
+        self.starttime = starttime
+        self.endtime = endtime
+        
+        print(workingday + " ww " + starttime + " ww " + endtime)
     }
     
     // MARK: - Helpers
