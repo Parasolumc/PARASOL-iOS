@@ -9,5 +9,5 @@ import Foundation
 
 enum ServiceAPI {
     static let baseURL = URL(string: "https://www.umc-parasol.r-e.kr")
-    static let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjkxOTgyMTkwLCJleHAiOjE2OTE5ODU3OTB9.b70YnAmbiryTpe8twomzERHkDW21vMtYP68OGdw29JJTU1GEpRROyUwYa0esvIeJ1U4KqQx8rYSNNjvNryDuvA"
+    static let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjkyMDIyNTgwLCJleHAiOjE2OTIwMjYxODB9.3qEj_K06yomwJGYnYNmlaVnZ9M97-QkdWCkg_VJ4FaWRMrb0d6XUkv5ephRhhr4Mi-qFnmpilRzFbd6NkmxTqg"
 }

@@ -74,6 +74,9 @@
 		09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5A2A65308000EF986E /* Assets.xcassets */; };
 		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
 		09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */; };
+		5565674D2A8A418C00455BE1 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5565674C2A8A418C00455BE1 /* MenuModel.swift */; };
+		5565674F2A8A420D00455BE1 /* MenuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5565674E2A8A420D00455BE1 /* MenuAPI.swift */; };
+		556567512A8A44B500455BE1 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556567502A8A44B500455BE1 /* MenuManager.swift */; };
 		55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */; };
 		84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1BA60A43B688696059FBECE /* Pods_PARASOL.framework */; };
 /* End PBXBuildFile section */
@@ -148,6 +151,9 @@
 		09DD5B5D2A65308000EF986E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentVC.swift; sourceTree = "<group>"; };
+		5565674C2A8A418C00455BE1 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		5565674E2A8A420D00455BE1 /* MenuAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAPI.swift; sourceTree = "<group>"; };
+		556567502A8A44B500455BE1 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		55A5D2242A817D19006AE177 /* OwnerJoinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerJoinVC.swift; sourceTree = "<group>"; };
 		7F0289CCCC0DCC3A7DA1A916 /* Pods-PARASOL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARASOL.release.xcconfig"; path = "Target Support Files/Pods-PARASOL/Pods-PARASOL.release.xcconfig"; sourceTree = "<group>"; };
 		B1BA60A43B688696059FBECE /* Pods_PARASOL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PARASOL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +244,7 @@
 			children = (
 				09CF04C12A6533E6002C9F8B /* SampleModel.swift */,
 				097F0B8E2A84E61200955BB1 /* HomeModel.swift */,
+				5565674C2A8A418C00455BE1 /* MenuModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +257,8 @@
 				097F0B8A2A84C96A00955BB1 /* HomeManager.swift */,
 				097F0B8C2A84D00900955BB1 /* HomeAPI.swift */,
 				09CF04C72A65342B002C9F8B /* SampleAPI.swift */,
+				5565674E2A8A420D00455BE1 /* MenuAPI.swift */,
+				556567502A8A44B500455BE1 /* MenuManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -610,8 +619,11 @@
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
+				556567512A8A44B500455BE1 /* MenuManager.swift in Sources */,
+				5565674F2A8A420D00455BE1 /* MenuAPI.swift in Sources */,
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
+				5565674D2A8A418C00455BE1 /* MenuModel.swift in Sources */,
 				091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,

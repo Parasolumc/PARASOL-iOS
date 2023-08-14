@@ -7,94 +7,14 @@
 
 import UIKit
 
-// 대여 기록 데이터 모델
-struct RentalRecord {
-    var date: String
-    var location: String
-    var state: Int
-}
-
 class RecordVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    var date = "2023년 6월 5일"
-    var location = "홍익문고"
-    var state = 1 //대여중   반납완료:0
-
+    // MARK: [For Data]
+    var rentalRecords: [RentalRecordInformation] = []
+    
     // MARK: [UI components]
-
-    /*let backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "light")
-        view.setDimensions(height: 81, width: 342)
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
-    lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(self.date)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        
-        return label
-    }()
-    
-    lazy var locationLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(self.location)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        
-        return label
-    }()
-    
-    lazy var clockImage: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "clock"))
-        imageview.setDimensions(height: 19, width: 19)
-        
-        return imageview
-    }()
-    
-    lazy var stateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "대여중"
-        label.font = UIFont.systemFont(ofSize: 16)
-        //상태에 따라 케이스 나누기 (미구현)
-        
-        return label
-    }()
-    
-    lazy var dlStackview: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.dateLabel, self.locationLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .horizontal
-        stackview.alignment = .leading
-        stackview.spacing = 10
-        
-        return stackview
-    }()
-    
-    lazy var stateStackview: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.clockImage, self.stateLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .horizontal
-        stackview.alignment = .leading
-        stackview.spacing = 9
-        
-        return stackview
-    }()
-    
-    lazy var recordStackview: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.dlStackview, self.stateStackview])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .vertical
-        stackview.alignment = .leading
-        stackview.spacing = 9
-        
-        return stackview
-    }()*/
-    
     lazy var RentalrecordStackview: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [])
         stackview.translatesAutoresizingMaskIntoConstraints = false
@@ -110,18 +30,8 @@ class RecordVC: UIViewController{
         super.viewDidLoad()
         
         configureUI()
+        fetchData()
         setNavigationBar()
-        
-        let rentalRecords: [RentalRecord] = [
-            //RentalRecord(date: "2023년 6월 5일", location: "홍익문고", state: 1),
-            //RentalRecord(date: "2023년 6월 9일", location: "동대문구", state: 0)
-            // 다른 대여 기록 데이터들도 추가
-        ]
-        
-        for record in rentalRecords {
-            let recordView = createRecordStackview(date: record.date, location: record.location, state: record.state)
-            RentalrecordStackview.addArrangedSubview(recordView)  // RentalrecordStackview에 추가
-        }
     }
     
     // MARK: - Actions
@@ -133,27 +43,24 @@ class RecordVC: UIViewController{
     
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
-         
-        /*view.addSubview(backgroundView)
-        backgroundView.addSubview(recordStackview)
-        view.addSubview(RentalrecordStackview)
-        
-        backgroundView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 24)
-        
-        recordStackview.anchor(top: backgroundView.topAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 50)*/
-        
         view.addSubview(RentalrecordStackview)
         
         RentalrecordStackview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 24)
         
     }
     
-    // MARK: - Helpers
-    // 설정, 데이터처리 등 액션 외의 메서드를 정의
-    func createRecordStackview(date: String, location: String, state: Int) -> UIView {
+    func createRecordStackview(date: String, location: String, state: String) -> UIView {
         let dateLabel = UILabel()
-        dateLabel.text = date
+        
+        let maxDisplayLength = 10 // 최대 표시 길이
+        if date.count > maxDisplayLength {
+            let truncatedText = date.prefix(maxDisplayLength) // 초과하는 부분 생략
+            dateLabel.text = String(truncatedText)
+        } else {
+            dateLabel.text = date
+        }
         dateLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+
         
         let locationLabel = UILabel()
         locationLabel.text = location
@@ -163,9 +70,9 @@ class RecordVC: UIViewController{
         clockImage.setDimensions(height: 19, width: 19)
         
         let stateLabel = UILabel()
-        if state == 1 {
+        if state == "USE" {
             stateLabel.text = "대여중"
-        } else if state == 0 {
+        } else if state == "CLEAR" {
             stateLabel.text = "48시간 이용"
         }
         stateLabel.font = UIFont.systemFont(ofSize: 16)
@@ -214,11 +121,46 @@ class RecordVC: UIViewController{
         
         return containerView
     }
-
-
+    
+    // MARK: - Helpers
+    // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    func fetchData() {
+        MenuManager.shared.user_getRentalList { result in
+            switch result {
+            case .success(let data):
+                print(data)
+                self.rentalRecords.removeAll()
+                for rentalrecord in data.information {
+                    self.rentalRecords.append(RentalRecordInformation.init(member: rentalrecord.member,
+                                                                           fromShop: rentalrecord.fromShop,
+                                                                           endShop: rentalrecord.endShop,
+                                                                           createdAt: rentalrecord.createdAt,
+                                                                           clearedAt: rentalrecord.clearedAt,
+                                                                           process: rentalrecord.process))
+                }
+                print(self.rentalRecords)
+                
+                // 데이터를 가져온 후에 UI 업데이트 수행
+                DispatchQueue.main.async {
+                    self.updateUIWithRentalRecords()
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
+    
+    func updateUIWithRentalRecords() {
+        for record in self.rentalRecords {
+            let recordView = self.createRecordStackview(date: record.createdAt, location: record.fromShop, state: record.process)
+            self.RentalrecordStackview.addArrangedSubview(recordView)
+        }
+    }
+    
+    // MARK: - Extensions
+    
+    
 }
-
-// MARK: - Extensions
-
-
-
