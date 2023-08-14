@@ -41,6 +41,9 @@
 		097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B942A88F0BD00955BB1 /* PopupVC.swift */; };
 		09A0A3E82A8980D6006FB24E /* Agreement2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */; };
 		09A0A3EA2A89C823006FB24E /* Agreement3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E92A89C823006FB24E /* Agreement3VC.swift */; };
+		09A0A3FE2A8A8B42006FB24E /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */; };
+		09A0A4002A8A92AB006FB24E /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */; };
+		09A0A4022A8A9584006FB24E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A4012A8A9584006FB24E /* AuthManager.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -117,6 +120,9 @@
 		097F0B942A88F0BD00955BB1 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement2VC.swift; sourceTree = "<group>"; };
 		09A0A3E92A89C823006FB24E /* Agreement3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement3VC.swift; sourceTree = "<group>"; };
+		09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		09A0A4012A8A9584006FB24E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -247,6 +253,7 @@
 				09CF04C12A6533E6002C9F8B /* SampleModel.swift */,
 				097F0B8E2A84E61200955BB1 /* HomeModel.swift */,
 				5565674C2A8A418C00455BE1 /* MenuModel.swift */,
+				09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,6 +268,8 @@
 				09CF04C72A65342B002C9F8B /* SampleAPI.swift */,
 				5565674E2A8A420D00455BE1 /* MenuAPI.swift */,
 				556567502A8A44B500455BE1 /* MenuManager.swift */,
+				09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */,
+				09A0A4012A8A9584006FB24E /* AuthManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -631,6 +640,7 @@
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
 				09D48BD42A8A8204001F9E41 /* AgreementVC.swift in Sources */,
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,
+				09A0A4002A8A92AB006FB24E /* AuthAPI.swift in Sources */,
 				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
 				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,
 				09CF04E02A653519002C9F8B /* UserMenuVC.swift in Sources */,
@@ -648,6 +658,7 @@
 				0913631F2A80F13E0028669A /* mapMarker.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
+				09A0A4022A8A9584006FB24E /* AuthManager.swift in Sources */,
 				096D1DBD2A80CF4C00708B51 /* StoreInfoVC.swift in Sources */,
 				097F0B8D2A84D00900955BB1 /* HomeAPI.swift in Sources */,
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
@@ -659,6 +670,7 @@
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,
 				09CF04F62A66B98C002C9F8B /* AlarmVC.swift in Sources */,
 				09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */,
+				09A0A3FE2A8A8B42006FB24E /* AuthModel.swift in Sources */,
 				097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */,
 				09D04EC42A80D1E0002F73A9 /* OwnerTabBarVC.swift in Sources */,
 				097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */,

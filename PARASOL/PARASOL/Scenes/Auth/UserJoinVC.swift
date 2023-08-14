@@ -470,6 +470,7 @@ class UserJoinVC : UIViewController {
         super.viewDidLoad()
         configureUI()
         setNavigationBar()
+        postData()
     }
     
     func setNavigationBar() {
@@ -526,5 +527,22 @@ class UserJoinVC : UIViewController {
         userpaymentVC.payment = "UserPayment"
         self.navigationController?.pushViewController(userpaymentVC, animated: true)
     }
-}
 
+
+// MARK: - Helpers
+    
+    func postData() {
+        let userNickname : UserJoinModel = UserJoinModel(nickname: "joo", email: "joo@gmail.com", password: "1234")
+        AuthManager.shared.userJoin(userJoinData: userNickname) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("회원가입에 성공했습니다.\n")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
+    }
+}
