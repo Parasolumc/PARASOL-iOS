@@ -65,5 +65,42 @@ class HomeManager {
         }
     }
     
+    // 매장 검색
+    func searchStores(SearchStoreModel: SearchStoreModel, completion: @escaping (Result<SearchedStoreModel, Error>) -> Void ) {
+        provider.request(.searchStore(param: SearchStoreModel)) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(SearchedStoreModel.self, from: data.data)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
+    // 사장님 본인 매장 조회
+    func owner_getStore(completion: @escaping (Result<OwnerStoreModel, Error>) -> Void ) {
+        provider.request(.ownerstore) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(OwnerStoreModel.self, from: data.data)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     
 }
