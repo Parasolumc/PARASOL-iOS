@@ -785,7 +785,7 @@ class Agreement1VC : UIViewController {
     
     let TenCon2Label : UILabel = {
         let label = UILabel()
-        label.text = " 회사는 이용계약의 체결, 계약사항의 변경 및 해지 등 이용자와의 계약관련 절차 및 내용 등에 있어 이용자에게 편의를 제공하도록 노력합니다."
+        label.text = "회사는 이용계약의 체결, 계약사항의 변경 및 해지 등 이용자와의 계약관련 절차 및 내용 등에 있어 이용자에게 편의를 제공하도록 노력합니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -797,7 +797,7 @@ class Agreement1VC : UIViewController {
     
     let TenCon3Label : UILabel = {
         let label = UILabel()
-        label.text = " 회사는 대표자의 성명, 상호, 주소, 전화번호, 모사전송번호(FAX), 통신판매업 신고번호, 이용약관, 개인정보취급방침 등을 이용자가 쉽게 알 수 있도록 온라인 서비스 초기화면에 게시합니다."
+        label.text = "회사는 대표자의 성명, 상호, 주소, 전화번호, 모사전송번호(FAX), 통신판매업 신고번호, 이용약관, 개인정보취급방침 등을 이용자가 쉽게 알 수 있도록 온라인 서비스 초기화면에 게시합니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1017,7 +1017,7 @@ class Agreement1VC : UIViewController {
     
     let TwlvCon6Label : UILabel = {
         let label = UILabel()
-        label.text = " 이용자는 회사의 명시적 동의가 없는 한 서비스 이용 권한, 기타 이용 계약상의 지위에 대하여 매도, 증여, 담보제공 등 처분행위를 할 수 없습니다."
+        label.text = "이용자는 회사의 명시적 동의가 없는 한 서비스 이용 권한, 기타 이용 계약상의 지위에 대하여 매도, 증여, 담보제공 등 처분행위를 할 수 없습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1029,7 +1029,7 @@ class Agreement1VC : UIViewController {
     
     let TwlvCon7Label : UILabel = {
         let label = UILabel()
-        label.text = " 본 조와 관련하여 서비스 이용에 있어 주의사항 등 그 밖의 자세한 내용은 운영정책으로 정하며, 이용자가 서비스 이용약관 및 운영정책을 위반하는 경우 서비스 이용제한, 민형사상의 책임 등 불이익이 발생할 수 있습니다."
+        label.text = "본 조와 관련하여 서비스 이용에 있어 주의사항 등 그 밖의 자세한 내용은 운영정책으로 정하며, 이용자가 서비스 이용약관 및 운영정책을 위반하는 경우 서비스 이용제한, 민형사상의 책임 등 불이익이 발생할 수 있습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1547,7 +1547,7 @@ class Agreement1VC : UIViewController {
     
     let NntnCon2Label : UILabel = {
         let label = UILabel()
-        label.text = " 회사는 이용자가 결제수단에 대해 정당한 사용권한을 가지고 있는지의 여부를 확인할 수 있으며, 이에 대한 확인이 완료될 때까지 거래 진행을 중지하거나, 확인이 불가한 해당 거래를 취소할 수 있습니다."
+        label.text = "회사는 이용자가 결제수단에 대해 정당한 사용권한을 가지고 있는지의 여부를 확인할 수 있으며, 이에 대한 확인이 완료될 때까지 거래 진행을 중지하거나, 확인이 불가한 해당 거래를 취소할 수 있습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1559,7 +1559,7 @@ class Agreement1VC : UIViewController {
     
     let NntnCon3Label : UILabel = {
         let label = UILabel()
-        label.text = " 회사의 정책 및 제1항의 결제업체(이동통신사, 카드사 등) 및 결제대행업체의 기준에 따라 이용자 당 월 누적 결제액 및 충전한도가 제한될 수 있습니다. 해당 기준을 초과한 경우 유료서비스의 추가 이용은 불가능할 수 있습니다."
+        label.text = "회사의 정책 및 제1항의 결제업체(이동통신사, 카드사 등) 및 결제대행업체의 기준에 따라 이용자 당 월 누적 결제액 및 충전한도가 제한될 수 있습니다. 해당 기준을 초과한 경우 유료서비스의 추가 이용은 불가능할 수 있습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1571,7 +1571,7 @@ class Agreement1VC : UIViewController {
     
     let NntnCon4Label : UILabel = {
         let label = UILabel()
-        label.text = " 이용자가 대금의 지급이나 결제를 위하여 입력한 정보에 대한 책임은 이용자에게 있습니다."
+        label.text = "이용자가 대금의 지급이나 결제를 위하여 입력한 정보에 대한 책임은 이용자에게 있습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1669,7 +1669,7 @@ class Agreement1VC : UIViewController {
     
     let TwtyCon4Label : UILabel = {
         let label = UILabel()
-        label.text = " 회사는 환불 의무가 발생한 날로부터 3영업일 내에 환불절차를 진행합니다. 다만, 환불을 위하여 이용자의 협조가 필요한 경우 이용자의 귀책사유로 환불이 지연된 경우 회사는 지연이자를 부담하지 않습니다."
+        label.text = "회사는 환불 의무가 발생한 날로부터 3영업일 내에 환불절차를 진행합니다. 다만, 환불을 위하여 이용자의 협조가 필요한 경우 이용자의 귀책사유로 환불이 지연된 경우 회사는 지연이자를 부담하지 않습니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1681,7 +1681,7 @@ class Agreement1VC : UIViewController {
     
     let TwtyCon5Label : UILabel = {
         let label = UILabel()
-        label.text = " 환불에 필요한 비용은 귀책사유가 있는 쪽이 부담합니다."
+        label.text = "환불에 필요한 비용은 귀책사유가 있는 쪽이 부담합니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1917,7 +1917,7 @@ class Agreement1VC : UIViewController {
     
     let TwfrExpLabel : UILabel = {
         let label = UILabel()
-        label.text = " 서비스와 관련하여 분쟁이 발생한 경우 관할법원은 민사소송법에 따른 관할법원으로 정하며, 준거법은 대한민국의 법령을 적용합니다."
+        label.text = "서비스와 관련하여 분쟁이 발생한 경우 관할법원은 민사소송법에 따른 관할법원으로 정하며, 준거법은 대한민국의 법령을 적용합니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -1965,7 +1965,7 @@ class Agreement1VC : UIViewController {
     
     let BonusFirstExpLabel : UILabel = {
         let label = UILabel()
-        label.text = " 본 약관은 2023.08.23부터 시행됩니다."
+        label.text = "본 약관은 2023.08.23부터 시행됩니다."
         label.textColor = UIColor(named: "black")
         label.textAlignment = .left
         label.font = UIFont(name: "Pretendard-Regular", size: 8)
@@ -2027,7 +2027,7 @@ class Agreement1VC : UIViewController {
     // MARK: - Actions
     
     func setNavigationBar() {
-        self.navigationItem.title = "파라솔 이용약관"
+        self.navigationItem.title = "약관동의"
     }
     
     func configureUI() {
@@ -2180,13 +2180,12 @@ class Agreement1VC : UIViewController {
         self.Agreement1ScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.Agreement1ScrollView.widthAnchor.constraint(equalToConstant: (screenWidth - 90)).isActive = true
         self.Agreement1ScrollView.heightAnchor.constraint(equalToConstant: (screenHeight - 136)).isActive = true
-        
         self.Agreement1ScrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.Agreement1ScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         
         self.Agreement1ScrollView.contentSize = self.FullStackView.bounds.size
         
-        FullStackView.anchor(top: view.topAnchor, paddingTop: 136)
+        FullStackView.anchor(top: self.Agreement1ScrollView.topAnchor, paddingTop: 0)
         
         // 스택 뷰 레이아웃 설정
         self.FullStackView.translatesAutoresizingMaskIntoConstraints = false
