@@ -90,6 +90,7 @@ class Rental_ReturnVC: UIViewController {
         
         configureUI()
         setNavigationBar()
+        sellPostData()
         
     }
     
@@ -129,5 +130,24 @@ class Rental_ReturnVC: UIViewController {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    func sellPostData() {
+        let storeId: Int = 2
+        MenuManager.shared.sellUmbrella(id: storeId) { result in
+            switch result {
+            case .success(let data):
+                if data["check"] as? Bool == true {
+                    print("판매가 완료되었습니다.")
+                }
+                else {
+                    print("xx")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        
+        }
+    }
 
 }

@@ -53,7 +53,8 @@ class MypageVC: UIViewController {
         let alert = UIAlertController(title: "로그아웃하시겠습니까?", message: "로그아웃을 해도 정보가 삭제되지 않습니다.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "아니요", style: .cancel, handler: nil)
         let logoutAction = UIAlertAction(title: "네", style: .destructive) { _ in
-            // 로그아웃 처리
+            self.postData()
+            
         }
         
         alert.addAction(cancelAction)
@@ -122,6 +123,25 @@ extension MypageVC: UITableViewDelegate, UITableViewDataSource {
             let contractVC = ContractVC()
             self.navigationController?.pushViewController(contractVC, animated: true)
             
+        }
+    }
+    
+    func postData() {
+        let refreshToken: LogoutModel = LogoutModel(refreshToken: ServiceAPI.refreshtoken)
+        MypageManager.shared.logOut(logOutData: refreshToken) { result in
+            switch result {
+            case .success(let data):
+                if data["check"] as? Bool == true {
+                    print("로그아웃되었습니다.")
+                }
+                else {
+                    print("로그아웃에 실패했습니다.")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        
         }
     }
     

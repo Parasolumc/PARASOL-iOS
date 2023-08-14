@@ -9,9 +9,12 @@ import UIKit
 
 class UserMenuVC: UIViewController {
     
-    var state = 1 //대여중   대여중x:0
-    var start = "2023/07/02 16:45"
-    var end = "2023/07/04 16:50"
+    // MARK: [For Data]
+    var rentalRecords: [RentalRecordInformation] = []
+    
+    var state: String = ""
+    var start: String = ""
+    var end: String = ""
     
     lazy var titleStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.titleLabel, self.umbrellaImageView])
@@ -49,12 +52,14 @@ class UserMenuVC: UIViewController {
     
     lazy var statelabel: UILabel = {
         let label = UILabel()
-        if state == 0 { // 대여중이 아닌 상태
-            label.text = "아직 빌린 우산이 없어요!"
+        if state == "USE" { // 대여중인 상태
+            let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
+            //let time =
+            label.text = "\(date) 에 빌렸어요"
             label.font = .boldSystemFont(ofSize: 16)
         }
-        else if state == 1 { // 대여중인 상태
-            label.text = String(self.start) + " 에 빌렸어요"
+        else { // 대여중이 아닌 상태
+            label.text = "아직 빌린 우산이 없어요!"
             label.font = .boldSystemFont(ofSize: 16)
         }
         
@@ -63,7 +68,7 @@ class UserMenuVC: UIViewController {
     
     lazy var freestatelabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.end) + " 까지 반납하면 무료!"
+        label.text = String(self.end) + " 까지 반납하면 무료! (추가예정)"
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .blue
         
@@ -139,7 +144,7 @@ class UserMenuVC: UIViewController {
         return label
     }()
     
-    lazy var feeStackView: UIStackView = { //노랑
+    lazy var feeStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.label2, self.moneyStackView])
         stackview.axis = .vertical
         stackview.spacing = 20
@@ -272,22 +277,13 @@ class UserMenuVC: UIViewController {
         
         return button
     }()
-    
-    /*let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .gray
-        
-        return tableView
-    }()
-    
-    let sections = ["관리"]
-    let manageItems = ["결제수단", "대여기록"]*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+        fetchData()
+        
     }
     
     // UI 설정들 관련 method
@@ -296,7 +292,7 @@ class UserMenuVC: UIViewController {
         
         view.addSubview(titleStackView)
         view.addSubview(info)
-        info.addSubview(statelabel)
+        
 
         view.addSubview(sellbutton)
         view.addSubview(soldbutton)
@@ -308,7 +304,7 @@ class UserMenuVC: UIViewController {
         
         info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         
-        showView()
+        //showView()
         
         sellbutton.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         soldbutton.anchor(top: sellbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
@@ -322,14 +318,8 @@ class UserMenuVC: UIViewController {
     }
     
     func showView() {
-        if state == 0 { // 대여중이 아닌 상태
-            view.addSubview(rentalbutton)
-            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
-            
-            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
-            rentalbutton.centerX(inView: view)
-        }
-        else if state == 1 { // 대여중인 상태
+        if state == "USE" { // 대여중인 상태
+            info.addSubview(statelabel)
             info.addSubview(freestatelabel)
             info.addSubview(warninglabel)
             view.addSubview(stateStackView)
@@ -342,10 +332,55 @@ class UserMenuVC: UIViewController {
             stateStackView.centerX(inView: info)
             stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
         }
+        else { // 대여중이 아닌 상태
+            view.addSubview(rentalbutton)
+            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
+            
+            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
+            rentalbutton.centerX(inView: view)
+        }
         
         
         
     }
     
+    func fetchData() {
+        MenuManager.shared.user_getRentalList { result in
+            switch result {
+            case .success(let data):
+                print(data)
+                self.rentalRecords.removeAll()
+                for rentalrecord in data.information {
+                    self.rentalRecords.append(RentalRecordInformation.init(member: rentalrecord.member,
+                                                                           fromShop: rentalrecord.fromShop,
+                                                                           endShop: rentalrecord.endShop,
+                                                                           createdAt: rentalrecord.createdAt,
+                                                                           clearedAt: rentalrecord.clearedAt,
+                                                                           process: rentalrecord.process))
+                }
+                print(self.rentalRecords)
+                
+                // Iterate through rentalRecords to find the latest "USE" record
+                for record in self.rentalRecords {
+                    if record.process == "USE" {
+                        self.state = "USE"
+                        self.start = record.createdAt
+                        break
+                    } else if record.process == "CLEAR" {
+                        self.state = "CLEAR"
+                        break
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.showView()
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
 
 }
