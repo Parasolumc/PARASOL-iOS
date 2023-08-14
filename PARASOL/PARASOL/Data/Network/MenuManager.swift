@@ -30,6 +30,19 @@ class MenuManager {
         }
     }
     
+    func sellUmbrella(id: Int, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
+        provider.request(.sellUmbrella(id: id)) { result in
+            switch result {
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error):
+                completion(.failure(Error))
+            }
+        }
+    }
+    
     
     
     
