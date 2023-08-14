@@ -12,6 +12,8 @@ enum HomeAPI {
     case storeList
     case store(id: Int)
     case editUmbrella(param: editUmbrellaModel)
+    case searchStore(param: SearchStoreModel)
+    case ownerstore
 }
 
 extension HomeAPI: TargetType {
@@ -29,6 +31,10 @@ extension HomeAPI: TargetType {
             return "/api/shop/\(id)"
         case .editUmbrella(param: _):
             return "/api/umbrella/add"
+        case .searchStore(param: _):
+            return "/api/shop/search"
+        case .ownerstore:
+            return "/api/shop/owner"
         }
     }
     
@@ -41,6 +47,10 @@ extension HomeAPI: TargetType {
             return .get
         case .editUmbrella(param: _):
             return .post
+        case .searchStore(param: _):
+            return .get
+        case .ownerstore:
+            return .get
         }
     }
     
@@ -53,6 +63,13 @@ extension HomeAPI: TargetType {
             return .requestPlain
         case .editUmbrella(param: let param):
             return .requestJSONEncodable(param)
+        case .searchStore(param: let param):
+            let paramDict: [String : String] = ["keyword": param.keyword,
+                                                "lat": param.userLatitude,
+                                                "lon": param.userLongitude]
+            return .requestParameters(parameters: paramDict, encoding: URLEncoding.queryString)
+        case .ownerstore:
+            return .requestPlain
         }
     }
     
@@ -61,7 +78,7 @@ extension HomeAPI: TargetType {
         switch self {
         default:
             return ["Content-Type": "application/json",
-                    "Authorization": "Bearer \(ServiceAPI.token)" ]
+                    "Authorization": "Bearer \(ServiceAPI.token)"]
         }
     }
     

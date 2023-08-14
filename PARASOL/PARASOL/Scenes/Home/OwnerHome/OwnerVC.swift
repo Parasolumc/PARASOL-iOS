@@ -260,7 +260,8 @@ class OwnerVC: UIViewController {
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        postData()
+//        postData()
+        fetchData()
     }
     
     override func viewDidLoad() {
@@ -326,5 +327,19 @@ class OwnerVC: UIViewController {
         }
         
     }
+    
+    func fetchData() {
+        HomeManager.shared.owner_getStore() { result in
+            switch result {
+            case .success(let data):
+                print("본인 매장 조회")
+                print(data) // 데이터 확인용
+            case .failure(let error):
+                print("본인 매장 조회 에러\n\(error)")
+            }
+        }
+    }
+    
+    
     
 }
