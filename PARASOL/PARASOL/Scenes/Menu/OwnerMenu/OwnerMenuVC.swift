@@ -24,6 +24,13 @@ class OwnerMenuVC: UIViewController {
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
+    // 영업중인 요일
+    var workingday = ""
+    
+    // 영업 시작, 종료 시간
+    var starttime = ""
+    var endtime = ""
+    
     // MARK: [UI components]
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -34,26 +41,8 @@ class OwnerMenuVC: UIViewController {
         return label
     }()
     
-    lazy var editButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "edit"), for: .normal)
-        button.setDimensions(height: 22, width: 22)
-        button.layer.cornerRadius = 22 / 2
-        //button.contentVerticalAlignment = .fill
-        //button.contentHorizontalAlignment = .fill
-        
-        /*let goToEditVCAction = UIAction { _ in
-            let editVC = OwnerMenuEditVC()
-            self.navigationController?.pushViewController(editVC, animated: true)
-        }
-            
-        button.addAction(goToEditVCAction, for: .touchUpInside)*/
-        
-        return button
-    }()
-    
     lazy var nameEditHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.editButton])
+        let stackView = UIStackView(arrangedSubviews: [self.nameLabel])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -96,10 +85,10 @@ class OwnerMenuVC: UIViewController {
         return label
     }()
     
-    var timeLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "09:00에 영업 시작"
+        label.text = String(self.workingday) + " " + String(self.starttime) + " - " + String(self.endtime)
         label.font = .systemFont(ofSize: 14)
         label.textColor = UIColor(named: "black")
         return label
@@ -151,7 +140,6 @@ class OwnerMenuVC: UIViewController {
         let view = UIView()
         view.setDimensions(height: 107, width: 129)
         view.backgroundColor = UIColor(named: "gray00_opacity")
-        view.alpha = 0.4
         view.layer.cornerRadius = 20
         
         return view
@@ -271,6 +259,27 @@ class OwnerMenuVC: UIViewController {
 
         return stackView
     }()
+    
+    lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("수정하기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setDimensions(height: 69, width: 342)
+        button.layer.cornerRadius = 20
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.clipsToBounds = true
+        button.backgroundColor = UIColor(named: "main")
+        
+        let goToEditVCAction = UIAction { _ in
+            let editVC = OwnerMenuEditVC()
+            self.navigationController?.pushViewController(editVC, animated: true)
+        }
+            
+        button.addAction(goToEditVCAction, for: .touchUpInside)
+        
+        return button
+    }()
+    
 
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
@@ -278,10 +287,6 @@ class OwnerMenuVC: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEditButton))
-        vStackView.addGestureRecognizer(tapGesture)
-        vStackView.isUserInteractionEnabled = true
     }
     
     // MARK: - Actions
@@ -296,35 +301,33 @@ class OwnerMenuVC: UIViewController {
         view.addSubview(introduceLabel)
         view.addSubview(umbrellaHStackView)
         view.addSubview(labelHStackView)
+        view.addSubview(editButton)
         
         vStackView.anchor(top: view.topAnchor, paddingTop: 65)
         vStackView.centerX(inView: view)
-        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
         
+        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
         
         picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
         picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
         picsScrollView.addSubview(picsStackView)
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
-        
         picsStackView.addArrangedSubview(addPicsView)
         
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
+        
         umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 50)
         umbrellaHStackView.centerX(inView: view)
+        
         labelHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 55)
         labelHStackView.centerX(inView: view)
+        
+        editButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 24, paddingBottom: 20)
         
     }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-    
-    @objc func didTapEditButton(sender: UIButton) {
-        let editVC = OwnerMenuEditVC()
-        self.navigationController?.pushViewController(editVC, animated: true)
-        
-    }
 
 }
