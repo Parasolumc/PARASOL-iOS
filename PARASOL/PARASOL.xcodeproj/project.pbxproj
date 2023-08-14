@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0913631F2A80F13E0028669A /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0913631E2A80F13E0028669A /* mapMarker.swift */; };
+		091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */; };
 		092037332A810022003FA716 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092037322A810022003FA716 /* TextField.swift */; };
 		093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
@@ -38,7 +39,6 @@
 		097F0B8D2A84D00900955BB1 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8C2A84D00900955BB1 /* HomeAPI.swift */; };
 		097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8E2A84E61200955BB1 /* HomeModel.swift */; };
 		097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B942A88F0BD00955BB1 /* PopupVC.swift */; };
-		09A0A3E62A89746F006FB24E /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E52A89746F006FB24E /* Agreement1VC.swift */; };
 		09A0A3E82A8980D6006FB24E /* Agreement2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */; };
 		09A0A3EA2A89C823006FB24E /* Agreement3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E92A89C823006FB24E /* Agreement3VC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
@@ -80,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		0913631E2A80F13E0028669A /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapMarker.swift; sourceTree = "<group>"; };
+		091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agreement1VC.swift; sourceTree = "<group>"; };
 		092037322A810022003FA716 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerStoreVC.swift; sourceTree = "<group>"; };
 		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
@@ -110,7 +111,6 @@
 		097F0B8C2A84D00900955BB1 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		097F0B8E2A84E61200955BB1 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		097F0B942A88F0BD00955BB1 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
-		09A0A3E52A89746F006FB24E /* Agreement1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Agreement1VC.swift; path = "/Users/seojooyoung/Desktop/Github/PARASOL-iOS/PARASOL/PARASOL/Scenes/Auth/Agreement1VC.swift"; sourceTree = "<absolute>"; };
 		09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement2VC.swift; sourceTree = "<group>"; };
 		09A0A3E92A89C823006FB24E /* Agreement3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement3VC.swift; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
-				09A0A3E52A89746F006FB24E /* Agreement1VC.swift */,
+				091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */,
 				09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */,
 				09A0A3E92A89C823006FB24E /* Agreement3VC.swift */,
 			);
@@ -610,9 +610,9 @@
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
-				09A0A3E62A89746F006FB24E /* Agreement1VC.swift in Sources */,
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
+				091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,
 				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
