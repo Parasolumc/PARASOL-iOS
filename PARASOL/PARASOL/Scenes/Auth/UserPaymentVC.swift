@@ -99,9 +99,9 @@ class UserPaymentVC : UIViewController {
         nextLabel.centerX(inView: view)
         nextLabel.centerY(inView: view)
         
-//        view.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerStoreVC))
-//        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToLoginVC))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -141,6 +141,12 @@ class UserPaymentVC : UIViewController {
         
         nextButton.anchor(top: laterButton.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 535, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     
+    }
+    
+    @objc func goToLoginVC() {
+        let root = LoginVC()
+        let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
     }
     
     // MARK: - Helpers

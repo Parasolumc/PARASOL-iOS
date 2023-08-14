@@ -179,9 +179,9 @@ class OwnerStoreVC : UIViewController {
         nextLabel.centerX(inView: view)
         nextLabel.centerY(inView: view)
         
-//        view.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerStoreVC))
-//        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToLoginVC))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -217,7 +217,7 @@ class OwnerStoreVC : UIViewController {
         self.storeNameTextField.autocapitalizationType = .none
         self.locaTextField.autocapitalizationType = .none
         self.addressTextField.autocapitalizationType = .none
-
+        
         storeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         storeNameTextField.translatesAutoresizingMaskIntoConstraints = false
         storeNameLineView.translatesAutoresizingMaskIntoConstraints = false
@@ -239,7 +239,13 @@ class OwnerStoreVC : UIViewController {
         locaSearchButton.anchor(top: locaSearchView.topAnchor, left: locaTextField.rightAnchor, bottom: locaSearchView.bottomAnchor, right: locaSearchView.rightAnchor, paddingTop: 10, paddingLeft: 138, paddingBottom: 10, paddingRight: 10)
         addressStackView.anchor(top: locaSearchView.bottomAnchor, left: view.leftAnchor, bottom: nextButton.topAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 24, paddingBottom: 413, paddingRight: 24)
         nextButton.anchor(top: addressStackView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 413, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
+        
+    }
     
+    @objc func goToLoginVC() {
+        let root = LoginVC()
+        let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
     }
     
     // MARK: - Helpers

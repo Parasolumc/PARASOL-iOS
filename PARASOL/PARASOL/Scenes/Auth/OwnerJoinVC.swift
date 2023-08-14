@@ -12,7 +12,7 @@ class OwnerJoinVC : UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    var join2 = "OwnerJoin"
+    var join = "OwnerJoin"
     
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
@@ -469,6 +469,11 @@ class OwnerJoinVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setNavigationBar()
+    }
+    
+    func setNavigationBar() {
+        self.navigationItem.title = "회원가입"
     }
     
     func configureUI() {
@@ -513,7 +518,7 @@ class OwnerJoinVC : UIViewController {
         phonenumTextField.anchor(width: 144, height: 17)
         authnumTextField.anchor(width: 132, height: 17)
         joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24, paddingRight: 24)
-        nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
+        nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     }
     
     // MARK: - Helpers

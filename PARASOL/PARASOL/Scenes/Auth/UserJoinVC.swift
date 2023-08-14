@@ -518,7 +518,7 @@ class UserJoinVC : UIViewController {
         phonenumTextField.anchor(width: 144, height: 17)
         authnumTextField.anchor(width: 132, height: 17)
         joinStackView.anchor(top: joinLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 36, paddingLeft: 24, paddingRight: 24)
-        nextButton.anchor(top: joinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 41, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
+        nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     }
     
     @objc func goToUserPaymentVC() {

@@ -15,6 +15,12 @@ class SelectVC : UIViewController {
     
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    
+    static let shared = SelectVC()
+    var user = "User"
+    var owner = "Owner"
+    
+    
     let selectNavigationBar : UINavigationBar = {
         let navigationbar = UINavigationBar()
         let backBtn = UIBarButtonItem(image: UIImage(named: "navigator"), style: .plain, target: SelectVC.self, action: nil)
@@ -192,15 +198,17 @@ class SelectVC : UIViewController {
         // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
     @objc func goToUserJoinVC() {
-            let userjoinVC = UserJoinVC()
-            userjoinVC.join = "UserJoin"
-            self.navigationController?.pushViewController(userjoinVC, animated: true)
-        }
+        let agreeVC = AgreementVC()
+        agreeVC.agree = "User"
+        SelectVC.shared.user = agreeVC.agree
+        self.navigationController?.pushViewController(agreeVC, animated: true)
+    }
     @objc func goToOwnerJoinVC() {
-            let ownerjoinVC = OwnerJoinVC()
-            ownerjoinVC.join2 = "OwnerJoin"
-            self.navigationController?.pushViewController(ownerjoinVC, animated: true)
-        }
+        let agreeVC = AgreementVC()
+        agreeVC.agree = "Owner"
+        SelectVC.shared.owner = agreeVC.agree
+        self.navigationController?.pushViewController(agreeVC, animated: true)
+    }
     
 }
 
