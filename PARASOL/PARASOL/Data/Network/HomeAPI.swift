@@ -10,6 +10,7 @@ import Moya
 
 enum HomeAPI {
     case storeList
+    case store(id: Int)
 }
 
 extension HomeAPI: TargetType {
@@ -23,6 +24,8 @@ extension HomeAPI: TargetType {
         switch self {
         case .storeList:
             return "/api/shop"
+        case .store(let id):
+            return "/api/shop/\(id)"
         }
     }
     
@@ -31,6 +34,8 @@ extension HomeAPI: TargetType {
         switch self {
         case .storeList:
             return .get
+        case .store:
+            return .get
         }
     }
     
@@ -38,6 +43,8 @@ extension HomeAPI: TargetType {
     var task: Moya.Task {
         switch self {
         case .storeList:
+            return .requestPlain
+        case .store:
             return .requestPlain
         }
     }

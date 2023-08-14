@@ -7,14 +7,15 @@
 
 import Foundation
 
-// MARK: - StoreListModel
+// MARK: - 매장 리스트 조회
+// MARK: [StoreListModel]
 struct StoreListModel: Codable {
     let check: Bool
-    let information: [Information]
+    let information: [StoreListInformation]
 }
 
-// MARK: - Information
-struct Information: Codable {
+// MARK: [StoreListInformation]
+struct StoreListInformation: Codable {
     let id: Int
     let shopName: String
     let latitude, longitude: Double
@@ -23,3 +24,25 @@ struct Information: Codable {
     let availableUmbrella, unavailableUmbrella: Int
 }
 
+// MARK: - 특정 가게 조회
+// MARK: [StoreModel]
+struct StoreModel: Codable {
+    let check: Bool
+    let information: StoreInformation
+}
+
+// MARK: [StoreInformation]
+struct StoreInformation: Codable {
+    let id: Int
+    let shopName, desc: String
+    let latitude, longitude: Double
+    let roadNameAddress, openTime, closeTime: String
+    let availableUmbrella: Int
+    let image: [StoreImage]
+}
+
+// MARK: [StoreImage]
+struct StoreImage: Codable {
+    let id: Int
+    let url: String
+}

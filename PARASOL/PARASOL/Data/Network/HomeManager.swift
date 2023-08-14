@@ -30,4 +30,22 @@ class HomeManager {
             
         }
     }
+    
+    func user_getStore(_ id: Int, completion: @escaping (Result<StoreModel, Error>) -> Void ) {
+        provider.request(.store(id: id)) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(StoreModel.self, from: data.data)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
 }

@@ -24,6 +24,9 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
+    // MARK: [For Data]
+    var stores: [StoreListInformation] = []
+    
     // MARK: [UI components]
     // 검색 바 요소들
     let searchBar: UISearchBar = {
@@ -251,12 +254,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        fetchData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
         setNMap()
         configureUI()
         setNavigationBar()
@@ -375,7 +378,21 @@ class UserVC: UIViewController, UISearchBarDelegate {
         HomeManager.shared.user_getStoreList { result in
             switch result {
             case .success(let data):
-                print(data)
+                print(data) // 데이터 확인용
+                self.stores.removeAll()
+                for store in data.information {
+                    self.stores.append(StoreListInformation.init(id: store.id,
+                                                                 shopName: store.shopName,
+                                                                 latitude: store.latitude,
+                                                                 longitude: store.longitude,
+                                                                 roadNameAddress: store.roadNameAddress,
+                                                                 openTime: store.openTime,
+                                                                 closeTime: store.closeTime,
+                                                                 availableUmbrella: store.availableUmbrella,
+                                                                 unavailableUmbrella: store.unavailableUmbrella))
+
+                }
+                print(self.stores) // 데이터 확인용
             case .failure(let error):
                 print(error)
             }
