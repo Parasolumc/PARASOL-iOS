@@ -41,6 +41,7 @@
 		097F0B952A88F0BD00955BB1 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B942A88F0BD00955BB1 /* PopupVC.swift */; };
 		09A0A3E82A8980D6006FB24E /* Agreement2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */; };
 		09A0A3EA2A89C823006FB24E /* Agreement3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3E92A89C823006FB24E /* Agreement3VC.swift */; };
+		09A0A3FA2A8A76EB006FB24E /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3F92A8A76EA006FB24E /* AgreementVC.swift */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -116,6 +117,7 @@
 		097F0B942A88F0BD00955BB1 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement2VC.swift; sourceTree = "<group>"; };
 		09A0A3E92A89C823006FB24E /* Agreement3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agreement3VC.swift; sourceTree = "<group>"; };
+		09A0A3F92A8A76EA006FB24E /* AgreementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgreementVC.swift; path = "/Users/seojooyoung/Desktop/Github/PARASOL-iOS/PARASOL/PARASOL/Scenes/Auth/AgreementVC.swift"; sourceTree = "<absolute>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
+				09A0A3F92A8A76EA006FB24E /* AgreementVC.swift */,
 				091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */,
 				09A0A3E72A8980D6006FB24E /* Agreement2VC.swift */,
 				09A0A3E92A89C823006FB24E /* Agreement3VC.swift */,
@@ -641,6 +644,7 @@
 				09A0A3EA2A89C823006FB24E /* Agreement3VC.swift in Sources */,
 				09CF04D62A6534D2002C9F8B /* UserVC.swift in Sources */,
 				09CF04EC2A66B899002C9F8B /* OwnerMenuVC.swift in Sources */,
+				09A0A3FA2A8A76EB006FB24E /* AgreementVC.swift in Sources */,
 				0913631F2A80F13E0028669A /* mapMarker.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
