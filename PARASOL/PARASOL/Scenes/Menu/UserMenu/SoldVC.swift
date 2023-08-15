@@ -7,16 +7,12 @@
 
 import UIKit
 
-// 판매 기록 데이터 모델
-struct SoldRecord {
-    var date: String
-    var location: String
-    var num: Int
-}
-
 class SoldVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    
+    // MARK: [For Data]
+    var sellRecords: [SellRecordInformation] = []
 
     // MARK: [UI components]
     let titleLabel: UILabel = {
@@ -119,9 +115,10 @@ class SoldVC: UIViewController{
         super.viewDidLoad()
         
         configureUI()
+        fetchData()
         setNavigationBar()
         
-        let soldRecords: [SoldRecord] = [
+        /*let soldRecords: [SoldRecord] = [
             SoldRecord(date: "2023.06.07", location: "신촌 카페플레이스점", num: 1),
             SoldRecord(date: "2023.07.07", location: "신촌 홍익문고점", num: 2)
             // 다른 판매 기록 데이터들도 추가
@@ -130,7 +127,7 @@ class SoldVC: UIViewController{
         for record in soldRecords {
             let recordView = createSoldStackview(date: record.date, location: record.location, num: record.num)
             SoldrecordStackview.addArrangedSubview(recordView)  // SoldrecordStackview에 추가
-        }
+        }*/
     }
     
     // MARK: - Actions
@@ -153,15 +150,11 @@ class SoldVC: UIViewController{
         mycabonLabel.anchor(top: SoldrecordStackview.bottomAnchor, left: view.leftAnchor, paddingTop: 50, paddingLeft: 26)
         earthImage.anchor(top: mycabonLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 26)
         cabonLabel.anchor(top: mycabonLabel.bottomAnchor, left: earthImage.rightAnchor, paddingTop: 20, paddingLeft: 10)
-        
     }
     
-    // MARK: - Helpers
-    // 설정, 데이터처리 등 액션 외의 메서드를 정의
-
     func createSoldStackview(date: String, location: String, num: Int) -> UIView {
         let dateLabel = UILabel()
-        dateLabel.text = date
+        dateLabel.text = date.replacingOccurrences(of: "-", with: ".")
         dateLabel.font = UIFont.systemFont(ofSize: 16)
         
         let locationLabel = UILabel()
@@ -186,9 +179,43 @@ class SoldVC: UIViewController{
         soldStackView.alignment = .center
         soldStackView.distribution = .equalSpacing
         soldStackView.spacing = 10
-        soldStackView.setDimensions(height: 25, width: 305)
+        soldStackView.setDimensions(height: 25, width: 315)
         
         return soldStackView
+    }
+    
+    // MARK: - Helpers
+    // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    func fetchData() {
+        MenuManager.shared.user_getSellRecord { result in
+            switch result {
+            case .success(let data):
+                print(data)
+                self.sellRecords.removeAll()
+                for sellrecord in data.information {
+                    self.sellRecords.append(SellRecordInformation.init(sellShop: sellrecord.sellShop,
+                                                                        createdAt: sellrecord.createdAt,
+                                                                        umbrellaCount: sellrecord.umbrellaCount))
+                }
+                print(self.sellRecords)
+                
+                // 데이터를 가져온 후에 UI 업데이트 수행
+                DispatchQueue.main.async {
+                    self.updateUIWithSellRecords()
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
+    
+    func updateUIWithSellRecords() {
+        for record in self.sellRecords {
+            let recordView = self.createSoldStackview(date: record.createdAt, location: record.sellShop, num: record.umbrellaCount)
+            self.SoldrecordStackview.addArrangedSubview(recordView)
+        }
     }
 }
 

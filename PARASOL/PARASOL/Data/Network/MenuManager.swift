@@ -43,6 +43,23 @@ class MenuManager {
         }
     }
     
+    func user_getSellRecord(completion: @escaping (Result<SellRecordModel, Error>) -> Void ) {
+        provider.request(.sellRecord) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(SellRecordModel.self, from: data.data)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     
     
     
