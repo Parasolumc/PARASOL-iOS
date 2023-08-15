@@ -19,6 +19,14 @@ class AgreementVC : UIViewController {
     lazy var screenWidth = bounds.size.width //화면 너비
     lazy var screenHeight = bounds.size.height //화면 높이
     
+    // 체크박스
+    enum AgreementButtonType {
+        case allAgree // 전체 동의
+        case requiredFirst // 필수 동의 첫번째
+        case requiredSecond // 필수 동의 두번째
+        case requiredThird // 필수 동의 세번째
+    }
+    
     let agreeLabel : UILabel = {
         let label = UILabel()
         label.text = "다음 약관에 동의해 주세요."
