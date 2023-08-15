@@ -466,10 +466,14 @@ class OwnerJoinVC : UIViewController {
         return view
     }()
     
+    // MARK: - LifeCycle
+    // 생명주기와 관련된 메서드
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         setNavigationBar()
+        postData()
     }
     
     func setNavigationBar() {
@@ -521,11 +525,52 @@ class OwnerJoinVC : UIViewController {
         nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     }
     
-    // MARK: - Helpers
     @objc func goToOwnerStoreVC() {
         let ownerstoreVC = OwnerStoreVC()
         ownerstoreVC.signUp = "OwnerStore"
         self.navigationController?.pushViewController(ownerstoreVC, animated: true)
+    }
+    
+    // MARK: - Helpers
+    
+    func postData() {
+        let ownerJoin: OwnerJoinModel = OwnerJoinModel(nickname: "young", email: "young@gmail.com", password: "1234", shopName: "jooStore", latitude: "37.2193206545541", longitude: "127.1842479359387", roadNameAddress: "서울시 강북구 삼양로 19길 25")
+        AuthManager.shared.ownerJoin(ownerJoinData: ownerJoin) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("회원가입에 성공했습니다.")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
+        
+        let verify: VerifyModel = VerifyModel(name: "joo", email: "joo@gmail.com", phoneNumber: "010-1234-1234")
+        AuthManager.shared.verify(verifyData: verify) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("인증번호를 전송했습니다.")
+                }
+            case .failure(_):
+                print("인증번호를 전송하지 못했습니다.")
+            }
+        }
+        
+        let verifyCheck: VerifyCheckModel = VerifyCheckModel(code: "201023", phoneNumber: "010-1234-1234")
+        AuthManager.shared.verifyCheck(verifyCheckData: verifyCheck) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("인증 완료")
+                }
+            case .failure(let Error) :
+                print(Error)
+                return
+            }
+        }
     }
 }
 
