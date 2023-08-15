@@ -25,4 +25,56 @@ class AuthManager {
             }
         }
     }
+    
+    func ownerJoin(ownerJoinData: OwnerJoinModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.ownerJoin(param: ownerJoinData)) { result in
+            switch result {
+            case .success(let data) :
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error) :
+                completion(.failure(Error))
+            }
+        }
+    }
+    
+    func verify(verifyData: VerifyModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.verify(param: verifyData)) { result in
+            switch result {
+            case .success(let data) :
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error) :
+                completion(.failure(Error))
+            }
+        }
+    }
+    
+    func verifyCheck(verifyCheckData: VerifyCheckModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.verifyCheck(param: verifyCheckData)) { result in
+            switch result {
+            case .success(let data) :
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error) :
+                completion(.failure(Error))
+            }
+        }
+    }
+    
+    func refreshToken(refreshTokenData: RefreshTokenModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.refreshToken(param: refreshTokenData)) { result in
+            switch result {
+            case .success(let data) :
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let Error) :
+                completion(.failure(Error))
+            }
+        }
+    }
 }

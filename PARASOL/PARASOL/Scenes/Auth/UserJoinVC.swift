@@ -544,5 +544,30 @@ class UserJoinVC : UIViewController {
                 return
             }
         }
+        
+        let verify: VerifyModel = VerifyModel(name: "", email: "", phoneNumber: "")
+        AuthManager.shared.verify(verifyData: verify) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("인증번호를 전송했습니다.")
+                }
+            case .failure(_):
+                print("인증번호를 전송하지 못했습니다.")
+            }
+        }
+        
+        let verifyCheck: VerifyCheckModel = VerifyCheckModel(code: "201023", phoneNumber: "010-1234-1234")
+        AuthManager.shared.verifyCheck(verifyCheckData: verifyCheck) { result in
+            switch result {
+            case .success(let data) :
+                if data["check"] as? Bool == true {
+                    print("인증 완료")
+                }
+            case .failure(let Error) :
+                print(Error)
+                return
+            }
+        }
     }
 }
