@@ -12,6 +12,7 @@ enum MenuAPI {
     case rentalList
     case rentalnow
     case sellUmbrella(id: Int)
+    case sellRecord
 }
 
 extension MenuAPI: TargetType {
@@ -28,6 +29,8 @@ extension MenuAPI: TargetType {
             return "/api/history/now"
         case .sellUmbrella(let id):
             return "/api/sell/\(id)"
+        case .sellRecord:
+            return "/api/sell"
         }
     }
     
@@ -39,6 +42,8 @@ extension MenuAPI: TargetType {
             return .get
         case .sellUmbrella(_):
             return .post
+        case .sellRecord:
+            return .get
         }
     }
     
@@ -49,6 +54,8 @@ extension MenuAPI: TargetType {
         case .rentalnow:
             return .requestPlain
         case .sellUmbrella(_):
+            return .requestPlain
+        case .sellRecord:
             return .requestPlain
         }
     }

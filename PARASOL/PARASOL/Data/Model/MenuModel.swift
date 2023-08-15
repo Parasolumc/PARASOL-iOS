@@ -22,3 +22,15 @@ struct RentalRecordInformation: Codable {
     let clearedAt: String
     let process: String
 }
+
+// MARK: - SellRecordModel
+struct SellRecordModel: Codable {
+    let check: Bool
+    let information: [SellRecordInformation]
+}
+
+// MARK: - Information
+struct SellRecordInformation: Codable {
+    let sellShop, createdAt: String
+    let umbrellaCount: Int
+}
