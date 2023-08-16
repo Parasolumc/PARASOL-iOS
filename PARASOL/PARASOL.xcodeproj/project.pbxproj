@@ -13,6 +13,7 @@
 		093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */; };
 		093E1BE42A8D1D970035E443 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BE32A8D1D970035E443 /* QRCodeView.swift */; };
 		093E1BE62A8D28680035E443 /* image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BE52A8D28680035E443 /* image.swift */; };
+		093E1BE82A8D50440035E443 /* SumStoreInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BE72A8D50440035E443 /* SumStoreInfoVC.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
 		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
 		0963D12A2A80DD070070D9ED /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1202A80DD070070D9ED /* LICENSE.txt */; };
@@ -98,6 +99,7 @@
 		093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerStoreVC.swift; sourceTree = "<group>"; };
 		093E1BE32A8D1D970035E443 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		093E1BE52A8D28680035E443 /* image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = image.swift; sourceTree = "<group>"; };
+		093E1BE72A8D50440035E443 /* SumStoreInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumStoreInfoVC.swift; sourceTree = "<group>"; };
 		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
 		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
 		0963D1202A80DD070070D9ED /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 			children = (
 				09CF04D72A6534DB002C9F8B /* User.storyboard */,
 				09CF04D52A6534D2002C9F8B /* UserVC.swift */,
+				093E1BE72A8D50440035E443 /* SumStoreInfoVC.swift */,
 			);
 			path = UserHome;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
+				093E1BE82A8D50440035E443 /* SumStoreInfoVC.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
 				556567512A8A44B500455BE1 /* MenuManager.swift in Sources */,
 				093E1BE42A8D1D970035E443 /* QRCodeView.swift in Sources */,

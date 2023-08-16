@@ -24,6 +24,13 @@ class StoreInfoVC: UIViewController {
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
+    // MARK: [For Data]
+    var images: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
+    StoreImage(id: 2, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png"),
+    StoreImage(id: 3, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png"),
+    StoreImage(id: 4, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png")]
+    lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.images)
+    
     // MARK: [UI components]
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -240,6 +247,11 @@ class StoreInfoVC: UIViewController {
 
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -306,6 +318,14 @@ class StoreInfoVC: UIViewController {
             
             picsStackView.addArrangedSubview(imageView)
         }
+    }
+    
+    func setData() {
+        self.nameLabel.text = self.store.shopName
+        self.addressLabel.text = self.store.roadNameAddress
+        self.introduceLabel.text = self.store.desc
+        self.umbrellaNum = self.store.availableUmbrella
+        self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
     }
 
 }
