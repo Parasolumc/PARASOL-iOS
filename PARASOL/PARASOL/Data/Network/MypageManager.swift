@@ -26,16 +26,12 @@ class MypageManager {
         }
     }
     
-    func changePassword(changePwData: ChangePwModel, completion: @escaping (Result<ChangePwResponseModel, Error>) -> Void) {
+    func changePassword(changePwData: ChangePwModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
         provider.request(.changePw(param: changePwData)) { result in
             switch result {
             case .success(let response):
-                do {
-                    let decoder = JSONDecoder()
-                    let changePasswordResponse = try decoder.decode(ChangePwResponseModel.self, from: response.data)
-                    completion(.success(changePasswordResponse))
-                } catch {
-                    completion(.failure(error))
+                if let json = try? JSONSerialization.jsonObject(with: response.data, options: []) as? [String : Any] {
+                    completion(.success(json))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -43,16 +39,12 @@ class MypageManager {
         }
     }
     
-    func withDrawal(completion: @escaping (Result<WithdrawalResponseModel, Error>) -> Void) {
+    func withDrawal(completion: @escaping (Result<[String : Any], Error>) -> Void) {
         provider.request(.withdrawal) { result in
             switch result {
-            case .success(let response):
-                do {
-                    let decoder = JSONDecoder()
-                    let withDrawalResponse = try decoder.decode(WithdrawalResponseModel.self, from: response.data)
-                    completion(.success(withDrawalResponse))
-                } catch {
-                    completion(.failure(error))
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
                 }
             case .failure(let error):
                 completion(.failure(error))
