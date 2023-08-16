@@ -54,8 +54,11 @@ class UserMenuVC: UIViewController {
         let label = UILabel()
         if state == "USE" { // 대여중인 상태
             let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
-            //let time =
-            label.text = "\(date) 에 빌렸어요"
+            let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
+            let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
+            let time = start[rangeStartIndex ..< rangeEndIndex]
+            
+            label.text = "\(date) \(time) 에 빌렸어요"
             label.font = .boldSystemFont(ofSize: 16)
         }
         else { // 대여중이 아닌 상태
@@ -68,7 +71,7 @@ class UserMenuVC: UIViewController {
     
     lazy var freestatelabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.end) + " 까지 반납하면 무료! (추가예정)"
+        label.text = String(self.end) + " 까지 반납하면 무료! (추가예정)" //위의 date에서 1일 더하기
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .blue
         
@@ -105,7 +108,7 @@ class UserMenuVC: UIViewController {
         return label
     }()
     
-    lazy var excesstimeStackView: UIStackView = { //노랑
+    lazy var excesstimeStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.label1, self.timeStackView])
         stackview.axis = .vertical
         stackview.spacing = 20
@@ -283,7 +286,6 @@ class UserMenuVC: UIViewController {
         
         configureUI()
         fetchData()
-        
     }
     
     // UI 설정들 관련 method
@@ -292,7 +294,6 @@ class UserMenuVC: UIViewController {
         
         view.addSubview(titleStackView)
         view.addSubview(info)
-        
 
         view.addSubview(sellbutton)
         view.addSubview(soldbutton)
@@ -333,7 +334,9 @@ class UserMenuVC: UIViewController {
             stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
         }
         else { // 대여중이 아닌 상태
+            info.addSubview(statelabel)
             view.addSubview(rentalbutton)
+            
             statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
             
             rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
@@ -360,7 +363,6 @@ class UserMenuVC: UIViewController {
                 }
                 print(self.rentalRecords)
                 
-                // Iterate through rentalRecords to find the latest "USE" record
                 for record in self.rentalRecords {
                     if record.process == "USE" {
                         self.state = "USE"
