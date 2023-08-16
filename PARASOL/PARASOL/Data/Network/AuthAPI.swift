@@ -14,6 +14,7 @@ enum AuthAPI {
     case verify(param: VerifyModel)
     case verifyCheck(param: VerifyCheckModel)
     case refreshToken(param: RefreshTokenModel)
+    case login(param: LoginModel)
 }
 
 extension AuthAPI: TargetType {
@@ -33,6 +34,8 @@ extension AuthAPI: TargetType {
             return "/verify/check"
         case .refreshToken(param: _):
             return "/auth/refresh"
+        case .login(param: _):
+            return "/auth/sign-in"
         }
     }
     
@@ -48,6 +51,8 @@ extension AuthAPI: TargetType {
             return .post
         case .refreshToken(param: _):
             return .post
+        case .login(param: _):
+            return .post
         }
     }
     
@@ -62,6 +67,8 @@ extension AuthAPI: TargetType {
         case .verifyCheck(param: let param):
             return .requestJSONEncodable(param)
         case .refreshToken(param: let param):
+            return .requestJSONEncodable(param)
+        case .login(param: let param):
             return .requestJSONEncodable(param)
         }
     }

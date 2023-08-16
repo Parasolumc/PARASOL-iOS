@@ -72,6 +72,7 @@
 		09D04EC32A80D1E0002F73A9 /* UserTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D04EBF2A80D1E0002F73A9 /* UserTabBarVC.swift */; };
 		09D04EC42A80D1E0002F73A9 /* OwnerTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D04EC02A80D1E0002F73A9 /* OwnerTabBarVC.swift */; };
 		09D48BD42A8A8204001F9E41 /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D48BD32A8A8204001F9E41 /* AgreementVC.swift */; };
+		09D48BD92A8D0334001F9E41 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 09D48BD82A8D0334001F9E41 /* Toast */; };
 		09DD5B4F2A65308000EF986E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B4E2A65308000EF986E /* AppDelegate.swift */; };
 		09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B502A65308000EF986E /* SceneDelegate.swift */; };
 		09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */; };
@@ -179,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D48BD92A8D0334001F9E41 /* Toast in Frameworks */,
 				84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,6 +519,9 @@
 			dependencies = (
 			);
 			name = PARASOL;
+			packageProductDependencies = (
+				09D48BD82A8D0334001F9E41 /* Toast */,
+			);
 			productName = PARASOL;
 			productReference = 09DD5B4B2A65308000EF986E /* PARASOL.app */;
 			productType = "com.apple.product-type.application";
@@ -545,6 +550,9 @@
 				Base,
 			);
 			mainGroup = 09DD5B422A65307F00EF986E;
+			packageReferences = (
+				09D48BD72A8D0334001F9E41 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 09DD5B4C2A65308000EF986E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -837,6 +845,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -867,6 +876,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Auth;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -902,6 +912,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		09D48BD72A8D0334001F9E41 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09D48BD82A8D0334001F9E41 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09D48BD72A8D0334001F9E41 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */ = {

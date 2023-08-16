@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.7.1)
-  - IQKeyboardManagerSwift (6.5.11)
+  - IQKeyboardManagerSwift (6.5.12)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -8,11 +8,13 @@ PODS:
   - NMapsGeometry (1.0.1)
   - NMapsMap (3.17.0):
     - NMapsGeometry
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
   - Moya
   - NMapsMap
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
@@ -21,14 +23,16 @@ SPEC REPOS:
     - Moya
     - NMapsGeometry
     - NMapsMap
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
-  IQKeyboardManagerSwift: c7955c0bdbf7b2eb29bb7daaa44e3d90f55a9a85
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 517ae07790c42e4b9c85d2c413da773a5cc5e440
+PODFILE CHECKSUM: 6bc0fe10eb6d480c80e344a5e7ddecb754d219b8
 
 COCOAPODS: 1.12.1

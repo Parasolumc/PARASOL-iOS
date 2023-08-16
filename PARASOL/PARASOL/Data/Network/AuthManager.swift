@@ -77,4 +77,26 @@ class AuthManager {
             }
         }
     }
+    
+    // MARK: - 로그인 Manager
+    func doLogin(loginData: LoginModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.login(param: loginData)) { result in
+            switch result {
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    if json["check"] as? Bool == true {
+                        // MARK: - UserDefaults에 token 저장
+                        let tokens: [String : String] = json["information"] as? [String : String] ?? ["accessToken": "", "refreshToken": ""]
+                        UserDefaults.standard.set(tokens["accessToken"], forKey: "accessToken")
+                        UserDefaults.standard.set(tokens["refreshToken"], forKey: "refreshToken")
+                    }
+                    completion(.success(json))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
 }

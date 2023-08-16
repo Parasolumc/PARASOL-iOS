@@ -168,7 +168,7 @@ class ChangePwVC: UIViewController {
             return
         }
         
-        let changeData: ChangePwModel = ChangePwModel(oldPw: oldPassword, newPw: newPassword, reNewPw: reNewPassword, refreshToken: ServiceAPI.refreshtoken)
+        let changeData: ChangePwModel = ChangePwModel(oldPw: oldPassword, newPw: newPassword, reNewPw: reNewPassword, refreshToken: ServiceAPI.refreshtoken as! String)
         MypageManager.shared.changePassword(changePwData: changeData) { result in
             switch result {
             case .success(let response):
