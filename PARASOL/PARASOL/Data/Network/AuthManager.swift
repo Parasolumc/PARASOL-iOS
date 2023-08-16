@@ -86,9 +86,10 @@ class AuthManager {
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
                     if json["check"] as? Bool == true {
                         // MARK: - UserDefaults에 token 저장
-                        let tokens: [String : String] = json["information"] as? [String : String] ?? ["accessToken": "", "refreshToken": ""]
+                        let tokens: [String : String] = json["information"] as? [String : String] ?? ["accessToken": "", "refreshToken": "", "role": ""]
                         UserDefaults.standard.set(tokens["accessToken"], forKey: "accessToken")
                         UserDefaults.standard.set(tokens["refreshToken"], forKey: "refreshToken")
+                        UserDefaults.standard.set(tokens["role"], forKey: "role")
                     }
                     completion(.success(json))
                 }

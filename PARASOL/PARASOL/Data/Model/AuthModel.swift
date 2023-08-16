@@ -50,5 +50,5 @@ struct TokenModel: Codable {
 
 // MARK: - Information
 struct TokenInformation: Codable {
-    let accessToken, refreshToken: String
+    let accessToken, refreshToken, role: String
 }
