@@ -26,6 +26,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
+    var images: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
+    StoreImage(id: 2, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png"),
+    StoreImage(id: 3, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png"),
+    StoreImage(id: 4, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png")]
+    lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.images)
     
     // MARK: [UI components]
     // 검색 바 요소들
@@ -73,8 +78,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let label = UILabel()
         
         label.text = "벨라프라하"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textColor = .black
+        label.font = .B18
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -95,8 +100,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let label = UILabel()
         
         label.text = "서울 서대문구 이화여대길 77"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -104,8 +109,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let label = UILabel()
         
         label.text = "영업종료"
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -114,8 +119,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let label = UILabel()
         
         label.text = "09:00에 영업 시작"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -149,8 +154,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         var label = UILabel()
         
         label.text = "대여가능 우산"
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .B16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -166,8 +171,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
         var label = UILabel()
         
         label.text = ": " + String(self.umbrellaNum) + "개"
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .B16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -188,6 +193,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let button = UIButton()
         
         button.setTitle("대여", for: .normal)
+        button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
@@ -208,6 +214,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         let button = UIButton()
         
         button.setTitle("반납", for: .normal)
+        button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
@@ -342,6 +349,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
     }
     
     func showStoreInfo() {
+        // Setting the Data
+        nameLabel.text = store.shopName
+        addressLabel.text = store.roadNameAddress
+        tag2Label.text = ": " + String(store.availableUmbrella) + "개"
+        
         view.addSubview(introView)
         introView.addSubview(vStackView)
         introView.addSubview(findLoadButton)
@@ -406,6 +418,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
             case .success(let data):
                 print("특정 매장 조회")
                 print(data) // 데이터 확인용
+                self.store = data.information
             case .failure(let error):
                 print("특정 매장 조회 에러\n\(error)")
             }
