@@ -9,6 +9,6 @@ import Foundation
 
 enum ServiceAPI {
     static let baseURL = URL(string: "https://www.umc-parasol.r-e.kr")
-    static let token = UserDefaults.standard.value(forKey: "accessToken")
-    static let refreshtoken = UserDefaults.standard.value(forKey: "refreshToken")
+    static let token = UserDefaults.standard.value(forKey: "accessToken") as! String
+    static let refreshtoken = UserDefaults.standard.value(forKey: "refreshToken") as! String
 }
