@@ -89,8 +89,8 @@ class UserMenuVC: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         let goToUserVCAction = UIAction { _ in
-            let userVC = UserVC()
-            self.navigationController?.pushViewController(userVC, animated: true)
+            let vc = UserTabBarVC()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         
         button.addAction(goToUserVCAction, for: .touchUpInside)
