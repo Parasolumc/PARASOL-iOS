@@ -25,4 +25,22 @@ class MypageManager {
             }
         }
     }
+    
+    func changePassword(changePwData: ChangePwModel, completion: @escaping (Result<ChangePwResponseModel, Error>) -> Void) {
+        provider.request(.changePw(param: changePwData)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoder = JSONDecoder()
+                    let changePasswordResponse = try decoder.decode(ChangePwResponseModel.self, from: response.data)
+                    completion(.success(changePasswordResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
