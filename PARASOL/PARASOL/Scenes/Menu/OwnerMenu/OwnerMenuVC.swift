@@ -11,6 +11,10 @@ class OwnerMenuVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
+    // MARK: [For Data]
+    var shopInformation: [OwnerStoreInformation] = []
+    
+    // MARK: [UI components]
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
     lazy var screenWidth = bounds.size.width //화면 너비
@@ -25,18 +29,18 @@ class OwnerMenuVC: UIViewController {
     var umbrellaNum = 9
     
     // 영업중인 요일
-    var workingday = ""
+    var workingday = "화욜"
     
     // 영업 시작, 종료 시간
-    var starttime = ""
-    var endtime = ""
+    var starttime = "11:00"
+    var endtime = "19:70"
     
     // MARK: [UI components]
     var nameLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "상점명"
-        label.font = .boldSystemFont(ofSize: 24)
+        label.text = "상점명234"
+        label.font = .B24
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -69,8 +73,8 @@ class OwnerMenuVC: UIViewController {
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "서울 서대문구 이화여대길 77"
-        label.font = .systemFont(ofSize: 16)
+        label.text = "주소 어쩌구"
+        label.font = .M16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -85,17 +89,53 @@ class OwnerMenuVC: UIViewController {
         return label
     }()
     
-    lazy var timeLabel: UILabel = {
+    lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = String(self.workingday) + " " + String(self.starttime) + " - " + String(self.endtime)
+        label.text = String(self.workingday)
         label.font = .systemFont(ofSize: 14)
         label.textColor = UIColor(named: "black")
+        
         return label
     }()
     
+    lazy var startLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(self.starttime)
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var spacerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "-"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var endLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(self.endtime)
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var timeStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.workingdayLabel, self.startLabel, self.spacerLabel, self.endLabel])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 4
+        
+        return stackview
+    }()
+    
     lazy var storeTimeHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeLabel])
+        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeStackView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -272,6 +312,15 @@ class OwnerMenuVC: UIViewController {
         
         let goToEditVCAction = UIAction { _ in
             let editVC = OwnerMenuEditVC()
+            
+            // 전달할 값들을 설정
+            editVC.nameLabel.text = self.nameLabel.text ?? ""
+            editVC.addressLabel.text = self.addressLabel.text ?? ""
+            editVC.workingday = self.workingdayLabel.text ?? ""
+            editVC.starttime = self.startLabel.text ?? ""
+            editVC.endtime = self.endLabel.text ?? ""
+            editVC.introduceTextView.text = self.introduceLabel.text ?? ""
+            
             self.navigationController?.pushViewController(editVC, animated: true)
         }
             
@@ -287,6 +336,7 @@ class OwnerMenuVC: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        fetchData()
     }
     
     // MARK: - Actions
@@ -329,5 +379,31 @@ class OwnerMenuVC: UIViewController {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    func fetchData() {
+        HomeManager.shared.owner_getStore() { result in
+            switch result {
+            case .success(let data):
+                print("본인 매장 조회")
+                print(data) // 데이터 확인용 shopInformation
+                /*self.shopInformation.removeAll()
+                for info in data.information {
+                    self.shopInformation.append(OwnerStoreInformation.init(id: info.id,
+                                                                           shopName: info.shopName,
+                                                                           desc: info.desc,
+                                                                           latitude: info.latitude,
+                                                                           longitude: info.longitude,
+                                                                           roadNameAddress: info.roadNameAddress,
+                                                                           openTime: info.openTime,
+                                                                           closeTime: info.closeTime,
+                                                                           availableUmbrella: info.availableUmbrella,
+                                                                           image: info.image))
+                }*/ //UserMenuVC 참고해보기.......
+            case .failure(let error):
+                print("본인 매장 조회 에러\n\(error)")
+            }
+        }
+    }
+    
 
 }

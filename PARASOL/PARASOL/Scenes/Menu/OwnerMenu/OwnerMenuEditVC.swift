@@ -12,6 +12,10 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
+    /*var updatedWorkingday: String?
+    var updatedStartTime: String?
+    var updatedEndTime: String?*/
+    
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
     lazy var screenWidth = bounds.size.width //화면 너비
@@ -36,7 +40,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     var nameLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "상점명"
+        label.text = ""
         label.font = .boldSystemFont(ofSize: 24)
         label.textColor = UIColor(named: "black")
         return label
@@ -45,7 +49,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "서울 서대문구 이화여대길 77"
+        label.text = ""
         label.font = .systemFont(ofSize: 16)
         label.textColor = UIColor(named: "black")
         return label
@@ -61,17 +65,53 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return label
     }()
     
-    lazy var timeLabel: UILabel = {
+    lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = String(self.workingday) + " " + String(self.starttime) + " - " + String(self.endtime)
+        label.text = String(self.workingday)
         label.font = .systemFont(ofSize: 14)
         label.textColor = UIColor(named: "black")
+        
         return label
     }()
     
+    lazy var startLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(self.starttime)
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var spacerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "-"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var endLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(self.endtime)
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var timeStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.workingdayLabel, self.startLabel, self.spacerLabel, self.endLabel])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 4
+        
+        return stackview
+    }()
+    
     lazy var storeTimeHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeLabel])
+        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeStackView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -200,16 +240,27 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         addPicsView.isUserInteractionEnabled = true
         
         let timetapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTimeLabel))
-        timeLabel.addGestureRecognizer(timetapGesture)
-        timeLabel.isUserInteractionEnabled = true
+        timeStackView.addGestureRecognizer(timetapGesture)
+        timeStackView.isUserInteractionEnabled = true
+        
+        
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    /*override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        timeLabel.text = String(workingday) + " " + String(starttime) + " - " + String(endtime)
-    }
+        if let workingday = updatedWorkingday, let startTime = updatedStartTime, let endTime = updatedEndTime {
+            updateUI(with: workingday, startTime: startTime, endTime: endTime)
+            
+            // 업데이트 후 초기화 (필요한 경우)
+            updatedWorkingday = nil
+            updatedStartTime = nil
+            updatedEndTime = nil
+        }
+    }*/
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
@@ -282,21 +333,61 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }
     
     @objc func didTapTimeLabel() {
-        let popupVC = PopupVC() // 팝업 뷰 컨트롤러 인스턴스 생성
+        let popupVC = PopupVC()
         
         popupVC.modalPresentationStyle = .overCurrentContext
         present(popupVC, animated: true, completion: nil)
     }
     
-    func updateWorking(workingday: String, starttime: String, endtime: String) {
-        self.workingday = workingday
-        self.starttime = starttime
-        self.endtime = endtime
+    // 값을 재설정
+    func updateUI(with workingday: String, startTime: String, endTime: String) {
+        workingdayLabel.text = workingday
+        startLabel.text = startTime
+        endLabel.text = endTime
         
-        print(workingday + " ww " + starttime + " ww " + endtime)
+        configureUI()
+    }
+    
+    @objc func confirmButtonTapped() {
+        editData()
+    }
+    
+    @objc func cancelButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "정보 변경 성공", message: "정보가 성공적으로 변경되었습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-
+    
+    func editData() {
+        /*let newInfo = introduceTextView.text
+        let startTime = startLabel.text
+        let endTime = endLabel.text*/
+        
+        let changeData: EditInfoModel = EditInfoModel(desc: "hellooo", openTime: "10:00", closeTime: "22:20")
+        MenuManager.shared.editShopInfo(editShopInfoData: changeData) { result in
+            switch result {
+            case .success(let data):
+                if data["check"] as? Bool == true {
+                    print("정보 변경 성공")
+                    self.showSuccessAlert()
+                } else {
+                    print("정보 변경 실패")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        
+        }
+    }
 }
