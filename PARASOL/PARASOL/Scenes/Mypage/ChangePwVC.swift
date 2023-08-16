@@ -172,7 +172,7 @@ class ChangePwVC: UIViewController {
         MypageManager.shared.changePassword(changePwData: changeData) { result in
             switch result {
             case .success(let response):
-                if response.check {
+                if response["check"] as? Bool == true {
                     print("비밀번호 변경 성공")
                     self.showSuccessAlert()
                 } else {

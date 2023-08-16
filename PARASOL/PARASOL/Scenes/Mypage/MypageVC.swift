@@ -71,11 +71,34 @@ class MypageVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showSuccessAlert() {
+    func logoutshowSuccessAlert() {
+        let alert = UIAlertController(title: "로그아웃 성공", message: "로그아웃에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            //첫 화면으로 돌아가기
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func logoutshowFailureAlert() {
+        let alert = UIAlertController(title: "로그아웃 실패", message: "로그아웃에 실패했습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func withdrawalshowSuccessAlert() {
         let alert = UIAlertController(title: "회원 탈퇴 성공", message: "회원 탈퇴에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
             //첫 화면으로 돌아가기
         }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func withdrawalshowFailureAlert() {
+        let alert = UIAlertController(title: "회원 탈퇴 실패", message: "회원 탈퇴에 실패했습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
         alert.addAction(confirmAction)
         present(alert, animated: true, completion: nil)
     }
@@ -91,7 +114,7 @@ class MypageVC: UIViewController {
             case .success(let data):
                 if data["check"] as? Bool == true {
                     print("로그아웃되었습니다.")
-                    //첫 화면으로 돌아가기
+                    self.logoutshowSuccessAlert()
                 }
                 else {
                     print("로그아웃에 실패했습니다.")
@@ -107,12 +130,13 @@ class MypageVC: UIViewController {
     func performWithdrawal() {
         MypageManager.shared.withDrawal { result in
             switch result {
-            case .success(let response):
-                if response.check {
+            case .success(let data):
+                if data["check"] as? Bool == true {
                     print("회원 탈퇴 성공")
-                    self.showSuccessAlert()
+                    self.withdrawalshowSuccessAlert()
                 } else {
                     print("회원 탈퇴 실패")
+                    self.withdrawalshowFailureAlert()
                 }
             case .failure(let error):
                 print(error)
