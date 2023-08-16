@@ -1,6 +1,6 @@
 //
-//  Mypage_ChangepwVC.swift
-//  parasolpw
+//  ChangePwVC.swift
+//  ChangePwVC
 //
 //  Created by Jini on 2023/07/17.
 //
@@ -97,9 +97,10 @@ class ChangePwVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI() // UI 메소드 정의
+        configureUI()
         setNavigationBar()
         
+        confirmBtn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     }
     
     func setNavigationBar() {
@@ -110,73 +111,79 @@ class ChangePwVC: UIViewController {
         
         view.addSubview(currentpwLabel)
         view.addSubview(currentpwTf)
-        view.addSubview(currentpwLineView) // 밑줄 뷰 추가
+        view.addSubview(currentpwLineView)
         view.addSubview(newpwLabel)
         view.addSubview(newpwTf)
-        view.addSubview(newpwLineView) // 밑줄 뷰 추가
+        view.addSubview(newpwLineView)
         view.addSubview(renewpwLabel)
         view.addSubview(renewpwTf)
-        view.addSubview(renewpwLineView) // 밑줄 뷰 추가
+        view.addSubview(renewpwLineView)
         view.addSubview(confirmBtn)
         
         
-        
-        currentpwLineView.translatesAutoresizingMaskIntoConstraints = false
-        newpwLineView.translatesAutoresizingMaskIntoConstraints = false
-        renewpwLineView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        currentpwLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                              left: view.leftAnchor,
-                              right: view.rightAnchor,
-                              paddingTop: 30,
-                              paddingLeft: 25)
-        currentpwTf.anchor(top: currentpwLabel.bottomAnchor,
-                              left: view.leftAnchor,
-                              paddingTop: 10,
-                              paddingLeft: 25)
+        currentpwLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 30, paddingLeft: 25)
+        currentpwTf.anchor(top: currentpwLabel.bottomAnchor,left: view.leftAnchor, paddingTop: 10, paddingLeft: 25)
         currentpwTf.setDimensions(height: 35, width: 250)
-        currentpwLineView.anchor(top: currentpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25) // 밑줄 뷰 제약조건 추가
-        newpwLabel.anchor(top: currentpwTf.bottomAnchor,
-                              left: view.leftAnchor,
-                              right: view.rightAnchor,
-                              paddingTop: 30,
-                              paddingLeft: 25)
-        newpwTf.anchor(top: newpwLabel.bottomAnchor,
-                              left: view.leftAnchor,
-                              paddingTop: 10,
-                              paddingLeft: 25)
+        currentpwLineView.anchor(top: currentpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25)
+        
+        newpwLabel.anchor(top: currentpwTf.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 30, paddingLeft: 25)
+        newpwTf.anchor(top: newpwLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 25)
         newpwTf.setDimensions(height: 35, width: 250)
-        newpwLineView.anchor(top: newpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25) // 밑줄 뷰 제약조건 추가
-        renewpwLabel.anchor(top: newpwTf.bottomAnchor,
-                              left: view.leftAnchor,
-                              right: view.rightAnchor,
-                              paddingTop: 30,
-                              paddingLeft: 25)
-        renewpwTf.anchor(top: renewpwLabel.bottomAnchor,
-                              left: view.leftAnchor,
-                              paddingTop: 10,
-                              paddingLeft: 25)
+        newpwLineView.anchor(top: newpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25)
+        
+        renewpwLabel.anchor(top: newpwTf.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 30, paddingLeft: 25)
+        renewpwTf.anchor(top: renewpwLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 25)
         renewpwTf.setDimensions(height: 35, width: 250)
-        renewpwLineView.anchor(top: renewpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25) // 밑줄 뷰 제약조건 추가
-        confirmBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                          paddingBottom: 20)
+        renewpwLineView.anchor(top: renewpwTf.bottomAnchor, left: view.leftAnchor, paddingLeft: 25)
+        
+        confirmBtn.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20)
         confirmBtn.centerX(inView: view.self)
-        
-        
-        
-        /*//barButtonSystemItem 알람 이미지로 대체하기
-        let alarmButton = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(alarmButtonTapped))
-                
-        navItem.rightBarButtonItems = [alarmButton]*/
-        
-            
 
     }
-
     
-    /*@objc func alarmButtonTapped() {
-         
-        }*/
+    @objc func confirmButtonTapped() {
+        postData()
+    }
+    
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "비밀번호 변경 성공", message: "비밀번호가 성공적으로 변경되었습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Helpers
+    // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    func postData() {
+        guard let oldPassword = currentpwTf.text,
+              let newPassword = newpwTf.text,
+              let reNewPassword = renewpwTf.text,
+              !oldPassword.isEmpty,
+              !newPassword.isEmpty,
+              !reNewPassword.isEmpty else {
+            print("모든 필드를 입력해주세요.")
+            return
+        }
+        
+        let changeData: ChangePwModel = ChangePwModel(oldPw: oldPassword, newPw: newPassword, reNewPw: reNewPassword, refreshToken: ServiceAPI.refreshtoken)
+        MypageManager.shared.changePassword(changePwData: changeData) { result in
+            switch result {
+            case .success(let response):
+                if response.check {
+                    print("비밀번호 변경 성공")
+                    self.showSuccessAlert()
+                } else {
+                    print("비밀번호 변경 실패")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        
+        }
+    }
     
 }
