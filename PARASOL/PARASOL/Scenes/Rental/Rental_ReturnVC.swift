@@ -31,15 +31,6 @@ class Rental_ReturnVC: UIViewController {
         return imageView
     }()
     
-    let QRLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "QR Code"
-        label.font = .boldSystemFont(ofSize: 14)
-        
-        return label
-    }()
-    
     lazy var guideLabel: UILabel = {
         let label = UILabel()
         
@@ -113,19 +104,27 @@ class Rental_ReturnVC: UIViewController {
     func configureUI() {
         view.backgroundColor = .white
         view.addSubview(QRImage)
-        QRImage.addSubview(QRLabel)
+        createQRImage(url: "https://github.com/Parasolumc")
         view.addSubview(guideLabel)
         
         QRImage.anchor(top: view.topAnchor, paddingTop: 250)
         QRImage.centerX(inView: view)
-        QRLabel.centerX(inView: QRImage)
-        QRLabel.centerY(inView: QRImage)
         guideLabel.anchor(top: QRImage.bottomAnchor, paddingTop: 50)
         guideLabel.centerX(inView: view)
         
         // testing done page
         view.addSubview(button)
         button.anchor(bottom: view.bottomAnchor, right: view.rightAnchor, paddingBottom: 20, paddingRight: 20)
+    }
+    
+    func createQRImage(url: String) {
+        let frame = CGRect(origin: .zero, size: QRImage.frame.size)
+        let qrcode = QRCodeView(frame: frame)
+
+        qrcode.generateCode(url, backgroundColor: UIColor(named: "black")!)
+
+        QRImage.addSubview(qrcode)
+        qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
     }
     
     // MARK: - Helpers
