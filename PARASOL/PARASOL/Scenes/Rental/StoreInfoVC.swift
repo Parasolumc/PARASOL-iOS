@@ -11,6 +11,8 @@ class StoreInfoVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
+    let testURL: [String] = []
+    
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
     lazy var screenWidth = bounds.size.width //화면 너비
@@ -27,7 +29,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "상점명"
-        label.font = .boldSystemFont(ofSize: 24)
+        label.font = .B24
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -48,8 +50,8 @@ class StoreInfoVC: UIViewController {
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "서울 서대문구 이화여대길 77"
-        label.font = .systemFont(ofSize: 16)
+        label.text = "주소"
+        label.font = .M16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -58,7 +60,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "영업종료"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -68,7 +70,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "09:00에 영업 시작"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .M14
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -100,12 +102,41 @@ class StoreInfoVC: UIViewController {
     
     let samplePicsView = UIView()
     
+    let picsScrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.showsHorizontalScrollIndicator = false
+        scrollview.isPagingEnabled = true
+        
+        return scrollview
+    }()
+    
+    lazy var image1: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.backgroundColor = UIColor(named: "gray00_opacity")
+        imageView.contentMode = .scaleToFill
+        imageView.setDimensions(height: 107, width: 129)
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
+
+        return imageView
+    }()
+    
+    lazy var picsStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.image1])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 8
+        
+        return stackview
+    }()
+    
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "신촌 디저트 최고 맛집 \n비오는 날엔 갓구운 휘낭시에"
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .black
+        label.text = "상점 소개"
+        label.font = .M14
+        label.textColor = UIColor(named: "black")
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
@@ -118,7 +149,7 @@ class StoreInfoVC: UIViewController {
         var label = UILabel()
         
         label.text = "대여가능 우산"
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font = .B20
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -135,7 +166,7 @@ class StoreInfoVC: UIViewController {
         var label = UILabel()
         
         label.text = ": " + String(self.umbrellaNum) + "개"
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font = .SB20
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -157,6 +188,7 @@ class StoreInfoVC: UIViewController {
         let button = UIButton()
         
         button.setTitle("대여", for: .normal)
+        button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
@@ -177,6 +209,7 @@ class StoreInfoVC: UIViewController {
         let button = UIButton()
         
         button.setTitle("반납", for: .normal)
+        button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 54, width: 126)
         button.layer.cornerRadius = 20
@@ -209,9 +242,9 @@ class StoreInfoVC: UIViewController {
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
         setNavigationBar()
+        addPics(pics: self.testURL)
     }
     
     // MARK: - Actions
@@ -226,24 +259,23 @@ class StoreInfoVC: UIViewController {
         view.backgroundColor = .white
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
-        // 스크롤뷰 이미지 넣기
+        view.addSubview(picsScrollView)
+        picsScrollView.addSubview(picsStackView)
         view.addSubview(introduceLabel)
         view.addSubview(umbrellaHStackView)
         view.addSubview(buttonHStackView)
         
-        // 스크롤뷰 이미지 추가한 후 삭제하기
-        view.addSubview(samplePicsView)
-        samplePicsView.translatesAutoresizingMaskIntoConstraints = false
-        samplePicsView.backgroundColor = .lightGray
-        samplePicsView.layer.cornerRadius = 20
-        samplePicsView.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
-        samplePicsView.heightAnchor.constraint(equalToConstant: 107).isActive = true
-        
         vStackView.anchor(top: view.topAnchor, paddingTop: 79)
         vStackView.centerX(inView: view)
         findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
-        samplePicsView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
-        introduceLabel.anchor(top: samplePicsView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
+        
+        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
+        picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
+        
+        
+        picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
+        
+        introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 50)
         umbrellaHStackView.centerX(inView: view)
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
@@ -256,6 +288,24 @@ class StoreInfoVC: UIViewController {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-    
+    func addPics(pics: Array<String>) {
+        picsStackView.removeArrangedSubview(self.image1)
+        image1.removeFromSuperview()
+        
+        for img in pics {
+            let imageView = UIImageView()
+            
+            let url = URL(string: img)
+            imageView.load(url: url!)
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+            imageView.backgroundColor = UIColor(named: "gray00_opacity")
+            imageView.contentMode = .scaleToFill
+            imageView.setDimensions(height: 107, width: 129)
+            imageView.layer.cornerRadius = 20
+            imageView.clipsToBounds = true
+            
+            picsStackView.addArrangedSubview(imageView)
+        }
+    }
 
 }

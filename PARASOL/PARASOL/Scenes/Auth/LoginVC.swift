@@ -291,10 +291,17 @@ class LoginVC: UIViewController {
     }
     
     // 홈 화면으로 이동
-    func goToHome() {
-        let test = UIStoryboard.init(name: "test", bundle: nil)
-        guard let testController = test.instantiateViewController(withIdentifier: "testVC") as? testVC else {return}
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(testController, animated: false)
+    func goToHome(at: String) {
+        if at == "CUSTOMER" {
+            let root = UserTabBarVC()
+            let vc = UINavigationController(rootViewController: root)
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        } else if at == "OWNER" {
+            let root = OwnerTabBarVC()
+            let vc = UINavigationController(rootViewController: root)
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        }
+        
     }
     
     func configureUI() {
@@ -354,8 +361,8 @@ class LoginVC: UIViewController {
             case .success(let data):
                 print(data)
                 if data["check"] as? Bool == true {
-                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
-                    self.goToHome()
+//                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
+                    self.goToHome(at: UserDefaults.standard.value(forKey: "role") as! String)
                 } else if data["check"] as? Bool == false {
                     self.view.makeToast("로그인 실패", position: .center, style: self.style)
                 }
