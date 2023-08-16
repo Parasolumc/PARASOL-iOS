@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class LoginVC: UIViewController {
     
@@ -15,6 +16,17 @@ class LoginVC: UIViewController {
 
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    // 토스트 메세지 스타일
+    var style: ToastStyle = {
+        var style =  ToastStyle()
+        
+        style.backgroundColor = UIColor(named: "gray22_opacity")!
+        style.messageFont = .M14!
+        
+        return style
+    }()
+    
+    
     let logoImageView : UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "logo"))
         imageView.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 203.18, height: 78.40195))
@@ -135,9 +147,9 @@ class LoginVC: UIViewController {
         loginLabel.centerX(inView: view)
         loginLabel.centerY(inView: view)
         
-        //view.isUserInteractionEnabled = true
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToOwnerRentVC))
-        //view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doLogin))
+        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -260,6 +272,24 @@ class LoginVC: UIViewController {
         joinButton.addAction(goToselectVCAction, for: .touchUpInside)
     }
     
+    @objc func doLogin() {
+        print("로그인 버튼 누름")
+        if idTextField.text != ""  && pwTextField.text != "" {
+            login(userID: idTextField.text ?? "", userPW: pwTextField.text ?? "")
+        } else {
+            if idTextField.text == "" && pwTextField.text == "" {
+                print("아이디와 비밀번호를 입력하세요.")
+            } else if idTextField.text == "" {
+                print("아이디를 입력하세요.")
+            } else if pwTextField.text == "" {
+                print("비밀번호를 입력하세요.")
+            } else {
+                print("입력값을 확인하세요.")
+            }
+        }
+        
+    }
+    
     func configureUI() {
         
         view.addSubview(logoImageView)
@@ -310,6 +340,23 @@ class LoginVC: UIViewController {
     }
     
     // MARK: - Helpers
+    func login(userID: String, userPW: String) {
+        let loginData: LoginModel = LoginModel(email: userID, password: userPW)
+        AuthManager.shared.doLogin(loginData: loginData) { result in
+            switch result {
+            case .success(let data):
+                print(data)
+                if data["check"] as? Bool == true {
+                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
+                } else if data["check"] as? Bool == false {
+                    self.view.makeToast("로그인 실패", position: .center, style: self.style)
+                }
+            case .failure(let error):
+                print("로그인 에러")
+                print(error)
+            }
+        }
+    }
 }
 
 

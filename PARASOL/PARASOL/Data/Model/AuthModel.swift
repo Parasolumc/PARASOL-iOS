@@ -35,3 +35,20 @@ struct VerifyCheckModel: Codable {
 struct RefreshTokenModel: Codable {
     let refreshToken: String
 }
+
+// MARK: - 로그인
+// MARK: [LoginModel]
+struct LoginModel: Codable {
+    let email, password: String
+}
+
+// MARK: [TokenModel]
+struct TokenModel: Codable {
+    let check: Bool
+    let information: TokenInformation
+}
+
+// MARK: - Information
+struct TokenInformation: Codable {
+    let accessToken, refreshToken: String
+}

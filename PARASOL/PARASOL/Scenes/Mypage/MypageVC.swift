@@ -108,7 +108,7 @@ class MypageVC: UIViewController {
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
     func performLogout() {
-        let refreshToken: LogoutModel = LogoutModel(refreshToken: ServiceAPI.refreshtoken)
+        let refreshToken: LogoutModel = LogoutModel(refreshToken: ServiceAPI.refreshtoken as! String)
         MypageManager.shared.logOut(logOutData: refreshToken) { result in
             switch result {
             case .success(let data):
