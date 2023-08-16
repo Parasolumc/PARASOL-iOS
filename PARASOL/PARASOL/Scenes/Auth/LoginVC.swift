@@ -290,6 +290,13 @@ class LoginVC: UIViewController {
         
     }
     
+    // 홈 화면으로 이동
+    func goToHome() {
+        let test = UIStoryboard.init(name: "test", bundle: nil)
+        guard let testController = test.instantiateViewController(withIdentifier: "testVC") as? testVC else {return}
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(testController, animated: false)
+    }
+    
     func configureUI() {
         
         view.addSubview(logoImageView)
@@ -348,6 +355,7 @@ class LoginVC: UIViewController {
                 print(data)
                 if data["check"] as? Bool == true {
                     self.view.makeToast("로그인 성공", position: .center, style: self.style)
+                    self.goToHome()
                 } else if data["check"] as? Bool == false {
                     self.view.makeToast("로그인 실패", position: .center, style: self.style)
                 }
