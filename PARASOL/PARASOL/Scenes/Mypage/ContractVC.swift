@@ -94,15 +94,32 @@ class ContractVC: UIViewController {
         configureUI()
         setNavigationBar()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cStackView1Tapped))
-        cStackView1.addGestureRecognizer(tapGesture)
+        let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(cStackView1Tapped))
+        cStackView1.addGestureRecognizer(tapGesture1)
         cStackView1.isUserInteractionEnabled = true
+        
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(cStackView2Tapped))
+        cStackView2.addGestureRecognizer(tapGesture2)
+        cStackView2.isUserInteractionEnabled = true
+        
+        let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(cStackView3Tapped))
+        cStackView3.addGestureRecognizer(tapGesture3)
+        cStackView3.isUserInteractionEnabled = true
     }
     
-    // cStackView1을 눌렀을 때 실행될 메서드
     @objc func cStackView1Tapped() {
-        /*let soldvc = SoldVC() // 다음 뷰 컨트롤러 생성
-        self.navigationController?.pushViewController(soldvc, animated: true) // 전환*/
+        let contract1vc = Agreement1VC()
+        self.navigationController?.pushViewController(contract1vc, animated: true)
+    }
+    
+    @objc func cStackView2Tapped() {
+        let contract2vc = Agreement2VC()
+        self.navigationController?.pushViewController(contract2vc, animated: true)
+    }
+    
+    @objc func cStackView3Tapped() {
+        let contract3vc = Agreement3VC()
+        self.navigationController?.pushViewController(contract3vc, animated: true)
     }
     
     // UI 설정들 관련 method
