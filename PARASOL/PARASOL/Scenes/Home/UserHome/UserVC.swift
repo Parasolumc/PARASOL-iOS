@@ -26,11 +26,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
-    var images: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
-    StoreImage(id: 2, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png"),
-    StoreImage(id: 3, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png"),
-    StoreImage(id: 4, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png")]
-    lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.images)
     
     // MARK: [UI components]
     // 검색 바 요소들
@@ -56,198 +51,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return searchbar
     }()
     
-    // 매장 정보 화면 요소들
-    lazy var introView: UIView = {
-       let view = UIView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 38
-        view.layer.maskedCorners = CACornerMask(arrayLiteral: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
-        view.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        view.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
-        view.addGestureRecognizer(tapGesture)
-        
-        return view
-    }()
-    
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "벨라프라하"
-        label.font = .B18
-        label.textColor = UIColor(named: "black")
-        return label
-    }()
-    
-    let findLoadButton:UIButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "find_load"), for: .normal)
-        button.setDimensions(height: 45, width: 45)
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.layer.cornerRadius = 45 / 2
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
-    var addressLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "서울 서대문구 이화여대길 77"
-        label.font = .M16
-        label.textColor = UIColor(named: "black")
-        return label
-    }()
-    
-    var isOpenLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "영업종료"
-        label.font = .SB16
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    var timeLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "09:00에 영업 시작"
-        label.font = .M16
-        label.textColor = UIColor(named: "black")
-        return label
-    }()
-    
-    lazy var storeTimeHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeLabel])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
-
-        return stackView
-    }()
-
-    lazy var vStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.addressLabel, self.storeTimeHStackView])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 10
-        
-        stackView.setDimensions(height: 80, width: (screenWidth - 74))
-        return stackView
-    }()
-    
-    // 대여 가능 우산 개수 관련 요소들 생성
-    var tag1Label: UILabel = {
-        var label = UILabel()
-        
-        label.text = "대여가능 우산"
-        label.font = .B16
-        label.textColor = UIColor(named: "black")
-        return label
-    }()
-    
-    let umbrellaImage: UIImageView = {
-            let imageView = UIImageView()
-        
-            imageView.image = UIImage(named: "umbrella")
-        
-            return imageView
-    }()
-    
-    lazy var tag2Label: UILabel = {
-        var label = UILabel()
-        
-        label.text = ": " + String(self.umbrellaNum) + "개"
-        label.font = .B16
-        label.textColor = UIColor(named: "black")
-        return label
-    }()
-    
-    lazy var umbrellaHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.tag1Label, self.umbrellaImage, self.tag2Label])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 6
-
-        return stackView
-    }()
-    
-    // 대여/반납 버튼 생성
-    lazy var rentalButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("대여", for: .normal)
-        button.titleLabel?.font = .SB16
-        button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
-        button.layer.cornerRadius = 20
-        button.backgroundColor = UIColor(named: "main")
-        
-        let goToRentalVCAction = UIAction { _ in
-            let rentalVC = Rental_ReturnVC()
-            rentalVC.nowFun = "Rental"
-            self.navigationController?.pushViewController(rentalVC, animated: true)
-            }
-            
-        button.addAction(goToRentalVCAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var returnButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle("반납", for: .normal)
-        button.titleLabel?.font = .SB16
-        button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
-        button.layer.cornerRadius = 20
-        button.backgroundColor = UIColor(named: "main")
-        
-        let goToReturnVCAction = UIAction { _ in
-            let returnVC = Rental_ReturnVC()
-            returnVC.nowFun = "Return"
-            self.navigationController?.pushViewController(returnVC, animated: true)
-            }
-            
-        button.addAction(goToReturnVCAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.rentalButton, self.returnButton])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 31
-
-        return stackView
-    }()
-    
     lazy var mapMarkButton: mapMarker = {
         let button = mapMarker(umbrellaNum)
         
         let showAction = UIAction { _ in
-            self.showStoreInfo()
+            self.showStoreInfo(id: 1)
             }
 
         button.addAction(showAction, for: .touchUpInside)
@@ -348,40 +156,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder() // 키보드를 닫습니다.
     }
     
-    func showStoreInfo() {
-        // Setting the Data
-        nameLabel.text = store.shopName
-        addressLabel.text = store.roadNameAddress
-        tag2Label.text = ": " + String(store.availableUmbrella) + "개"
-        
-        view.addSubview(introView)
-        introView.addSubview(vStackView)
-        introView.addSubview(findLoadButton)
-        introView.addSubview(umbrellaHStackView)
-        introView.addSubview(buttonHStackView)
-        
-        introView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor)
-        vStackView.anchor(top: introView.topAnchor, paddingTop: 41)
-        vStackView.centerX(inView: introView)
-        findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
-        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 38)
-        umbrellaHStackView.centerX(inView: introView)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 34)
-        buttonHStackView.centerX(inView: introView)
-        
-        introView.alpha = 0.0 // 초기에 투명 상태로 설정
-        introView.isHidden = false // 뷰를 보이도록 설정
-
-        // 애니메이션 적용
-        UIView.animate(withDuration: 1, animations: {
-            self.introView.alpha = 1.0 // 뷰를 완전히 보이도록 알파값을 변경
-        })
+    func showStoreInfo(id: Int) {
+        let vc = SumStoreInfoVC()
+        present(vc, animated: true, completion: nil)
     }
     
-    @objc func goToStoreInfoFunc() {
-        let storeVC = StoreInfoVC()
-        navigationController?.pushViewController(storeVC, animated: false)
-    }
     
     
     // MARK: - Helpers
@@ -409,18 +188,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
                 print(self.stores) // 데이터 확인용
             case .failure(let error):
                 print("매장 리스트 조회 에러\n\(error)")
-            }
-        }
-        
-        // 특정 매장 조회
-        HomeManager.shared.user_getStore(1) { result in
-            switch result {
-            case .success(let data):
-                print("특정 매장 조회")
-                print(data) // 데이터 확인용
-                self.store = data.information
-            case .failure(let error):
-                print("특정 매장 조회 에러\n\(error)")
             }
         }
         
