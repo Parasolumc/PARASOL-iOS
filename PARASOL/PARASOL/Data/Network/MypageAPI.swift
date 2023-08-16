@@ -11,6 +11,7 @@ import Moya
 enum MypageAPI {
     case logout(param: LogoutModel)
     case changePw(param: ChangePwModel)
+    case withdrawal
 }
 
 extension MypageAPI: TargetType {
@@ -24,6 +25,8 @@ extension MypageAPI: TargetType {
             return "/auth/sign-out"
         case .changePw(param: _):
             return "/api/change-password"
+        case .withdrawal:
+            return "/api/leave"
         }
     }
     
@@ -33,6 +36,8 @@ extension MypageAPI: TargetType {
             return .post
         case .changePw(param: _):
             return .put
+        case .withdrawal:
+            return .delete
         }
     }
     
@@ -42,6 +47,8 @@ extension MypageAPI: TargetType {
             return .requestJSONEncodable(param)
         case .changePw(param: let param):
             return .requestJSONEncodable(param)
+        case .withdrawal:
+            return .requestPlain
         }
     }
     

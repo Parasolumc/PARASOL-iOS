@@ -24,3 +24,10 @@ struct ChangePwResponseModel: Decodable {
     let check: Bool
     let information: String
 }
+
+// MARK: 회원 탈퇴
+// MARK: - WithdrawalResponseModel
+struct WithdrawalResponseModel: Codable {
+    let check: Bool
+    let information: String
+}
