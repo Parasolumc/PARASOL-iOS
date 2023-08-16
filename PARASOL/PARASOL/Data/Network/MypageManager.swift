@@ -43,4 +43,21 @@ class MypageManager {
         }
     }
     
+    func withDrawal(completion: @escaping (Result<WithdrawalResponseModel, Error>) -> Void) {
+        provider.request(.withdrawal) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoder = JSONDecoder()
+                    let withDrawalResponse = try decoder.decode(WithdrawalResponseModel.self, from: response.data)
+                    completion(.success(withDrawalResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
