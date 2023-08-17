@@ -1,6 +1,6 @@
 //
 //  ChangePwVC.swift
-//  ChangePwVC
+//  PARASOL
 //
 //  Created by Jini on 2023/07/17.
 //
@@ -35,6 +35,7 @@ class ChangePwVC: UIViewController {
         let textfield = UITextField()
         textfield.borderStyle = .none
         textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.isSecureTextEntry = true
         
         return textfield
     }()
@@ -43,6 +44,7 @@ class ChangePwVC: UIViewController {
         let textfield = UITextField()
         textfield.borderStyle = .none
         textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.isSecureTextEntry = true
         
         return textfield
     }()
@@ -51,6 +53,7 @@ class ChangePwVC: UIViewController {
         let textfield = UITextField()
         textfield.borderStyle = .none
         textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.isSecureTextEntry = true
         
         return textfield
     }()
@@ -148,7 +151,8 @@ class ChangePwVC: UIViewController {
     func showSuccessAlert() {
         let alert = UIAlertController(title: "비밀번호 변경 성공", message: "비밀번호가 성공적으로 변경되었습니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            self.navigationController?.popViewController(animated: true)
+            let vc = UserTabBarVC()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
         present(alert, animated: true, completion: nil)
@@ -168,7 +172,7 @@ class ChangePwVC: UIViewController {
             return
         }
         
-        let changeData: ChangePwModel = ChangePwModel(oldPw: oldPassword, newPw: newPassword, reNewPw: reNewPassword, refreshToken: ServiceAPI.refreshtoken )
+        let changeData: ChangePwModel = ChangePwModel(oldPw: oldPassword, newPw: newPassword, reNewPw: reNewPassword, refreshToken: ServiceAPI.refreshtoken)
         MypageManager.shared.changePassword(changePwData: changeData) { result in
             switch result {
             case .success(let response):
@@ -184,6 +188,10 @@ class ChangePwVC: UIViewController {
             }
         
         }
+    }
+    
+    func refreshToken() {
+        //구현 예정
     }
     
 }
