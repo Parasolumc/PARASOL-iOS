@@ -327,6 +327,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
             
+            
             picsStackView.addArrangedSubview(picView)
         }
 
@@ -359,7 +360,8 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     func showSuccessAlert() {
         let alert = UIAlertController(title: "정보 변경 성공", message: "정보가 성공적으로 변경되었습니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            self.navigationController?.popViewController(animated: true)
+            let vc = OwnerTabBarVC()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
         present(alert, animated: true, completion: nil)
@@ -373,7 +375,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let startTime = startLabel.text
         let endTime = endLabel.text*/
         
-        let changeData: EditInfoModel = EditInfoModel(desc: "hellooo", openTime: "10:00", closeTime: "22:20")
+        let changeData: EditInfoModel = EditInfoModel(desc: "hi", openTime: "17:17", closeTime: "22:12")
         MenuManager.shared.editShopInfo(editShopInfoData: changeData) { result in
             switch result {
             case .success(let data):
@@ -390,4 +392,25 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         }
     }
+    
+    func uploadImage(image: UIImage) {
+        let imageData = UIImage(named: "temp")
+        MenuManager.shared.upLoadPhoto(image: image) { result in
+            switch result {
+            case .success(let response):
+                // 업로드 성공 시 처리
+                if response["check"] as? Bool == true {
+                    print("업로드 성공")
+                    self.showSuccessAlert()
+                } else {
+                    print("업로드 실패")
+                }
+            case .failure(let error):
+                // 업로드 실패 시 처리
+                print(error)
+                return
+            }
+        }
+    }
+    
 }
