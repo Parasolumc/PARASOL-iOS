@@ -385,20 +385,23 @@ class OwnerMenuVC: UIViewController {
             switch result {
             case .success(let data):
                 print("본인 매장 조회")
-                print(data) // 데이터 확인용 shopInformation
-                /*self.shopInformation.removeAll()
-                for info in data.information {
-                    self.shopInformation.append(OwnerStoreInformation.init(id: info.id,
-                                                                           shopName: info.shopName,
-                                                                           desc: info.desc,
-                                                                           latitude: info.latitude,
-                                                                           longitude: info.longitude,
-                                                                           roadNameAddress: info.roadNameAddress,
-                                                                           openTime: info.openTime,
-                                                                           closeTime: info.closeTime,
-                                                                           availableUmbrella: info.availableUmbrella,
-                                                                           image: info.image))
-                }*/ //UserMenuVC 참고해보기.......
+                print(data) // 데이터 확인용
+                // 데이터를 UI 요소에 적용
+                let info = data.information
+                DispatchQueue.main.async {
+                    self.nameLabel.text = info.shopName
+                    self.addressLabel.text = info.roadNameAddress
+                    self.workingdayLabel.text = "매일" //model에 추가
+                    self.startLabel.text = info.openTime
+                    self.endLabel.text = info.closeTime
+                    self.introduceLabel.text = info.desc
+                    //self.totalNum = info.totalUmbrella
+                    self.umbrellaNum = info.availableUmbrella
+                    
+                    //self.rentNumLabel.text = "\(self.totalNum)개"
+                    self.availableNumLabel.text = "\(self.umbrellaNum)개"
+                }
+                
             case .failure(let error):
                 print("본인 매장 조회 에러\n\(error)")
             }
