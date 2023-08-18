@@ -12,6 +12,8 @@ class PopupVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
+    var dataCompletion: ((String, String, String) -> Void)?
+    
     let containerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 30
@@ -64,7 +66,7 @@ class PopupVC: UIViewController {
         textfield.setDimensions(height: 35, width: 71)
         textfield.layer.cornerRadius = 5
         textfield.borderStyle = .roundedRect
-        textfield.text = "00:00"
+        textfield.placeholder = "00:00"
         textfield.font = .systemFont(ofSize: 13)
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 1
@@ -78,7 +80,7 @@ class PopupVC: UIViewController {
         textfield.setDimensions(height: 35, width: 71)
         textfield.layer.cornerRadius = 5
         textfield.borderStyle = .roundedRect
-        textfield.text = "23:50"
+        textfield.placeholder = "23:59"
         textfield.font = .systemFont(ofSize: 13)
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 1
@@ -242,12 +244,13 @@ class PopupVC: UIViewController {
     }
     
     @objc func confirmButtonTapped(sender: UIButton) {
-        let ownerMenuVC = OwnerMenuVC()
-        
         let selectedRow = dayPicker.selectedRow(inComponent: 0)
-        ownerMenuVC.workingday = daysOfWeek[selectedRow]
-        ownerMenuVC.starttime = startTextField.text ?? ""
-        ownerMenuVC.endtime = endTextField.text ?? ""
+        let selectedDay = daysOfWeek[selectedRow]
+        let startTime = startTextField.text ?? ""
+        let endTime = endTextField.text ?? ""
+        
+        // 데이터 전달 클로저를 호출하여 데이터를 이전 뷰 컨트롤러로 전달
+        dataCompletion?(selectedDay, startTime, endTime)
         
         dismiss(animated: false, completion: nil)
     }
@@ -258,7 +261,7 @@ class PopupVC: UIViewController {
         return dateFormatter.string(from: date)
     }
     
-    @objc func starttimePickerValueChanged(sender: UIDatePicker) {
+    /*@objc func starttimePickerValueChanged(sender: UIDatePicker) {
         let selectedTime = sender.date
         startTextField.text = formatTime(selectedTime)
     }
@@ -266,7 +269,7 @@ class PopupVC: UIViewController {
     @objc func endtimePickerValueChanged(sender: UIDatePicker) {
         let selectedTime = sender.date
         endTextField.text = formatTime(selectedTime)
-    }
+    }*/
     
     func createToolbarForPicker(selector: Selector) -> UIToolbar {
         let toolbar = UIToolbar()

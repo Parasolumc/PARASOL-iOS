@@ -14,7 +14,7 @@ enum MenuAPI {
     case sellUmbrella(id: Int)
     case sellRecord
     case editInfo(param: EditInfoModel)
-    //case uploadPhoto(image: UIImage)
+    case uploadPhoto(image: UIImage)
 }
 
 extension MenuAPI: TargetType {
@@ -35,8 +35,8 @@ extension MenuAPI: TargetType {
             return "/api/sell"
         case .editInfo(param: _):
             return "/api/shop/info"
-        /*case .uploadPhoto(image: _):
-            return "/api/shop/image"*/
+        case .uploadPhoto(image: _):
+            return "/api/shop/image"
         }
     }
     
@@ -52,8 +52,8 @@ extension MenuAPI: TargetType {
             return .get
         case .editInfo:
             return .put
-        /*case .uploadPhoto(_):
-            return .post*/
+        case .uploadPhoto(_):
+            return .post
         }
     }
     
@@ -69,10 +69,9 @@ extension MenuAPI: TargetType {
             return .requestPlain
         case .editInfo(param: let param):
             return .requestJSONEncodable(param)
-        /*case .uploadPhoto(let image):
-            let imageData = image.jpegData(compressionQuality: 0.8)
-            let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData!), name: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")]
-            return .uploadMultipart(formData)*/
+        case .uploadPhoto(let image):
+            let imageData = MultipartFormData(provider: .data(image.jpegData(compressionQuality: 1.0)!), name: "image", fileName: "jpeg", mimeType: "image/jpeg")
+            return .uploadMultipart([imageData])
         }
     }
     

@@ -73,7 +73,7 @@ class MenuManager {
         }
     }
     
-    /*func upLoadPhoto(image: UIImage, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
+    func upLoadPhoto(image: UIImage, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
         provider.request(.uploadPhoto(image: image)) { result in
             switch result {
             case .success(let data):
@@ -85,7 +85,7 @@ class MenuManager {
                 completion(.failure(Error))
             }
         }
-    }*/
+    }
     
     
     
@@ -93,39 +93,3 @@ class MenuManager {
     
 }
 
-
-/*
- 
- @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-     picker.dismiss(animated: true, completion: nil)
-
-     if let selectedImage = info[.originalImage] as? UIImage {
-         // 이미지 업로드 요청
-         uploadImage(selectedImage)
-     }
- }
-
- func uploadImage(_ image: UIImage) {
-     MoyaProvider<MenuAPI>().request(.uploadPhoto(image: image)) { result in
-         switch result {
-         case .success(let response):
-             // 업로드 성공 시 처리
-             if let uploadedImageURL = response.url {
-                 let picView = UIImageView(image: image)
-                 picView.contentMode = .scaleAspectFill
-                 picView.clipsToBounds = true
-                 picView.layer.cornerRadius = 20
-                 picView.setDimensions(height: 107, width: 129)
-                 
-                 self.picsStackView.addArrangedSubview(picView)
-             }
-         case .failure(let error):
-             // 업로드 실패 시 처리
-             print("Image upload error: \(error)")
-             // ...
-         }
-     }
- }
-
- 
- */
