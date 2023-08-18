@@ -375,7 +375,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let startTime = startLabel.text
         let endTime = endLabel.text*/
         
-        let changeData: EditInfoModel = EditInfoModel(desc: "hi", openTime: "17:17", closeTime: "22:12")
+        let changeData: EditInfoModel = EditInfoModel(desc: "hello", openTime: "10:10", closeTime: "21:30")
         MenuManager.shared.editShopInfo(editShopInfoData: changeData) { result in
             switch result {
             case .success(let data):
