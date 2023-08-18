@@ -278,13 +278,13 @@ class LoginVC: UIViewController {
             login(userID: idTextField.text ?? "", userPW: pwTextField.text ?? "")
         } else {
             if idTextField.text == "" && pwTextField.text == "" {
-                print("아이디와 비밀번호를 입력하세요.")
+                self.view.makeToast("아이디와 비밀번호를 입력하세요.", position: .center, style: self.style)
             } else if idTextField.text == "" {
-                print("아이디를 입력하세요.")
+                self.view.makeToast("아이디를 입력하세요.", position: .center, style: self.style)
             } else if pwTextField.text == "" {
-                print("비밀번호를 입력하세요.")
+                self.view.makeToast("비밀번호를 입력하세요.", position: .center, style: self.style)
             } else {
-                print("입력값을 확인하세요.")
+                self.view.makeToast("일치하는 회원정보가 없습니다.", position: .center, style: self.style)
             }
         }
         
@@ -300,6 +300,8 @@ class LoginVC: UIViewController {
             let root = OwnerTabBarVC()
             let vc = UINavigationController(rootViewController: root)
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        } else {
+            self.view.makeToast("앱 접속 실패", position: .center, style: self.style)
         }
         
     }

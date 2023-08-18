@@ -7,6 +7,7 @@
 
 import UIKit
 import NMapsMap
+import CoreLocation
 
 class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Properties
@@ -21,14 +22,37 @@ class UserVC: UIViewController, UISearchBarDelegate {
     lazy var toolbarBounds = self.navigationController!.navigationBar.bounds
     lazy var toolbarHeight = toolbarBounds.height
     
-    // 대여가능한 우산의 개수
-    var umbrellaNum = 9
+    // MARK: [For Map]
+    lazy var mapView: NMFNaverMapView = {
+        let mapView = NMFNaverMapView(frame: view.frame)
+        
+        mapView.mapView.positionMode = .direction
+        mapView.mapView.logoAlign = .leftBottom
+        
+        mapView.showCompass = true // 나침반 모양
+        mapView.showZoomControls = false // +, - 버튼
+        mapView.showLocationButton = true //동그라미 버튼
+        
+        return mapView
+    }()
+    
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        // desiredAccuracy는 위치의 정확도를 설정함.
+        // 높으면 배터리 많이 닳음.
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.delegate = self
+        return manager
+     }()
     
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
     
+    // 대여가능한 우산의 개수
+    var umbrellaNum = 9
+    
     // MARK: [UI components]
-    // 검색 바 요소들
+    // TODO: 검색 바 요소들
     let searchBar: UISearchBar = {
         let searchbar = UISearchBar()
         
@@ -56,13 +80,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
         
         let showAction = UIAction { _ in
             self.showStoreInfo(id: 1)
-            }
+        }
 
         button.addAction(showAction, for: .touchUpInside)
         
         return button
     }()
-    
     
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
@@ -76,6 +99,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         setNMap()
+        setCurrentPos()
         configureUI()
         setNavigationBar()
     }
@@ -84,22 +108,40 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
     // MARK: [Naver Map]
+    // TODO: 네이버지도 생성 및 배치 method
     func setNMap() {
-        let mapView = NMFMapView()
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
         
+        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "umbrella"))
+        marker.mapView = mapView.mapView
+        marker.iconTintColor = UIColor(named: "black")!
+        marker.width = 30
+        marker.height = 30
+        marker.captionText = "3"
+        marker.captionAligns = [NMFAlignType.top]
+        marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        print(marker.userInfo["id"] as! Int)
+        
     }
-    
+    // TODO: 현재 위치 생성 method
+    func setCurrentPos() {
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        getLocationUsagePermission()
+        
+    }
+    // TODO: 전체 UI 배치 method
     func configureUI() {
         view.backgroundColor = UIColor(named: "light")
         
-        view.addSubview(mapMarkButton)
-        mapMarkButton.centerY(inView: view)
-        mapMarkButton.centerX(inView: view)
+//        view.addSubview(mapMarkButton)
+//        mapMarkButton.centerY(inView: view)
+//        mapMarkButton.centerX(inView: view)
         
     }
-    
+    // TODO: 네비게이션바 세팅(서치바 포함) method
     func setNavigationBar() {
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = UIColor(named: "black")
@@ -118,7 +160,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         // 네비게이션 바 아이템 넣기
         setNCRB()
     }
-    
+    // TODO: 네비게이션바 오른쪽 아이템 세팅 method
     // 알림 벨 세팅
     func setNCRB() {
         // right bar item
@@ -155,7 +197,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         }
         searchBar.resignFirstResponder() // 키보드를 닫습니다.
     }
-    
+    // TODO: 매장 정보화면 present method
     func showStoreInfo(id: Int) {
         let vc = SumStoreInfoVC()
         present(vc, animated: true, completion: nil)
@@ -165,6 +207,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    // TODO: 데이터 세팅 method
     func fetchData() {
         // 매장 리스트 조회
         HomeManager.shared.user_getStoreList { result in
@@ -206,4 +249,48 @@ class UserVC: UIViewController, UISearchBarDelegate {
         
     }
 
+}
+
+extension UserVC: CLLocationManagerDelegate {
+    func getLocationUsagePermission() {
+        //location4
+        self.locationManager.requestWhenInUseAuthorization()
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //location5
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("GPS 권한 설정됨")
+            locationManager.startUpdatingLocation() // 중요!
+            
+            //현 위치로 카메라 이동
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+            cameraUpdate.animation = .easeIn
+            mapView.mapView.moveCamera(cameraUpdate)
+            
+        case .restricted, .notDetermined:
+            print("GPS 권한 설정되지 않음")
+            getLocationUsagePermission()
+        case .denied:
+            print("GPS 권한 요청 거부됨")
+            getLocationUsagePermission()
+        default:
+            print("GPS: Default")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // the most recent location update is at the end of the array.
+        let location: CLLocation = locations[locations.count - 1]
+        let longtitude: CLLocationDegrees = location.coordinate.longitude
+        let latitude:CLLocationDegrees = location.coordinate.latitude
+
+        //현 위치로 카메라 이동
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+        cameraUpdate.animation = .easeIn
+        mapView.mapView.moveCamera(cameraUpdate)
+        
+    }
 }
