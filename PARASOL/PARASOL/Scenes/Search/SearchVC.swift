@@ -175,7 +175,6 @@ extension SearchVC: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SearchCell
         
-        cell.id = searchedStores[indexPath.row].id
         cell.nameLabel.text = searchedStores[indexPath.row].shopName
         cell.addressLabel.text = searchedStores[indexPath.row].roadNameAddress
         cell.distanceLabel.text = searchedStores[indexPath.row].distance
