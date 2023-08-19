@@ -9,42 +9,124 @@ import UIKit
 
 class MypageVC: UIViewController {
     
-    let tableView: UITableView = {
-        let tableview = UITableView(frame: .zero, style: .insetGrouped)
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "마이페이지"
+        label.font = .B24
         
-        return tableview
+        return label
     }()
     
-    let sections = ["계정 관리", "이용약관"]
-    let accountItems = ["비밀번호 변경", "로그아웃", "회원 탈퇴"]
-    let termsItems = ["이용약관"]
+    let title1: UILabel = {
+        let label = UILabel()
+        label.text = "관리"
+        label.font = .M16
+        label.textColor = UIColor(named: "gray22")
+        
+        return label
+    }()
+    
+    let title2: UILabel = {
+        let label = UILabel()
+        label.text = "이용약관"
+        label.font = .M16
+        label.textColor = UIColor(named: "gray22")
+        
+        return label
+    }()
+    
+    lazy var changePwLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("비밀번호 변경", for: .normal)
+        button.titleLabel?.font = .SB18
+        button.setTitleColor(.black, for: .normal)
+        
+        let goToChangePwVCAction = UIAction { _ in
+            let changepwVC = ChangePwVC()
+            self.navigationController?.pushViewController(changepwVC, animated: true)
+        }
+        
+        button.addAction(goToChangePwVCAction, for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var logoutLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("로그아웃", for: .normal)
+        button.titleLabel?.font = .SB18
+        button.setTitleColor(.black, for: .normal)
+        
+        let logOutAction = UIAction { _ in
+            self.showLogoutAlert()
+        }
+        
+        button.addAction(logOutAction, for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var withdrawalLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("회원탈퇴", for: .normal)
+        button.titleLabel?.font = .SB18
+        button.setTitleColor(.black, for: .normal)
+        
+        let withDrawalAction = UIAction { _ in
+            self.showwithdrawalAlert()
+        }
+        
+        button.addAction(withDrawalAction, for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var contractLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("이용약관", for: .normal)
+        button.titleLabel?.font = .SB18
+        button.setTitleColor(.black, for: .normal)
+        
+        let goToContractVCAction = UIAction { _ in
+            let contractVC = ContractVC()
+            self.navigationController?.pushViewController(contractVC, animated: true)
+        }
+        
+        button.addAction(goToContractVCAction, for: .touchUpInside)
+        
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        setNavigationBar()
+        //refreshtoken갱신
     }
     
     // UI 설정들 관련 method
     
-    func setNavigationBar() {
-        self.navigationItem.title = "마이페이지"
-    }
-    
     func configureUI() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        view.addSubview(title1)
+        view.addSubview(changePwLabel)
+        view.addSubview(logoutLabel)
+        view.addSubview(withdrawalLabel)
+        view.addSubview(title2)
+        view.addSubview(contractLabel)
         
-        tableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-
-        tableView.backgroundColor = .white
-        tableView.separatorStyle = .none
+        //titleLabel.anchor(top:view.topAnchor, left: view.leftAnchor, paddingTop: 75, paddingLeft: 24)
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        titleLabel.anchor(top:view.topAnchor, paddingTop: 75)
+        titleLabel.centerX(inView: view)
+        title1.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 25)
+        changePwLabel.anchor(top: title1.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
+        logoutLabel.anchor(top: changePwLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
+        withdrawalLabel.anchor(top: logoutLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        title2.anchor(top: withdrawalLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 35, paddingLeft: 25)
+        contractLabel.anchor(top: title2.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
+        
     }
     
     func showLogoutAlert() {
@@ -55,7 +137,7 @@ class MypageVC: UIViewController {
         }
         
         alert.addAction(cancelAction)
-        alert.addAction(logoutAction) //순서 안 바뀜
+        alert.addAction(logoutAction)
         present(alert, animated: true, completion: nil)
     }
     
@@ -74,7 +156,8 @@ class MypageVC: UIViewController {
     func logoutshowSuccessAlert() {
         let alert = UIAlertController(title: "로그아웃 성공", message: "로그아웃에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            //첫 화면으로 돌아가기
+            let vc = LoginVC()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
         present(alert, animated: true, completion: nil)
@@ -90,7 +173,8 @@ class MypageVC: UIViewController {
     func withdrawalshowSuccessAlert() {
         let alert = UIAlertController(title: "회원 탈퇴 성공", message: "회원 탈퇴에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            //첫 화면으로 돌아가기
+            let vc = LoginVC()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
         present(alert, animated: true, completion: nil)
@@ -147,55 +231,3 @@ class MypageVC: UIViewController {
     }
 
 }
-
-extension MypageVC: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return accountItems.count
-        } else if section == 1 {
-            return termsItems.count
-        }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if indexPath.section == 0 {
-            cell.textLabel?.text = accountItems[indexPath.row]
-        } else if indexPath.section == 1 {
-            cell.textLabel?.text = termsItems[indexPath.row]
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 {
-            if indexPath.row == 0 { // "비밀번호 변경" 셀을 눌렀을 때
-                let changepwVC = ChangePwVC()
-                self.navigationController?.pushViewController(changepwVC, animated: true)
-            } else if indexPath.row == 1 { // "로그아웃" 셀을 눌렀을 때
-                showLogoutAlert() // 로그아웃 팝업 표시
-            } else if indexPath.row == 2 { // "회원탈퇴" 셀을 눌렀을 때
-                showwithdrawalAlert() // 탈퇴 팝업 표시
-            }
-        } else if indexPath.section == 1 {
-            // 이용약관 셀의 동작 구현
-            let contractVC = ContractVC()
-            self.navigationController?.pushViewController(contractVC, animated: true)
-            
-        }
-    }
-
-}
-

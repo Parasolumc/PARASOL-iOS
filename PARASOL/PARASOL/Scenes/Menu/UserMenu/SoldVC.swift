@@ -10,68 +10,20 @@ import UIKit
 class SoldVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    static var umbrellaCnt = 0
     
     // MARK: [For Data]
     var sellRecords: [SellRecordInformation] = []
+    var rentalRecords: [RentalRecordInformation] = []
 
     // MARK: [UI components]
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "내가 판매한 우산"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = .B20
         
         return label
     }()
-    
-    /*lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(self.date)
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.sizeToFit()
-        
-        return label
-    }()
-    
-    lazy var locationLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(self.location)
-        label.font = UIFont.systemFont(ofSize: 16)
-        
-        return label
-    }()
-    
-    lazy var numLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(self.num) + "개"
-        label.font = UIFont.systemFont(ofSize: 16)
-        
-        return label
-    }()
-    
-    lazy var spacerView = UIView()
-    
-    lazy var infoStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.dateLabel, self.locationLabel, self.spacerView])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .horizontal
-        stackview.alignment = .center
-        stackview.spacing = 8
-        stackview.distribution = .fill
-        //stackview.setDimensions(height: 25, width: 248)
-        
-        return stackview
-    }()
-    
-    lazy var soldStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.infoStackView, self.numLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .horizontal
-        stackview.alignment = .center
-        stackview.distribution = .fill
-        stackview.spacing = 20
-        
-        return stackview
-    }()*/
     
     lazy var SoldrecordStackview: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [])
@@ -86,7 +38,7 @@ class SoldVC: UIViewController{
     let mycabonLabel: UILabel = {
         let label = UILabel()
         label.text = "내가 절약한 탄소량"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = .B20
         
         return label
     }()
@@ -101,8 +53,9 @@ class SoldVC: UIViewController{
     
     let cabonLabel: UILabel = {
         let label = UILabel()
-        label.text = "3049 G"
-        label.font = .boldSystemFont(ofSize: 20)
+        let cabonG = SoldVC.umbrellaCnt * 629
+        label.text = "0 G"
+        label.font = .SB20
         label.textColor = UIColor(named: "blue")
         
         return label
@@ -115,19 +68,9 @@ class SoldVC: UIViewController{
         super.viewDidLoad()
         
         configureUI()
+        getRentalRecords()
         fetchData()
         setNavigationBar()
-        
-        /*let soldRecords: [SoldRecord] = [
-            SoldRecord(date: "2023.06.07", location: "신촌 카페플레이스점", num: 1),
-            SoldRecord(date: "2023.07.07", location: "신촌 홍익문고점", num: 2)
-            // 다른 판매 기록 데이터들도 추가
-        ]
-        
-        for record in soldRecords {
-            let recordView = createSoldStackview(date: record.date, location: record.location, num: record.num)
-            SoldrecordStackview.addArrangedSubview(recordView)  // SoldrecordStackview에 추가
-        }*/
     }
     
     // MARK: - Actions
@@ -155,15 +98,15 @@ class SoldVC: UIViewController{
     func createSoldStackview(date: String, location: String, num: Int) -> UIView {
         let dateLabel = UILabel()
         dateLabel.text = date.replacingOccurrences(of: "-", with: ".")
-        dateLabel.font = UIFont.systemFont(ofSize: 16)
+        dateLabel.font = .M16
         
         let locationLabel = UILabel()
         locationLabel.text = location
-        locationLabel.font = UIFont.systemFont(ofSize: 16)
+        locationLabel.font = .M16
         
         let numLabel = UILabel()
         numLabel.text = "\(num)개"
-        numLabel.font = UIFont.systemFont(ofSize: 16)
+        numLabel.font = .M16
         
     
         let infoStackView = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
@@ -216,6 +159,37 @@ class SoldVC: UIViewController{
             let recordView = self.createSoldStackview(date: record.createdAt, location: record.sellShop, num: record.umbrellaCount)
             self.SoldrecordStackview.addArrangedSubview(recordView)
         }
+    }
+    
+    func getRentalRecords() {
+        MenuManager.shared.user_getRentalList { result in
+            switch result {
+            case .success(let data):
+                self.rentalRecords.removeAll()
+                for rentalrecord in data.information {
+                    self.rentalRecords.append(RentalRecordInformation.init(member: rentalrecord.member,
+                                                                           fromShop: rentalrecord.fromShop,
+                                                                           endShop: rentalrecord.endShop,
+                                                                           createdAt: rentalrecord.createdAt,
+                                                                           clearedAt: rentalrecord.clearedAt,
+                                                                           process: rentalrecord.process))
+                }
+                
+                // 데이터를 가져온 후에 UI 업데이트 수행
+                DispatchQueue.main.async {
+                    SoldVC.umbrellaCnt = data.information.count
+                    self.updateUIWithRentalRecords()
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func updateUIWithRentalRecords() {
+        let cabonG = SoldVC.umbrellaCnt * 629
+        cabonLabel.text = "\(cabonG) G"
     }
 }
 
