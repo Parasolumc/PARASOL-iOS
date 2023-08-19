@@ -10,6 +10,7 @@ import UIKit
 class RecordVC: UIViewController{
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    var timePass: Int = 0
     
     // MARK: [For Data]
     var rentalRecords: [RentalRecordInformation] = []
@@ -49,7 +50,8 @@ class RecordVC: UIViewController{
         
     }
     
-    func createRecordStackview(date: String, location: String, state: String) -> UIView {
+    func createRecordStackview(date: String, location: String, state: String, timeDifference: Int) -> UIView {
+        //SoldVC.umbrellaCnt += 1
         let dateLabel = UILabel()
         
         let maxDisplayLength = 10 // 최대 표시 길이
@@ -59,12 +61,12 @@ class RecordVC: UIViewController{
         } else {
             dateLabel.text = date
         }
-        dateLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        dateLabel.font = .SB16
 
         
         let locationLabel = UILabel()
         locationLabel.text = location
-        locationLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        locationLabel.font = .SB16
         
         let clockImage = UIImageView(image: UIImage(named: "clock"))
         clockImage.setDimensions(height: 19, width: 19)
@@ -73,9 +75,9 @@ class RecordVC: UIViewController{
         if state == "USE" {
             stateLabel.text = "대여중"
         } else if state == "CLEAR" {
-            stateLabel.text = "48시간 이용"
+            stateLabel.text = "\(timeDifference)시간 이용"
         }
-        stateLabel.font = UIFont.systemFont(ofSize: 16)
+        stateLabel.font = .M16
         
         let dlStackview = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
         dlStackview.axis = .horizontal
@@ -122,6 +124,24 @@ class RecordVC: UIViewController{
         return containerView
     }
     
+    func calculateTimeGap(from startDate: String, to endDate: String) -> Int? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        if let startDate = dateFormatter.date(from: startDate),
+           let endDate = dateFormatter.date(from: endDate) {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour], from: startDate, to: endDate)
+            
+            if let calculatedHours = components.hour {
+                print(calculatedHours)
+                return calculatedHours
+            }
+        }
+        
+        return nil
+    }
+    
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
@@ -129,7 +149,6 @@ class RecordVC: UIViewController{
         MenuManager.shared.user_getRentalList { result in
             switch result {
             case .success(let data):
-                print(data)
                 self.rentalRecords.removeAll()
                 for rentalrecord in data.information {
                     self.rentalRecords.append(RentalRecordInformation.init(member: rentalrecord.member,
@@ -139,7 +158,6 @@ class RecordVC: UIViewController{
                                                                            clearedAt: rentalrecord.clearedAt,
                                                                            process: rentalrecord.process))
                 }
-                print(self.rentalRecords)
                 
                 // 데이터를 가져온 후에 UI 업데이트 수행
                 DispatchQueue.main.async {
@@ -155,8 +173,25 @@ class RecordVC: UIViewController{
     
     func updateUIWithRentalRecords() {
         for record in self.rentalRecords {
-            let recordView = self.createRecordStackview(date: record.createdAt, location: record.fromShop, state: record.process)
-            self.RentalrecordStackview.addArrangedSubview(recordView)
+            let sdate = String(record.createdAt.prefix(10)).replacingOccurrences(of: "-", with: "/")
+            let srangeStartIndex = record.createdAt.index(record.createdAt.startIndex, offsetBy: 11)
+            let srangeEndIndex = record.createdAt.index(record.createdAt.startIndex, offsetBy: 16)
+            let stime = record.createdAt[srangeStartIndex ..< srangeEndIndex]
+            let sdatetime = "\(sdate) \(stime)"
+            print(sdatetime)
+            
+            let edate = String(record.clearedAt.prefix(10)).replacingOccurrences(of: "-", with: "/")
+            let erangeStartIndex = record.clearedAt.index(record.clearedAt.startIndex, offsetBy: 11)
+            let erangeEndIndex = record.clearedAt.index(record.clearedAt.startIndex, offsetBy: 16)
+            let etime = record.clearedAt[erangeStartIndex ..< erangeEndIndex]
+            let edatetime = "\(edate) \(etime)"
+            print(edatetime)
+            
+            if let timeDifference = calculateTimeGap(from: sdatetime, to: edatetime) {
+                print(timeDifference)
+                let recordView = self.createRecordStackview(date: record.createdAt, location: record.fromShop, state: record.process, timeDifference: timeDifference)
+                self.RentalrecordStackview.addArrangedSubview(recordView)
+            }
         }
     }
     

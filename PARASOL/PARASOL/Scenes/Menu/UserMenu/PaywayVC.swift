@@ -18,7 +18,7 @@ class PaywayVC: UIViewController{
         let label = UILabel()
         label.text = "결제수단을 등록하시면 \n바로 대여가 가능합니다."
         label.numberOfLines = 0
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .SB18
 
         return label
     }()
@@ -26,7 +26,7 @@ class PaywayVC: UIViewController{
     let registerlabel: UILabel = {
         let label = UILabel()
         label.text = "결제수단 등록"
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .SB18
         
         return label
     }()
@@ -38,6 +38,7 @@ class PaywayVC: UIViewController{
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .SB16
         
         return button
     }()

@@ -15,6 +15,7 @@ class UserMenuVC: UIViewController {
     var state: String = ""
     var start: String = ""
     var end: String = ""
+    var hours: Int = 0
     
     lazy var titleStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.titleLabel, self.umbrellaImageView])
@@ -28,7 +29,7 @@ class UserMenuVC: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "내 우산"
-        label.font = .systemFont(ofSize: 25, weight: .bold)
+        label.font = .B24
         
         return label
     }()
@@ -52,18 +53,18 @@ class UserMenuVC: UIViewController {
     
     lazy var statelabel: UILabel = {
         let label = UILabel()
-        if state == "USE" { // 대여중인 상태
+        if state == "CLEAR" { // 대여중이 아닌 상태
+            label.text = "아직 빌린 우산이 없어요!"
+            label.font = .SB16
+        }
+        else { // USE, DELAY
             let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
             let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
             let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
             let time = start[rangeStartIndex ..< rangeEndIndex]
             
             label.text = "\(date) \(time) 에 빌렸어요"
-            label.font = .boldSystemFont(ofSize: 16)
-        }
-        else { // 대여중이 아닌 상태
-            label.text = "아직 빌린 우산이 없어요!"
-            label.font = .boldSystemFont(ofSize: 16)
+            label.font = .SB16
         }
         
         return label
@@ -71,10 +72,16 @@ class UserMenuVC: UIViewController {
     
     lazy var freestatelabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.end) + " 까지 반납하면 무료! (추가예정)" //위의 date에서 1일 더하기
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .blue
+        let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
+        let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
+        let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
+        let time = start[rangeStartIndex ..< rangeEndIndex]
         
+        if let enddate = addOneDayToDate(date) {
+            label.text = "\(enddate) \(time) 까지 반납하면 무료!" //위의 date에서 1일 더하기
+        }
+        label.font = .SB16
+        label.textColor = UIColor(named: "blue")
         
         return label
     }()
@@ -86,7 +93,7 @@ class UserMenuVC: UIViewController {
         button.layer.cornerRadius = 20
         button.setDimensions(height: 45, width: 242)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         
         let goToUserVCAction = UIAction { _ in
             let vc = UserTabBarVC()
@@ -101,8 +108,8 @@ class UserMenuVC: UIViewController {
     let warninglabel: UILabel = {
         let label = UILabel()
         label.text = "24시간동안 우산 무료로 대여되며, 초과시 1시간당 \n100원의 연체료가 부과됩니다."
-        label.font = .boldSystemFont(ofSize: 12)
-        label.textColor = .red
+        label.font = .SB12
+        label.textColor = UIColor(named: "red")
         label.numberOfLines = 0
         
         return label
@@ -121,7 +128,7 @@ class UserMenuVC: UIViewController {
     let label1: UILabel = {
         let label = UILabel()
         label.text = "초과시간"
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = .B16
         
         return label
     }()
@@ -139,10 +146,34 @@ class UserMenuVC: UIViewController {
         return imageView
     }()
     
-    let timeLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "3시간"
-        label.font = UIFont.systemFont(ofSize: 20)
+        let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
+        let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
+        let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
+        let time = start[rangeStartIndex ..< rangeEndIndex]
+        let datetime = "\(date) \(time)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        if let timeDate = dateFormatter.date(from: String(datetime)) {
+            let currentTime = Date()
+
+            // 두 시간 사이의 차이 계산
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour], from: timeDate, to: currentTime)
+            if let calculatedHours = components.hour {
+                // 시간 차이
+                label.text = "\(calculatedHours)시간"
+                self.hours = calculatedHours
+                print(currentTime)
+                print(timeDate)
+            }
+        } else {
+            print("시간 변환 오류")
+        }
+        
+        label.font = .SB20
         
         return label
     }()
@@ -160,7 +191,7 @@ class UserMenuVC: UIViewController {
     let label2: UILabel = {
         let label = UILabel()
         label.text = "연체료"
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = .B16
         
         return label
     }()
@@ -180,11 +211,11 @@ class UserMenuVC: UIViewController {
         return imageView
     }()
     
-    let moneylabel: UILabel = {
+    lazy var moneylabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "300원"
-        label.font = UIFont.systemFont(ofSize: 20)
+        let money = self.hours * 100
+        label.text = "\(money)원"
+        label.font = .SB20
         
         return label
     }()
@@ -208,7 +239,7 @@ class UserMenuVC: UIViewController {
         button.layer.cornerRadius = 20
         button.setDimensions(height: 45, width: 342)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         
         let goToSellVCAction = UIAction { _ in
             let rentalVC = Rental_ReturnVC()
@@ -228,7 +259,7 @@ class UserMenuVC: UIViewController {
         button.layer.cornerRadius = 20
         button.setDimensions(height: 45, width: 342)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         
         let goTosoldVCAction = UIAction { _ in
             let soldVC = SoldVC()
@@ -243,7 +274,7 @@ class UserMenuVC: UIViewController {
     let manageLabel: UILabel = {
         let label = UILabel()
         label.text = "관리"
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = .M16
         label.textColor = UIColor(named: "gray22")
         
         return label
@@ -252,7 +283,7 @@ class UserMenuVC: UIViewController {
     lazy var payLabel: UIButton = {
         let button = UIButton()
         button.setTitle("결제수단", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
         
         let goTopaywayVCAction = UIAction { _ in
@@ -268,7 +299,7 @@ class UserMenuVC: UIViewController {
     lazy var rentalLabel: UIButton = {
         let button = UIButton()
         button.setTitle("대여기록", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
         
         let goTorecordVCAction = UIAction { _ in
@@ -301,11 +332,9 @@ class UserMenuVC: UIViewController {
         view.addSubview(payLabel)
         view.addSubview(rentalLabel)
         
-        titleStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingLeft: 24)
+        titleStackView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 75, paddingLeft: 24)
         
         info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
-        
-        //showView()
         
         sellbutton.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         soldbutton.anchor(top: sellbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
@@ -319,7 +348,16 @@ class UserMenuVC: UIViewController {
     }
     
     func showView() {
-        if state == "USE" { // 대여중인 상태
+        if state == "CLEAR" {
+            info.addSubview(statelabel)
+            view.addSubview(rentalbutton)
+            
+            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
+            
+            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
+            rentalbutton.centerX(inView: view)
+        }
+        else {
             info.addSubview(statelabel)
             info.addSubview(freestatelabel)
             info.addSubview(warninglabel)
@@ -333,25 +371,28 @@ class UserMenuVC: UIViewController {
             stateStackView.centerX(inView: info)
             stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
         }
-        else { // 대여중이 아닌 상태
-            info.addSubview(statelabel)
-            view.addSubview(rentalbutton)
+    }
+    
+    // 날짜에 1일 더하기
+    func addOneDayToDate(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let modifiedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
             
-            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
-            
-            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
-            rentalbutton.centerX(inView: view)
+            if let modifiedDate = modifiedDate {
+                return dateFormatter.string(from: modifiedDate)
+            }
         }
         
-        
-        
+        return nil
     }
     
     func fetchData() {
         MenuManager.shared.user_getRentalList { result in
             switch result {
             case .success(let data):
-                print(data)
                 self.rentalRecords.removeAll()
                 for rentalrecord in data.information {
                     self.rentalRecords.append(RentalRecordInformation.init(member: rentalrecord.member,

@@ -13,6 +13,7 @@ class ChangePwVC: UIViewController {
     let currentpwLabel: UILabel = {
         let label = UILabel()
         label.text = "현재 비밀번호"
+        label.font = .M16
         
         return label
     }()
@@ -20,6 +21,7 @@ class ChangePwVC: UIViewController {
     let newpwLabel: UILabel = {
         let label = UILabel()
         label.text = "새 비밀번호"
+        label.font = .M16
         
         return label
     }()
@@ -27,6 +29,7 @@ class ChangePwVC: UIViewController {
     let renewpwLabel: UILabel = {
         let label = UILabel()
         label.text = "새 비밀번호 확인"
+        label.font = .M16
         
         return label
     }()
@@ -90,6 +93,7 @@ class ChangePwVC: UIViewController {
         button.setDimensions(height: 69, width: 342)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
+        button.titleLabel?.font = .SB16
         
         button.backgroundColor = UIColor(named: "main")
         
@@ -158,6 +162,24 @@ class ChangePwVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func showError1Alert() {
+        let alert = UIAlertController(title: "비밀번호 변경 실패", message: "새 비밀번호와 확인용 비밀번호가 일치하지 않습니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            // 닫기
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showError2Alert() {
+        let alert = UIAlertController(title: "비밀번호 변경 실패", message: "비밀번호는 8~12자리 영문과 숫자 조합이어야 합니다.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+            // 닫기
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
@@ -169,6 +191,19 @@ class ChangePwVC: UIViewController {
               !newPassword.isEmpty,
               !reNewPassword.isEmpty else {
             print("모든 필드를 입력해주세요.")
+            return
+        }
+        
+        // 비밀번호 일치 확인
+        if newPassword != reNewPassword {
+            self.showError1Alert()
+            return
+        }
+        
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,12}$"
+        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        if !passwordPredicate.evaluate(with: newPassword) {
+            self.showError2Alert()
             return
         }
         
@@ -186,12 +221,7 @@ class ChangePwVC: UIViewController {
                 print(error)
                 return
             }
-        
         }
-    }
-    
-    func refreshToken() {
-        //구현 예정
     }
     
 }

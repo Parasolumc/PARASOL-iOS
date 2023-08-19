@@ -33,7 +33,7 @@ class ContractVC: UIViewController {
     lazy var contractLabel1: UILabel = {
         let label = UILabel()
         label.text = "서비스 이용약관"
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .B16
         
         return label
     }()
@@ -52,7 +52,7 @@ class ContractVC: UIViewController {
     lazy var contractLabel2: UILabel = {
         let label = UILabel()
         label.text = "개인정보수집/이용 동의"
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .B16
         
         return label
     }()
@@ -71,7 +71,7 @@ class ContractVC: UIViewController {
     lazy var contractLabel3: UILabel = {
         let label = UILabel()
         label.text = "위치기반 서비스 이용약관 동의"
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .B16
         
         return label
     }()
