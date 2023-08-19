@@ -6,13 +6,28 @@
 //
 
 import UIKit
+import CoreLocation
 
 private let cellID = "SearchCell"
 
-class SearchVC: UIViewController{
+class SearchVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     var searchText:String = ""
+    
+    // MARK: [For Location]
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        // desiredAccuracy는 위치의 정확도를 설정함.
+        // 높으면 배터리 많이 닳음.
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.delegate = self
+        return manager
+     }()
+    
+    // MARK: [For Data]
+    var searchStore: SearchStoreModel = SearchStoreModel(keyword: "", userLatitude: "0", userLongitude: "0")
+    var searchedStores: [SearchedStoreInformation] = [SearchedStoreInformation(id: 1, shopName: "상점명", roadNameAddress: "주우소", distance: "거리")]
     
     // MARK: [UI components]
     let searchBar: UISearchBar = {
@@ -41,11 +56,17 @@ class SearchVC: UIViewController{
     
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 네비게이션 바 세팅
+        setNavigationBar()
+        // 데이터 불러오기
+        fetchSearchData(keyword: searchText)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
-        setNavigationBar()
     }
 //    override func viewDidDisappear(_ animated: Bool) {
 //        super.viewDidDisappear(animated)
@@ -61,6 +82,7 @@ class SearchVC: UIViewController{
         searchTableView.dataSource = self
         searchTableView.register(SearchCell.self, forCellReuseIdentifier: cellID)
         
+        searchBar.delegate = self
     
         view.addSubview(searchTableView)
         searchTableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -121,17 +143,42 @@ class SearchVC: UIViewController{
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
-
+    // TODO: 매장 검색 데이터 불러오기
+    func fetchSearchData(keyword: String) {
+        // 매장 검색
+        let lat = String(locationManager.location?.coordinate.latitude as? Double ?? 0)
+        let lon = String(locationManager.location?.coordinate.longitude as? Double ?? 0)
+        print("keyword: \(keyword), lat: \(lat), lon: \(lon)")
+        self.searchStore = SearchStoreModel(keyword: keyword, userLatitude: lat, userLongitude: lon)
+        HomeManager.shared.searchStores(SearchStoreModel: searchStore) { result in
+            switch result {
+            case .success(let data):
+                print("매장 검색")
+                print(data)
+                self.searchedStores.removeAll()
+                self.searchedStores = data.information
+                self.searchTableView.reloadData()
+            case .failure(let error):
+                print("매장 검색 에러\n\(error)")
+            }
+        }
+    }
+    
 }
 
 // MARK: - Extensions
 extension SearchVC: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchedStores.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SearchCell
+        
+        cell.id = searchedStores[indexPath.row].id
+        cell.nameLabel.text = searchedStores[indexPath.row].shopName
+        cell.addressLabel.text = searchedStores[indexPath.row].roadNameAddress
+        cell.distanceLabel.text = searchedStores[indexPath.row].distance
         
         return cell
     }
@@ -145,6 +192,48 @@ extension SearchVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        print("데이터 잘 들어옴~!~!")
+        print(searchedStores)
     }
 }
 
+extension SearchVC: CLLocationManagerDelegate {
+    func getLocationUsagePermission() {
+        //location4
+        self.locationManager.requestWhenInUseAuthorization()
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //location5
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("GPS 권한 설정됨")
+            locationManager.startUpdatingLocation() // 중요!
+        case .restricted, .notDetermined:
+            print("GPS 권한 설정되지 않음")
+            getLocationUsagePermission()
+        case .denied:
+            print("GPS 권한 요청 거부됨")
+            getLocationUsagePermission()
+        default:
+            print("GPS: Default")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // the most recent location update is at the end of the array.
+        let location: CLLocation = locations[locations.count - 1]
+        let longtitude: CLLocationDegrees = location.coordinate.longitude
+        let latitude:CLLocationDegrees = location.coordinate.latitude
+    }
+}
+
+extension SearchVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let keyword = searchBar.text ?? ""
+        fetchSearchData(keyword: keyword)
+        searchTableView.reloadData()
+    }
+}
