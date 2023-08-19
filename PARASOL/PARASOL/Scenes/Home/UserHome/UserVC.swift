@@ -192,7 +192,17 @@ class UserVC: UIViewController, UISearchBarDelegate {
         if searchText != "" {
             let root = SearchVC()
             let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
+            
+            // 매장 검색
+            let lat = String(locationManager.location?.coordinate.latitude as? Double ?? 0)
+            let long = String(locationManager.location?.coordinate.longitude as? Double ?? 0)
+            let searchData: SearchStoreModel = SearchStoreModel(keyword: searchText, userLatitude: lat, userLongitude: long)
+            
+            // 검색 화면에 데이터 넘기기
             root.searchText = searchText
+            root.searchStore = searchData
+            
+            // 화면 전환
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         searchBar.resignFirstResponder() // 키보드를 닫습니다.
@@ -233,19 +243,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
                 print("매장 리스트 조회 에러\n\(error)")
             }
         }
-        
-        // 매장 검색
-        let searchedModel: SearchStoreModel = SearchStoreModel(keyword: "매장1", userLatitude: "37", userLongitude: "127")
-        HomeManager.shared.searchStores(SearchStoreModel: searchedModel) { result in
-            switch result {
-            case .success(let data):
-                print("매장 검색")
-                print(data)
-            case .failure(let error):
-                print("매장 검색 에러\n\(error)")
-            }
-        }
-        
         
     }
 
