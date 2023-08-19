@@ -128,6 +128,8 @@ class ContractVC: UIViewController {
     }
     
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
+        
         view.addSubview(cStackView1)
         view.addSubview(cStackView2)
         view.addSubview(cStackView3)
