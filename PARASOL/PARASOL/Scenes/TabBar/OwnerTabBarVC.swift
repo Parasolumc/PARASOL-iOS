@@ -37,7 +37,7 @@ class OwnerTabBarVC: UITabBarController {
         
         // 탭바 아이템 뷰컨트롤러 연동
         let Menu = UINavigationController(rootViewController: OwnerMenuVC())
-        Menu.tabBarItem.selectedImage = UIImage(named: "menu") // 선택됐을 때 이미지
+        Menu.tabBarItem.selectedImage = UIImage(named: "select_menu") // 선택됐을 때 이미지
         Menu.tabBarItem.image = UIImage(named: "menu") // 선택 안됐을 때 이미지
         
         let Home = UINavigationController(rootViewController: OwnerVC())
