@@ -192,8 +192,11 @@ extension SearchVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        print("데이터 잘 들어옴~!~!")
-        print(searchedStores)
+        let selectedId = searchedStores[indexPath.row].id
+        
+        let storeInfoVC = StoreInfoVC()
+        storeInfoVC.storeId = selectedId
+        self.navigationController?.pushViewController(storeInfoVC, animated: true)
     }
 }
 
