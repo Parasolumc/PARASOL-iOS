@@ -10,7 +10,7 @@ import CoreLocation
 
 private let cellID = "SearchCell"
 
-class SearchVC: UIViewController{
+class SearchVC: UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     var searchText:String = ""
@@ -82,6 +82,7 @@ class SearchVC: UIViewController{
         searchTableView.dataSource = self
         searchTableView.register(SearchCell.self, forCellReuseIdentifier: cellID)
         
+        searchBar.delegate = self
     
         view.addSubview(searchTableView)
         searchTableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -229,3 +230,10 @@ extension SearchVC: CLLocationManagerDelegate {
     }
 }
 
+extension SearchVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let keyword = searchBar.text ?? ""
+        fetchSearchData(keyword: keyword)
+        searchTableView.reloadData()
+    }
+}
