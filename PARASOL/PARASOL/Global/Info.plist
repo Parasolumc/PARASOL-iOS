@@ -10,6 +10,10 @@
 	<string>위치 정보 권한이 필요합니다.</string>
 	<key>NMFClientId</key>
 	<string>5an0bc1qv0</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>nmap</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
