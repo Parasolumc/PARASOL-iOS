@@ -115,6 +115,7 @@ class ChangePwVC: UIViewController {
     }
     
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(currentpwLabel)
         view.addSubview(currentpwTf)
