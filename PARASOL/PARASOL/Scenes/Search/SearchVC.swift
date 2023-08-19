@@ -175,7 +175,6 @@ extension SearchVC: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SearchCell
         
-        cell.id = searchedStores[indexPath.row].id
         cell.nameLabel.text = searchedStores[indexPath.row].shopName
         cell.addressLabel.text = searchedStores[indexPath.row].roadNameAddress
         cell.distanceLabel.text = searchedStores[indexPath.row].distance
@@ -193,8 +192,11 @@ extension SearchVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        print("데이터 잘 들어옴~!~!")
-        print(searchedStores)
+        let selectedId = searchedStores[indexPath.row].id
+        
+        let storeInfoVC = StoreInfoVC()
+        storeInfoVC.storeId = selectedId
+        self.navigationController?.pushViewController(storeInfoVC, animated: true)
     }
 }
 

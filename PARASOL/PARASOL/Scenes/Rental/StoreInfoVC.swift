@@ -25,11 +25,18 @@ class StoreInfoVC: UIViewController {
     var umbrellaNum = 9
     
     // MARK: [For Data]
-    var images: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
+    var storeId: Int = 0
+    
+    var storeImage: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
     StoreImage(id: 2, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png"),
     StoreImage(id: 3, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png"),
     StoreImage(id: 4, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png")]
-    lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.images)
+    lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "우산을 빌려주는 여기는 파라솔~", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.storeImage)
+    var images: [String] = []
+    var test: [String] = ["https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png",
+                          "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png",
+                          "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png",
+                          "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png"]
     
     // MARK: [UI components]
     var nameLabel: UILabel = {
@@ -249,26 +256,26 @@ class StoreInfoVC: UIViewController {
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setData()
+        fetchStoreData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         setNavigationBar()
-        addPics(pics: self.testURL)
+//        addPics(pics: self.testURL)
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
     func setNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.isHidden = false
     }
     
     // UI 레이아웃 세팅
-    func configureUI() {
-        view.backgroundColor = .white
+    func imageConfigureUI() {
+        
+        view.backgroundColor = UIColor(named: "white")
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
         view.addSubview(picsScrollView)
@@ -277,13 +284,12 @@ class StoreInfoVC: UIViewController {
         view.addSubview(umbrellaHStackView)
         view.addSubview(buttonHStackView)
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 79)
+        vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
         vStackView.centerX(inView: view)
         findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
         
-        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
+        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25)
         picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
-        
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
         
@@ -292,10 +298,38 @@ class StoreInfoVC: UIViewController {
         umbrellaHStackView.centerX(inView: view)
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
         buttonHStackView.centerX(inView: view)
+ 
+    }
+    
+    func noneImageConfigureUI() {
         
+        view.backgroundColor = UIColor(named: "white")
+        view.addSubview(vStackView)
+        view.addSubview(findLoadButton)
+        view.addSubview(introduceLabel)
+        view.addSubview(umbrellaHStackView)
+        view.addSubview(buttonHStackView)
         
-        
-        
+        vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
+        vStackView.centerX(inView: view)
+        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
+        introduceLabel.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
+        umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 182)
+        umbrellaHStackView.centerX(inView: view)
+        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
+        buttonHStackView.centerX(inView: view)
+ 
+    }
+    
+    // TODO: 우산 대여가능 여부 체크
+    func checkRentAvailable(availableNum: Int) {
+        if availableNum == 0 {
+            rentalButton.isEnabled = false
+            rentalButton.backgroundColor = UIColor(named: "gray00")
+        } else {
+            rentalButton.isEnabled = true
+            rentalButton.backgroundColor = UIColor(named: "main")
+        }
     }
     
     // MARK: - Helpers
@@ -326,6 +360,35 @@ class StoreInfoVC: UIViewController {
         self.introduceLabel.text = self.store.desc
         self.umbrellaNum = self.store.availableUmbrella
         self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
+        if images != [] {
+            addPics(pics: images)
+        }
     }
 
+    func fetchStoreData() {
+        HomeManager.shared.user_getStore(storeId) { result in
+            switch result {
+            case .success(let data):
+                print("특정 매장 정보")
+                print(data)
+                // TODO: 불러온 데이터 저장
+                self.store = data.information
+                self.images.removeAll()
+                for image in self.store.image {
+                    self.images.append(image.url)
+                }
+                // TODO: UI에 불러온 데이터 설정 및 레이아웃 설정
+                self.checkRentAvailable(availableNum: self.store.availableUmbrella) // 대여 버튼 활성화 설정
+                if self.images != [] {
+                    self.setData()
+                    self.imageConfigureUI()
+                } else {
+                    self.setData()
+                    self.noneImageConfigureUI()
+                }
+            case .failure(let error):
+                print("특정 매장 정보 에러\n\(error)")
+            }
+        }
+    }
 }
