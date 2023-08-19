@@ -22,6 +22,9 @@ class UserVC: UIViewController, UISearchBarDelegate {
     lazy var toolbarBounds = self.navigationController!.navigationBar.bounds
     lazy var toolbarHeight = toolbarBounds.height
     
+    // MARK: [For Requesting URLScheme]
+    let appName: String = "com.PARASOL"
+    
     // MARK: [For Map]
     lazy var mapView: NMFNaverMapView = {
         let mapView = NMFNaverMapView(frame: view.frame)
@@ -92,12 +95,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        fetchData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
         setNMap()
         setCurrentPos()
         configureUI()
@@ -106,6 +109,18 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
+    
+    // MARK: - Naver 지도 열기 테스트
+    func testOpen() {
+        let url = URL(string: "nmap://map?&appname=\(appName)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
     
     // MARK: [Naver Map]
     // TODO: 네이버지도 생성 및 배치 method
