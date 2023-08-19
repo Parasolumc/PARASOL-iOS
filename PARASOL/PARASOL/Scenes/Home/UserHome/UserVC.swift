@@ -95,12 +95,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        fetchData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
         setNMap()
         setCurrentPos()
         configureUI()
