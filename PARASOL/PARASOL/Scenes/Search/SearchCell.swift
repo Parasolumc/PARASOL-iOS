@@ -11,6 +11,12 @@ class SearchCell: UITableViewCell {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
 
+    // MARK: [For Data]
+    var id: Int = {
+        let id = Int()
+        return id
+    }()
+    
     // MARK: [UI components]
     var mapPointImage: UIImageView = {
         let imageView = UIImageView()
