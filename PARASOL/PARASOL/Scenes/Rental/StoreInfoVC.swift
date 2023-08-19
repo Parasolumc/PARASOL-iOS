@@ -262,7 +262,6 @@ class StoreInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-//        addPics(pics: self.testURL)
     }
     
     // MARK: - Actions
@@ -331,6 +330,20 @@ class StoreInfoVC: UIViewController {
             rentalButton.backgroundColor = UIColor(named: "main")
         }
     }
+    
+    // TODO: 현재 시간 가져오기
+    func getCurrentTime() -> [String : String] {
+        let time = Date()
+        let timeFormatter = DateFormatter()
+                
+        timeFormatter.dateFormat = "HH"
+        let hour = timeFormatter.string(from: time)
+        timeFormatter.dateFormat = "mm"
+        let minute = timeFormatter.string(from: time)
+        
+        return ["hour": hour, "minute": minute]
+    }
+    
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
