@@ -128,13 +128,11 @@ class UserVC: UIViewController, UISearchBarDelegate {
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
         
-        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "umbrella"))
+        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "map_marker"))
         marker.mapView = mapView.mapView
         marker.iconTintColor = UIColor(named: "black")!
-        marker.width = 30
-        marker.height = 30
-        marker.captionText = "3"
-        marker.captionAligns = [NMFAlignType.top]
+        marker.width = 41
+        marker.height = 44
         marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
         
