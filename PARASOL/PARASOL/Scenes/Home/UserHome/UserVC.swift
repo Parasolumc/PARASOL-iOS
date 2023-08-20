@@ -22,6 +22,9 @@ class UserVC: UIViewController, UISearchBarDelegate {
     lazy var toolbarBounds = self.navigationController!.navigationBar.bounds
     lazy var toolbarHeight = toolbarBounds.height
     
+    // MARK: [For Requesting URLScheme]
+    let appName: String = "com.PARASOL"
+    
     // MARK: [For Map]
     lazy var mapView: NMFNaverMapView = {
         let mapView = NMFNaverMapView(frame: view.frame)
@@ -92,12 +95,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        fetchData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
         setNMap()
         setCurrentPos()
         configureUI()
@@ -107,19 +110,29 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
+    // MARK: - Naver 지도 열기 테스트
+    func testOpen() {
+        let url = URL(string: "nmap://map?&appname=\(appName)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
+    
     // MARK: [Naver Map]
     // TODO: 네이버지도 생성 및 배치 method
     func setNMap() {
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
         
-        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "umbrella"))
+        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "map_marker"))
         marker.mapView = mapView.mapView
         marker.iconTintColor = UIColor(named: "black")!
-        marker.width = 30
-        marker.height = 30
-        marker.captionText = "3"
-        marker.captionAligns = [NMFAlignType.top]
+        marker.width = 41
+        marker.height = 44
         marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
         
