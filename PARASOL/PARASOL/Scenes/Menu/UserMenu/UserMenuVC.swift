@@ -53,17 +53,18 @@ class UserMenuVC: UIViewController {
     
     lazy var statelabel: UILabel = {
         let label = UILabel()
-        if state == "CLEAR" { // 대여중이 아닌 상태
-            label.text = "아직 빌린 우산이 없어요!"
-            label.font = .SB16
-        }
-        else { // USE, DELAY
+
+        if state == "USE" || state == "DELAY" {
             let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
             let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
             let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
             let time = start[rangeStartIndex ..< rangeEndIndex]
             
             label.text = "\(date) \(time) 에 빌렸어요"
+            label.font = .SB16
+        }
+        else { // 대여중이 아닌 상태
+            label.text = "아직 빌린 우산이 없어요!"
             label.font = .SB16
         }
         
@@ -334,7 +335,7 @@ class UserMenuVC: UIViewController {
         
         titleStackView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 75, paddingLeft: 24)
         
-        info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
+        info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 24, paddingRight: 24)
         
         sellbutton.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
         soldbutton.anchor(top: sellbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
@@ -348,16 +349,7 @@ class UserMenuVC: UIViewController {
     }
     
     func showView() {
-        if state == "CLEAR" {
-            info.addSubview(statelabel)
-            view.addSubview(rentalbutton)
-            
-            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 90, paddingLeft: 117)
-            
-            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
-            rentalbutton.centerX(inView: view)
-        }
-        else {
+        if state == "USE" || state == "DELAY" {
             info.addSubview(statelabel)
             info.addSubview(freestatelabel)
             info.addSubview(warninglabel)
@@ -370,6 +362,16 @@ class UserMenuVC: UIViewController {
             
             stateStackView.centerX(inView: info)
             stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
+        }
+        else {
+            info.addSubview(statelabel)
+            view.addSubview(rentalbutton)
+            
+            statelabel.anchor(top: info.topAnchor, paddingTop: 90)
+            statelabel.centerX(inView: info)
+            
+            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
+            rentalbutton.centerX(inView: view)
         }
     }
     
