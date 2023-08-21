@@ -15,6 +15,8 @@ target 'PARASOL' do
   pod 'NMapsMap'
   ## 토스트 메세지
   pod 'Toast-Swift', '~> 5.0.1'
+  ## 토스페이먼츠
+  pod 'TossPayments'
   
 
 end
