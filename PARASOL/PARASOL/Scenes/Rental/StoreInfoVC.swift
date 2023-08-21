@@ -384,6 +384,20 @@ class StoreInfoVC: UIViewController {
         return ["hour": hour, "minute": minute]
     }
     
+    // TODO: 네이버지도 길찾기 연동
+    func findLoad(dlat: Double, dlng: Double, dname: String, appName: String) {
+        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let dlat: String = String(dlat)
+        let dlng: String = String(dlng)
+        let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
@@ -439,6 +453,11 @@ class StoreInfoVC: UIViewController {
                     self.setData()
                     self.noneImageConfigureUI()
                 }
+                // 길찾기 버튼에 동작 연동
+                let findLoadAction = UIAction { _ in
+                    self.findLoad(dlat: self.store.latitude, dlng: self.store.longitude, dname: self.store.shopName, appName: "com.PARASOL")
+                }
+                self.findLoadButton.addAction(findLoadAction, for: .touchUpInside)
             case .failure(let error):
                 print("특정 매장 정보 에러\n\(error)")
             }
