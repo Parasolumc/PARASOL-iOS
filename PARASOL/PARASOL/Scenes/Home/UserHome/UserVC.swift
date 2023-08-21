@@ -48,6 +48,16 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return manager
      }()
     
+    lazy var handler: NMFOverlayTouchHandler = {
+        let handler: NMFOverlayTouchHandler = { (overlay) -> Bool in
+            print("상점 \(overlay.userInfo["id"] ?? "id") 마커 터치됨")
+            self.showStoreInfo(id: overlay.userInfo["id"] as! Int)
+            return false
+        }
+        
+        return handler
+    }()
+    
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
     
@@ -128,6 +138,16 @@ class UserVC: UIViewController, UISearchBarDelegate {
         marker.height = 44
         marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
+        marker.touchHandler = handler
+        
+        let marker2 = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.85), iconImage: NMFOverlayImage(name: "map_marker"))
+        marker2.mapView = mapView.mapView
+        marker2.iconTintColor = UIColor(named: "black")!
+        marker2.width = 41
+        marker2.height = 44
+        marker2.userInfo = ["id": 3] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        print(marker2.userInfo["id"] as! Int)
+        marker2.touchHandler = handler
         
     }
     // TODO: 현재 위치 생성 method
@@ -216,6 +236,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // TODO: 매장 정보화면 present method
     func showStoreInfo(id: Int) {
         let vc = SumStoreInfoVC()
+        vc.storeId = id
         present(vc, animated: true, completion: nil)
     }
     
