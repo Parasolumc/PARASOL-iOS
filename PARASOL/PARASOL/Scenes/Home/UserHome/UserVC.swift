@@ -24,6 +24,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: [For Requesting URLScheme]
     let appName: String = "com.PARASOL"
+    let dlat: String = "37.5209436"
+    let dlng:String = "127.1230074"
     
     // MARK: [For Map]
     lazy var mapView: NMFNaverMapView = {
@@ -108,14 +110,16 @@ class UserVC: UIViewController, UISearchBarDelegate {
         fetchData()
         setCurrentPos()
         configureUI()
+        testOpen(dlat: dlat, dlng: dlng, dname: "유후", appName: appName)
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
     // MARK: - Naver 지도 열기 테스트
-    func testOpen() {
-        let url = URL(string: "nmap://map?&appname=\(appName)")!
+    func testOpen(dlat: String, dlng: String, dname: String, appName: String) {
+        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: "nmap://route/public?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
         let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
 
         if UIApplication.shared.canOpenURL(url) {
