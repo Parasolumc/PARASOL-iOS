@@ -35,7 +35,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         mapView.mapView.logoAlign = .leftBottom
         
         mapView.showCompass = true // 나침반 모양
-        mapView.showZoomControls = false // +, - 버튼
+        mapView.showZoomControls = true // +, - 버튼
         mapView.showLocationButton = true //동그라미 버튼
         
         return mapView
@@ -63,9 +63,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
     
-    // 대여가능한 우산의 개수
-    var umbrellaNum = 9
-    
     // MARK: [UI components]
     // TODO: 검색 바 요소들
     let searchBar: UISearchBar = {
@@ -90,18 +87,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return searchbar
     }()
     
-    lazy var mapMarkButton: mapMarker = {
-        let button = mapMarker(umbrellaNum)
-        
-        let showAction = UIAction { _ in
-            self.showStoreInfo(id: 1)
-        }
-
-        button.addAction(showAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
@@ -121,25 +106,41 @@ class UserVC: UIViewController, UISearchBarDelegate {
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
         
-        let marker = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.8544), iconImage: NMFOverlayImage(name: "map_marker"))
-        marker.mapView = mapView.mapView
-        marker.iconTintColor = UIColor(named: "black")!
-        marker.width = 41
-        marker.height = 44
-        marker.userInfo = ["id": 12] // 저장한 값 사용시 타입캐스팅 해야 한다.
-        print(marker.userInfo["id"] as! Int)
-        marker.touchHandler = handler
+    }
+    
+    // TODO: 상점 마커들 생성
+    func makeMapMakers(stores: [StoreListInformation]) {
+        // 터치 핸들러 생성
+        let handler: NMFOverlayTouchHandler = { (overlay) -> Bool in
+            print("상점 \(overlay.userInfo["id"] ?? "id") 마커 터치됨")
+            self.showStoreInfo(id: overlay.userInfo["id"] as! Int)
+            return false
+        }
         
-        let marker2 = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.85), iconImage: NMFOverlayImage(name: "map_marker"))
-        marker2.mapView = mapView.mapView
-        marker2.iconTintColor = UIColor(named: "black")!
-        marker2.width = 41
-        marker2.height = 44
-        marker2.userInfo = ["id": 3] // 저장한 값 사용시 타입캐스팅 해야 한다.
-        print(marker2.userInfo["id"] as! Int)
-        marker2.touchHandler = handler
+        DispatchQueue.global(qos: .background).async {
+            // 백그라운드 스레드
+            var markers = [NMFMarker]()
+            for store in stores {
+                let marker = NMFMarker(position: NMGLatLng(lat: store.latitude, lng: store.longitude), iconImage: NMFOverlayImage(name: "map_marker"))
+                marker.iconTintColor = UIColor(named: "black")!
+                marker.width = 41
+                marker.height = 44
+                marker.userInfo = ["id": store.id] // 저장한 값 사용시 타입캐스팅 해야 한다.
+                marker.touchHandler = handler
+
+                markers.append(marker)
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                // 메인 스레드
+                for marker in markers {
+                    marker.mapView = self?.mapView.mapView
+                }
+            }
+        }
         
     }
+    
     // TODO: 현재 위치 생성 method
     func setCurrentPos() {
         
@@ -255,6 +256,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
                                                                  unavailableUmbrella: store.unavailableUmbrella))
 
                 }
+                self.makeMapMakers(stores: self.stores)
                 print(self.stores) // 데이터 확인용
             case .failure(let error):
                 print("매장 리스트 조회 에러\n\(error)")
