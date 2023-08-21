@@ -20,7 +20,21 @@ class Rental_ReturnVC: UIViewController {
     lazy var screenWidth = bounds.size.width //화면 너비
     lazy var screenHeight = bounds.size.height //화면 높이
     
+    // MARK: [For Transition]
+    let transition: CATransition = {
+        let transition = CATransition()
+        
+        transition.duration = 0.4
+        transition.type = .push
+        transition.subtype = .fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        
+        return transition
+    }()
+    
     // MARK: [UI components]
+    var beforeView: String = "" // SumStoreInfoVC or StoreInfoVC or UserMenuVC
+    
     var QRImage: UIImageView = {
         let imageView = UIImageView()
         
@@ -99,6 +113,39 @@ class Rental_ReturnVC: UIViewController {
         } else if nowFun == "Sell" {
             self.navigationItem.title = "판매신청"
         }
+        
+        if beforeView == "SumStoreInfoVC" {
+            navigationController?.navigationBar.backgroundColor = UIColor(named: "white")
+            // 네비게이션 바 뒤로가기 아이템 넣기
+            setNCLB()
+        }
+    }
+    
+    // 네비게이션 바 왼쪽 아이템 세팅
+    func setNCLB() {
+        // left bar item
+        let leftCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 25.0, height: 25.0))
+
+        let navigatorArrow: UIImageView = {
+            let imageView = UIImageView()
+
+            imageView.image = UIImage(named: "navigator")
+
+            imageView.contentMode = .scaleToFill
+            imageView.setDimensions(height: 25.0, width: 25.0)
+
+            imageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToBeforeVCFunc))
+            imageView.addGestureRecognizer(tapGesture)
+
+            return imageView
+        }()
+
+        leftCustomView.addSubview(navigatorArrow)
+        navigatorArrow.translatesAutoresizingMaskIntoConstraints = false
+
+        let leftBarItem = UIBarButtonItem(customView: leftCustomView)
+        self.navigationItem.leftBarButtonItem = leftBarItem
     }
     
     func configureUI() {
@@ -125,6 +172,11 @@ class Rental_ReturnVC: UIViewController {
 
         QRImage.addSubview(qrcode)
         qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
+    }
+    
+    @objc func goToBeforeVCFunc() {
+        view.window?.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Helpers

@@ -90,6 +90,7 @@ class SearchVC: UIViewController {
     
     func setNavigationBar() {
         navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = UIColor(named: "white")
         navigationController?.navigationBar.isTranslucent = true
         
@@ -102,11 +103,11 @@ class SearchVC: UIViewController {
         }
         
         // 네비게이션 바 아이템 넣기
-        setNCRB()
+        setNCLB()
     }
     
     // 네비게이션 바 아이템 세팅
-    func setNCRB() {
+    func setNCLB() {
         // left bar item
         let leftCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 25.0, height: 25.0))
         
@@ -196,6 +197,7 @@ extension SearchVC: UITableViewDelegate {
         
         let storeInfoVC = StoreInfoVC()
         storeInfoVC.storeId = selectedId
+        storeInfoVC.beforeView = "SearchVC"
         self.navigationController?.pushViewController(storeInfoVC, animated: true)
     }
 }
