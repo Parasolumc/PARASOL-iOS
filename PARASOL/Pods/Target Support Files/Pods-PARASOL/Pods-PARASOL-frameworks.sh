@@ -180,6 +180,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TossPayments/TossPayments.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/NMapsGeometry/NMapsGeometry.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/NMapsMap/NMapsMap.framework"
 fi
@@ -188,6 +189,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TossPayments/TossPayments.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/NMapsGeometry/NMapsGeometry.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/NMapsMap/NMapsMap.framework"
 fi

@@ -283,7 +283,7 @@ class UserMenuVC: UIViewController {
     
     lazy var payLabel: UIButton = {
         let button = UIButton()
-        button.setTitle("결제수단", for: .normal)
+        button.setTitle("연체료 결제", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
         

@@ -82,6 +82,8 @@
 		09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5A2A65308000EF986E /* Assets.xcassets */; };
 		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
 		09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */; };
+		551167192A938EA500177CE6 /* TossPayments in Frameworks */ = {isa = PBXBuildFile; productRef = 551167182A938EA500177CE6 /* TossPayments */; };
+		5511671B2A938F0200177CE6 /* PaymentWidgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511671A2A938F0200177CE6 /* PaymentWidgetVC.swift */; };
 		5565674D2A8A418C00455BE1 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5565674C2A8A418C00455BE1 /* MenuModel.swift */; };
 		5565674F2A8A420D00455BE1 /* MenuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5565674E2A8A420D00455BE1 /* MenuAPI.swift */; };
 		556567512A8A44B500455BE1 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556567502A8A44B500455BE1 /* MenuManager.swift */; };
@@ -169,6 +171,7 @@
 		09DD5B5D2A65308000EF986E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentVC.swift; sourceTree = "<group>"; };
+		5511671A2A938F0200177CE6 /* PaymentWidgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentWidgetVC.swift; sourceTree = "<group>"; };
 		5565674C2A8A418C00455BE1 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		5565674E2A8A420D00455BE1 /* MenuAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAPI.swift; sourceTree = "<group>"; };
 		556567502A8A44B500455BE1 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D48BD92A8D0334001F9E41 /* Toast in Frameworks */,
+				551167192A938EA500177CE6 /* TossPayments in Frameworks */,
 				84CBA5F5D38BF64042F87E40 /* Pods_PARASOL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +383,7 @@
 				096D1DB72A80CF1F00708B51 /* RecordVC.swift */,
 				096D1DB52A80CF1F00708B51 /* SoldVC.swift */,
 				09CF04DD2A65350D002C9F8B /* UserMenu.storyboard */,
+				5511671A2A938F0200177CE6 /* PaymentWidgetVC.swift */,
 			);
 			path = UserMenu;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 			name = PARASOL;
 			packageProductDependencies = (
 				09D48BD82A8D0334001F9E41 /* Toast */,
+				551167182A938EA500177CE6 /* TossPayments */,
 			);
 			productName = PARASOL;
 			productReference = 09DD5B4B2A65308000EF986E /* PARASOL.app */;
@@ -561,6 +567,7 @@
 			mainGroup = 09DD5B422A65307F00EF986E;
 			packageReferences = (
 				09D48BD72A8D0334001F9E41 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				551167172A938EA500177CE6 /* XCRemoteSwiftPackageReference "payment-sdk-ios" */,
 			);
 			productRefGroup = 09DD5B4C2A65308000EF986E /* Products */;
 			projectDirPath = "";
@@ -663,6 +670,7 @@
 				093E1BE42A8D1D970035E443 /* QRCodeView.swift in Sources */,
 				5565674F2A8A420D00455BE1 /* MenuAPI.swift in Sources */,
 				096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */,
+				5511671B2A938F0200177CE6 /* PaymentWidgetVC.swift in Sources */,
 				096D1DB82A80CF1F00708B51 /* SoldVC.swift in Sources */,
 				5565674D2A8A418C00455BE1 /* MenuModel.swift in Sources */,
 				091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */,
@@ -942,6 +950,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		551167172A938EA500177CE6 /* XCRemoteSwiftPackageReference "payment-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tosspayments/payment-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.22;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -949,6 +965,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09D48BD72A8D0334001F9E41 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		551167182A938EA500177CE6 /* TossPayments */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 551167172A938EA500177CE6 /* XCRemoteSwiftPackageReference "payment-sdk-ios" */;
+			productName = TossPayments;
 		};
 /* End XCSwiftPackageProductDependency section */
 

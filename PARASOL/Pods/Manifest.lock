@@ -9,12 +9,14 @@ PODS:
   - NMapsMap (3.17.0):
     - NMapsGeometry
   - Toast-Swift (5.0.1)
+  - TossPayments (0.1.22)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
   - Moya
   - NMapsMap
   - Toast-Swift (~> 5.0.1)
+  - TossPayments
 
 SPEC REPOS:
   trunk:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - NMapsGeometry
     - NMapsMap
     - Toast-Swift
+    - TossPayments
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
@@ -32,7 +35,8 @@ SPEC CHECKSUMS:
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  TossPayments: ff753ba8c18529605c614bfcd6d12caeae7845f8
 
-PODFILE CHECKSUM: 6bc0fe10eb6d480c80e344a5e7ddecb754d219b8
+PODFILE CHECKSUM: 4f6b4d463987ba843d8622af01279828862b4c83
 
 COCOAPODS: 1.12.1

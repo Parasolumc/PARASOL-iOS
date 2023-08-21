@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "payment-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tosspayments/payment-sdk-ios.git",
+      "state" : {
+        "revision" : "fb77440fbe93bbf2a954ed69e3d2c1843e6f12c7",
+        "version" : "0.1.22"
+      }
+    },
+    {
       "identity" : "toast-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scalessec/Toast-Swift",

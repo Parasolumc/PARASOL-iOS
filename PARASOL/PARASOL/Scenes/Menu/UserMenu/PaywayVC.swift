@@ -31,7 +31,7 @@ class PaywayVC: UIViewController{
         return label
     }()
     
-    let registerbutton: UIButton = {
+    lazy var registerbutton: UIButton = {
         let button = UIButton()
         button.setTitle("결제수단 선택하기", for: .normal)
         button.setDimensions(height: 49, width: 342)
@@ -39,6 +39,13 @@ class PaywayVC: UIViewController{
         button.backgroundColor = UIColor(named: "main")
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .SB16
+        
+        let goTopaymentVCAction = UIAction { _ in
+            let payVC = PaymentWidgetVC()
+            self.navigationController?.pushViewController(payVC, animated: true)
+        }
+        
+        button.addAction(goTopaymentVCAction, for: .touchUpInside)
         
         return button
     }()
