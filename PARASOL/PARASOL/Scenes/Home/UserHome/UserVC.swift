@@ -110,24 +110,10 @@ class UserVC: UIViewController, UISearchBarDelegate {
         fetchData()
         setCurrentPos()
         configureUI()
-        testOpen(dlat: dlat, dlng: dlng, dname: "유후", appName: appName)
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
-    
-    // MARK: - Naver 지도 열기 테스트
-    func testOpen(dlat: String, dlng: String, dname: String, appName: String) {
-        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
-        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
-
-        if UIApplication.shared.canOpenURL(url) {
-          UIApplication.shared.open(url)
-        } else {
-          UIApplication.shared.open(appStoreURL)
-        }
-    }
     
     // MARK: [Naver Map]
     // TODO: 네이버지도 생성 및 배치 method
@@ -140,7 +126,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         marker.iconTintColor = UIColor(named: "black")!
         marker.width = 41
         marker.height = 44
-        marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        marker.userInfo = ["id": 12] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
         marker.touchHandler = handler
         
