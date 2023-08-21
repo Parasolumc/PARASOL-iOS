@@ -38,7 +38,7 @@ class SearchVC: UIViewController {
         searchbar.searchTextField.textColor = UIColor(named: "black")
         searchbar.searchTextField.font = .M16
         searchbar.searchTextField.backgroundColor = UIColor(named: "white")
-        searchbar.searchTextField.layer.cornerRadius = 20
+        searchbar.searchTextField.layer.cornerRadius = 18
         searchbar.searchTextField.clipsToBounds = true
         searchbar.tintColor = UIColor(named: "point")
         searchbar.setImage(UIImage(named: "search"), for: UISearchBar.Icon.search, state: .normal)
