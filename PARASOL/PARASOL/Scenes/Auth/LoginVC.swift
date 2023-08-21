@@ -278,13 +278,13 @@ class LoginVC: UIViewController {
             login(userID: idTextField.text ?? "", userPW: pwTextField.text ?? "")
         } else {
             if idTextField.text == "" && pwTextField.text == "" {
-                self.view.makeToast("아이디와 비밀번호를 입력하세요.", position: .center, style: self.style)
+                self.view.makeToast("아이디와 비밀번호를 입력하세요.", duration: 1.0, position: .center, style: self.style)
             } else if idTextField.text == "" {
-                self.view.makeToast("아이디를 입력하세요.", position: .center, style: self.style)
+                self.view.makeToast("아이디를 입력하세요.", duration: 1.0, position: .center, style: self.style)
             } else if pwTextField.text == "" {
-                self.view.makeToast("비밀번호를 입력하세요.", position: .center, style: self.style)
+                self.view.makeToast("비밀번호를 입력하세요.", duration: 1.0, position: .center, style: self.style)
             } else {
-                self.view.makeToast("일치하는 회원정보가 없습니다.", position: .center, style: self.style)
+                self.view.makeToast("일치하는 회원정보가 없습니다.", duration: 1.0, position: .center, style: self.style)
             }
         }
         
@@ -293,15 +293,13 @@ class LoginVC: UIViewController {
     // 홈 화면으로 이동
     func goToHome(at: String) {
         if at == "CUSTOMER" {
-            let root = UserTabBarVC()
-            let vc = UINavigationController(rootViewController: root)
+            let vc = UserTabBarVC()
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         } else if at == "OWNER" {
-            let root = OwnerTabBarVC()
-            let vc = UINavigationController(rootViewController: root)
+            let vc = OwnerTabBarVC()
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         } else {
-            self.view.makeToast("앱 접속 실패", position: .center, style: self.style)
+            self.view.makeToast("앱 접속 실패", duration: 1.0, position: .center, style: self.style)
         }
         
     }
@@ -321,18 +319,19 @@ class LoginVC: UIViewController {
         self.idTextField.autocapitalizationType = .none
         self.pwTextField.autocapitalizationType = .none
         
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        idTextField.translatesAutoresizingMaskIntoConstraints = false
-        pwTextField.translatesAutoresizingMaskIntoConstraints = false
-        idLineView.translatesAutoresizingMaskIntoConstraints = false
-        pwLineView.translatesAutoresizingMaskIntoConstraints = false
-        idtfStackView.translatesAutoresizingMaskIntoConstraints = false
-        pwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-        idpwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        fndjoinStackView.translatesAutoresizingMaskIntoConstraints = false
-        orStackView.translatesAutoresizingMaskIntoConstraints = false
-        socialLoginLabel.translatesAutoresizingMaskIntoConstraints = false
+//        .anchor에서 호출되어 따로 지정하지 않아도 돼서 주석처리
+//        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+//        idTextField.translatesAutoresizingMaskIntoConstraints = false
+//        pwTextField.translatesAutoresizingMaskIntoConstraints = false
+//        idLineView.translatesAutoresizingMaskIntoConstraints = false
+//        pwLineView.translatesAutoresizingMaskIntoConstraints = false
+//        idtfStackView.translatesAutoresizingMaskIntoConstraints = false
+//        pwtfStackView.translatesAutoresizingMaskIntoConstraints = false
+//        idpwtfStackView.translatesAutoresizingMaskIntoConstraints = false
+//        loginButton.translatesAutoresizingMaskIntoConstraints = false
+//        fndjoinStackView.translatesAutoresizingMaskIntoConstraints = false
+//        orStackView.translatesAutoresizingMaskIntoConstraints = false
+//        socialLoginLabel.translatesAutoresizingMaskIntoConstraints = false
 //        kakaoLoginButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.backgroundColor = UIColor(named: "main")
@@ -349,7 +348,8 @@ class LoginVC: UIViewController {
         
         orStackView.anchor(top: fndjoinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 70, paddingRight: 70)
         
-        socialLoginLabel.anchor(top: orStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 35, paddingLeft: 122, paddingRight: 122)
+        socialLoginLabel.anchor(top: orStackView.bottomAnchor, paddingTop: 35)
+        socialLoginLabel.centerX(inView: view)
         
 //        kakaoLoginButton.anchor(top: orStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 724, paddingLeft: 122)
         
@@ -366,11 +366,12 @@ class LoginVC: UIViewController {
 //                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
                     self.goToHome(at: UserDefaults.standard.value(forKey: "role") as! String)
                 } else if data["check"] as? Bool == false {
-                    self.view.makeToast("로그인 실패", position: .center, style: self.style)
+                    self.view.makeToast("로그인 실패", duration: 1.0, position: .center, style: self.style)
                 }
             case .failure(let error):
                 print("로그인 에러")
                 print(error)
+                self.view.makeToast("로그인 실패", duration: 1.0, position: .center, style: self.style)
             }
         }
     }

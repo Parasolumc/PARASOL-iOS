@@ -24,6 +24,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: [For Requesting URLScheme]
     let appName: String = "com.PARASOL"
+    let dlat: String = "37.5209436"
+    let dlng:String = "127.1230074"
     
     // MARK: [For Map]
     lazy var mapView: NMFNaverMapView = {
@@ -48,6 +50,16 @@ class UserVC: UIViewController, UISearchBarDelegate {
         return manager
      }()
     
+    lazy var handler: NMFOverlayTouchHandler = {
+        let handler: NMFOverlayTouchHandler = { (overlay) -> Bool in
+            print("상점 \(overlay.userInfo["id"] ?? "id") 마커 터치됨")
+            self.showStoreInfo(id: overlay.userInfo["id"] as! Int)
+            return false
+        }
+        
+        return handler
+    }()
+    
     // MARK: [For Data]
     var stores: [StoreListInformation] = []
     
@@ -64,7 +76,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         searchbar.searchTextField.textColor = UIColor(named: "black")
         searchbar.searchTextField.font = .M16
         searchbar.searchTextField.backgroundColor = UIColor(named: "white")
-        searchbar.searchTextField.layer.cornerRadius = 20
+        searchbar.searchTextField.layer.cornerRadius = 18
         searchbar.searchTextField.clipsToBounds = true
         searchbar.tintColor = UIColor(named: "point")
         searchbar.setImage(UIImage(named: "search"), for: UISearchBar.Icon.search, state: .normal)
@@ -92,35 +104,16 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchData()
-        setNMap()
         setCurrentPos()
         configureUI()
-        setNavigationBar()
     }
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
-    
-    // MARK: - Naver 지도 열기 테스트
-    func testOpen() {
-        let url = URL(string: "nmap://map?&appname=\(appName)")!
-        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
-
-        if UIApplication.shared.canOpenURL(url) {
-          UIApplication.shared.open(url)
-        } else {
-          UIApplication.shared.open(appStoreURL)
-        }
-    }
     
     // MARK: [Naver Map]
     // TODO: 네이버지도 생성 및 배치 method
@@ -133,8 +126,18 @@ class UserVC: UIViewController, UISearchBarDelegate {
         marker.iconTintColor = UIColor(named: "black")!
         marker.width = 41
         marker.height = 44
-        marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        marker.userInfo = ["id": 12] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
+        marker.touchHandler = handler
+        
+        let marker2 = NMFMarker(position: NMGLatLng(lat: 37.487935, lng: 126.85), iconImage: NMFOverlayImage(name: "map_marker"))
+        marker2.mapView = mapView.mapView
+        marker2.iconTintColor = UIColor(named: "black")!
+        marker2.width = 41
+        marker2.height = 44
+        marker2.userInfo = ["id": 3] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        print(marker2.userInfo["id"] as! Int)
+        marker2.touchHandler = handler
         
     }
     // TODO: 현재 위치 생성 method
@@ -149,9 +152,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
     func configureUI() {
         view.backgroundColor = UIColor(named: "light")
         
-//        view.addSubview(mapMarkButton)
-//        mapMarkButton.centerY(inView: view)
-//        mapMarkButton.centerX(inView: view)
+        setNMap()
+        setNavigationBar()
         
     }
     // TODO: 네비게이션바 세팅(서치바 포함) method
@@ -163,12 +165,13 @@ class UserVC: UIViewController, UISearchBarDelegate {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = UIColor.clear
     
         searchBar.delegate = self
         searchBarSearchButtonClicked(searchBar)
         
         // 서치바 넣기
-        self.navigationController?.navigationBar.topItem?.titleView = searchBar
+        navigationController?.navigationBar.topItem?.titleView = searchBar
         
         // 네비게이션 바 아이템 넣기
         setNCRB()
@@ -223,6 +226,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // TODO: 매장 정보화면 present method
     func showStoreInfo(id: Int) {
         let vc = SumStoreInfoVC()
+        vc.storeId = id
         present(vc, animated: true, completion: nil)
     }
     

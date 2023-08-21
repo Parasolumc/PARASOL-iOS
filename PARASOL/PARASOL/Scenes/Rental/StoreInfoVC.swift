@@ -39,6 +39,8 @@ class StoreInfoVC: UIViewController {
                           "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png"]
     
     // MARK: [UI components]
+    var beforeView: String = "" // SumStoreInfoVC or SearchVC
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         
@@ -211,6 +213,7 @@ class StoreInfoVC: UIViewController {
         let goToRentalVCAction = UIAction { _ in
             let rentalVC = Rental_ReturnVC()
             rentalVC.nowFun = "Rental"
+            rentalVC.beforeView = "StoreInfoVC"
             self.navigationController?.pushViewController(rentalVC, animated: true)
             }
             
@@ -232,6 +235,7 @@ class StoreInfoVC: UIViewController {
         let goToReturnVCAction = UIAction { _ in
             let returnVC = Rental_ReturnVC()
             returnVC.nowFun = "Return"
+            returnVC.beforeView = "StoreInfoVC"
             self.navigationController?.pushViewController(returnVC, animated: true)
             }
             
@@ -269,6 +273,38 @@ class StoreInfoVC: UIViewController {
     
     func setNavigationBar() {
         navigationController?.navigationBar.isHidden = false
+        if beforeView == "SumStoreInfoVC" {
+            navigationController?.navigationBar.backgroundColor = UIColor(named: "white")
+            // 네비게이션 바 뒤로가기 아이템 넣기
+            setNCLB()
+        }
+    }
+    
+    // 네비게이션 바 왼쪽 아이템 세팅
+    func setNCLB() {
+        // left bar item
+        let leftCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 25.0, height: 25.0))
+
+        let navigatorArrow: UIImageView = {
+            let imageView = UIImageView()
+
+            imageView.image = UIImage(named: "navigator")
+
+            imageView.contentMode = .scaleToFill
+            imageView.setDimensions(height: 25.0, width: 25.0)
+
+            imageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToBeforeVCFunc))
+            imageView.addGestureRecognizer(tapGesture)
+
+            return imageView
+        }()
+
+        leftCustomView.addSubview(navigatorArrow)
+        navigatorArrow.translatesAutoresizingMaskIntoConstraints = false
+
+        let leftBarItem = UIBarButtonItem(customView: leftCustomView)
+        self.navigationItem.leftBarButtonItem = leftBarItem
     }
     
     // UI 레이아웃 세팅
@@ -320,6 +356,10 @@ class StoreInfoVC: UIViewController {
  
     }
     
+    @objc func goToBeforeVCFunc() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     // TODO: 우산 대여가능 여부 체크
     func checkRentAvailable(availableNum: Int) {
         if availableNum == 0 {
@@ -344,6 +384,20 @@ class StoreInfoVC: UIViewController {
         return ["hour": hour, "minute": minute]
     }
     
+    // TODO: 네이버지도 길찾기 연동
+    func findLoad(dlat: Double, dlng: Double, dname: String, appName: String) {
+        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let dlat: String = String(dlat)
+        let dlng: String = String(dlng)
+        let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
@@ -399,6 +453,11 @@ class StoreInfoVC: UIViewController {
                     self.setData()
                     self.noneImageConfigureUI()
                 }
+                // 길찾기 버튼에 동작 연동
+                let findLoadAction = UIAction { _ in
+                    self.findLoad(dlat: self.store.latitude, dlng: self.store.longitude, dname: self.store.shopName, appName: "com.PARASOL")
+                }
+                self.findLoadButton.addAction(findLoadAction, for: .touchUpInside)
             case .failure(let error):
                 print("특정 매장 정보 에러\n\(error)")
             }

@@ -20,10 +20,13 @@ class SumStoreInfoVC: UIViewController {
     var umbrellaNum = 9
     
     // MARK: [For Data]
+    var storeId: Int = 0
+    
     var images: [StoreImage] = [StoreImage(id: 1, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_01.png"),
     StoreImage(id: 2, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_03.png"),
     StoreImage(id: 3, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_04.png"),
     StoreImage(id: 4, url: "https://pr.sookmyung.ac.kr/sites/sookmyungkr/images/sub/contents/ui_symbol_02.png")]
+    
     lazy var store: StoreInformation = StoreInformation(id: 1, shopName: "파라솔 상점", desc: "", latitude: 123, longitude: 678, roadNameAddress: "주소주소주소", openTime: "09:00", closeTime: "18:00", availableUmbrella: 14, image: self.images)
     
     // MARK: [For transition]
@@ -49,10 +52,6 @@ class SumStoreInfoVC: UIViewController {
         view.layer.maskedCorners = CACornerMask(arrayLiteral: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         view.widthAnchor.constraint(equalToConstant: screenWidth).isActive = true
         view.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        view.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
-        view.addGestureRecognizer(tapGesture)
         
         return view
     }()
@@ -185,6 +184,7 @@ class SumStoreInfoVC: UIViewController {
         let goToRentalVCAction = UIAction { _ in
             let rentalVC = Rental_ReturnVC()
             rentalVC.nowFun = "Rental"
+            rentalVC.beforeView = "SumStoreInfoVC"
             let vc = UINavigationController(rootViewController: rentalVC)
             vc.modalPresentationStyle = .fullScreen
             self.view.window?.layer.add(self.transition, forKey: kCATransition)
@@ -209,6 +209,7 @@ class SumStoreInfoVC: UIViewController {
         let goToReturnVCAction = UIAction { _ in
             let returnVC = Rental_ReturnVC()
             returnVC.nowFun = "Return"
+            returnVC.beforeView = "SumStoreInfoVC"
             let vc = UINavigationController(rootViewController: returnVC)
             vc.modalPresentationStyle = .fullScreen
             self.view.window?.layer.add(self.transition, forKey: kCATransition)
@@ -236,11 +237,8 @@ class SumStoreInfoVC: UIViewController {
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
-        
-        configureUI()
-        getStoreInfo(id: 2)
-        
+
+        getStoreInfo(id: storeId)
         
         if let sheetPresentationController = sheetPresentationController {
             if #available(iOS 16.0, *) {
@@ -249,8 +247,10 @@ class SumStoreInfoVC: UIViewController {
                         return 300
                     }
                 ]
+                configureUI()
             } else {
                 sheetPresentationController.detents = [.medium()]
+                configureUI2()
             }
             sheetPresentationController.preferredCornerRadius = 38
             sheetPresentationController.prefersGrabberVisible = true
@@ -263,51 +263,90 @@ class SumStoreInfoVC: UIViewController {
     @objc func goToStoreInfoFunc() {
         let storeVC = StoreInfoVC()
         storeVC.store = self.store
+        storeVC.storeId = self.storeId
+        storeVC.beforeView = "SumStoreInfoVC"
         let vc = UINavigationController(rootViewController: storeVC)
         vc.modalPresentationStyle = .fullScreen
         
-        view.window?.layer.add(transition, forKey: kCATransition)
-        
-        self.present(vc, animated: false, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
     
     func configureUI() {
+        view.backgroundColor = UIColor(named: "white")
+        
         view.addSubview(introView)
         introView.addSubview(vStackView)
         introView.addSubview(findLoadButton)
         introView.addSubview(umbrellaHStackView)
-        view.addSubview(buttonHStackView)
+        introView.addSubview(buttonHStackView)
         
 
-        introView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor)
+        introView.centerX(inView: view)
+        introView.centerY(inView: view)
         vStackView.anchor(top: introView.topAnchor, paddingTop: 41)
         vStackView.centerX(inView: introView)
         findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
         umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 38)
         umbrellaHStackView.centerX(inView: introView)
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 34)
-        buttonHStackView.centerX(inView: view)
+        buttonHStackView.centerX(inView: introView)
         
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
+        view.addGestureRecognizer(tapGesture)
         
     }
     
     func configureUI2() {
-        view.addSubview(vStackView)
-        view.addSubview(findLoadButton)
-        view.addSubview(umbrellaHStackView)
-        view.addSubview(buttonHStackView)
+        view.backgroundColor = UIColor(named: "white")
         
-     
+        view.addSubview(introView)
+        introView.addSubview(vStackView)
+        introView.addSubview(findLoadButton)
+        introView.addSubview(umbrellaHStackView)
+        introView.addSubview(buttonHStackView)
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 41)
-        vStackView.centerX(inView: view)
-        findLoadButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 37, paddingRight: 40)
-        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 38)
-        umbrellaHStackView.centerX(inView: view)
+
+        introView.centerX(inView: view)
+        introView.centerY(inView: view)
+        vStackView.anchor(top: introView.topAnchor)
+        vStackView.centerX(inView: introView)
+        findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
+        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 128)
+        umbrellaHStackView.centerX(inView: introView)
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 34)
-        buttonHStackView.centerX(inView: view)
+        buttonHStackView.centerX(inView: introView)
+        
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
+        view.addGestureRecognizer(tapGesture)
     }
     
+    // TODO: 우산 대여가능 여부 체크
+    func checkRentAvailable(availableNum: Int) {
+        if availableNum == 0 {
+            rentalButton.isEnabled = false
+            rentalButton.backgroundColor = UIColor(named: "gray00")
+        } else {
+            rentalButton.isEnabled = true
+            rentalButton.backgroundColor = UIColor(named: "main")
+        }
+    }
+    
+    // TODO: 네이버지도 길찾기 연동
+    func findLoad(dlat: Double, dlng: Double, dname: String, appName: String) {
+        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let dlat: String = String(dlat)
+        let dlng: String = String(dlng)
+        let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     func getStoreInfo(id: Int) {
@@ -317,12 +356,19 @@ class SumStoreInfoVC: UIViewController {
             case .success(let data):
                 print("특정 매장 조회")
                 print(data) // 데이터 확인용
+                // TODO: 불러온 데이터 저장
                 self.store = data.information
-                // Setting the Data
+                // TODO: UI에 불러온 데이터 설정 및 레이아웃 설정
+                self.checkRentAvailable(availableNum: self.store.availableUmbrella) // 대여 버튼 활성화 설정
                 self.nameLabel.text = self.store.shopName
                 self.addressLabel.text = self.store.roadNameAddress
                 self.umbrellaNum = self.store.availableUmbrella
                 self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
+                // 길찾기 버튼에 동작 연동
+                let findLoadAction = UIAction { _ in
+                    self.findLoad(dlat: self.store.latitude, dlng: self.store.longitude, dname: self.store.shopName, appName: "com.PARASOL")
+                }
+                self.findLoadButton.addAction(findLoadAction, for: .touchUpInside)
             case .failure(let error):
                 print("특정 매장 조회 에러\n\(error)")
             }
