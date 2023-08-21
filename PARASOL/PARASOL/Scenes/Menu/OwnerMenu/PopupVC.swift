@@ -129,7 +129,7 @@ class PopupVC: UIViewController {
         return picker
     }()
 
-    let daysOfWeek: [String] = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "매일"]
+    let daysOfWeek: [String] = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "매일", "평일", "주말"]
 
     /*lazy var starttimePicker: UIDatePicker = {
         let picker = UIDatePicker()

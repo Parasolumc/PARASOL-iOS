@@ -87,7 +87,18 @@ class MenuManager {
         }
     }
     
-    
+    func deletePhoto(id: Int, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+        provider.request(.deletePhoto(id: id)) { result in
+            switch result {
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    completion(.success(json))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
     
     
     
