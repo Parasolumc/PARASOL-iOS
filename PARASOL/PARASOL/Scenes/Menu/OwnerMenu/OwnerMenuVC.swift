@@ -28,18 +28,10 @@ class OwnerMenuVC: UIViewController {
     // 대여가능한 우산의 개수
     var umbrellaNum = 9
     
-    // 영업중인 요일
-    var workingday = "화욜"
-    
-    // 영업 시작, 종료 시간
-    var starttime = "11:00"
-    var endtime = "19:70"
-    
     // MARK: [UI components]
     var nameLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "상점명234"
         label.font = .B24
         label.textColor = UIColor(named: "black")
         return label
@@ -73,7 +65,6 @@ class OwnerMenuVC: UIViewController {
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "주소 어쩌구"
         label.font = .M16
         label.textColor = UIColor(named: "black")
         return label
@@ -82,8 +73,7 @@ class OwnerMenuVC: UIViewController {
     var isOpenLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "영업종료"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -91,8 +81,7 @@ class OwnerMenuVC: UIViewController {
     
     lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.workingday)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -100,8 +89,7 @@ class OwnerMenuVC: UIViewController {
     
     lazy var startLabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.starttime)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -109,8 +97,7 @@ class OwnerMenuVC: UIViewController {
     
     lazy var spacerLabel: UILabel = {
         let label = UILabel()
-        label.text = "-"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -118,8 +105,7 @@ class OwnerMenuVC: UIViewController {
     
     lazy var endLabel: UILabel = {
         let label = UILabel()
-        label.text = String(self.endtime)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -176,7 +162,7 @@ class OwnerMenuVC: UIViewController {
         return stackview
     }()
     
-    let addPicsView: UIView = {
+    let basicPicsView: UIView = {
         let view = UIView()
         view.setDimensions(height: 107, width: 129)
         view.backgroundColor = UIColor(named: "gray00_opacity")
@@ -188,8 +174,7 @@ class OwnerMenuVC: UIViewController {
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "신촌 디저트 최고 맛집 \n비오는 날엔 갓구운 휘낭시에"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .M14
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
@@ -203,7 +188,7 @@ class OwnerMenuVC: UIViewController {
         var label = UILabel()
         
         label.text = "우리 매장 우산 관리"
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font = .B20
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -232,7 +217,7 @@ class OwnerMenuVC: UIViewController {
         var label = UILabel()
         
         label.text = "총 우산"
-        label.font = .systemFont(ofSize: 16)
+        label.font = .B16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -240,8 +225,8 @@ class OwnerMenuVC: UIViewController {
     lazy var rentNumLabel: UILabel = {
         var label = UILabel()
         
-        label.text = String(totalNum) + "개"
-        label.font = .boldSystemFont(ofSize: 22)
+        label.text = "10개"
+        label.font = .SB22
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -262,7 +247,7 @@ class OwnerMenuVC: UIViewController {
         var label = UILabel()
         
         label.text = "대여가능 우산"
-        label.font = .systemFont(ofSize: 16)
+        label.font = .B16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -271,7 +256,7 @@ class OwnerMenuVC: UIViewController {
         var label = UILabel()
         
         label.text = String(umbrellaNum) + "개"
-        label.font = .boldSystemFont(ofSize: 22)
+        label.font = .SB22
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -306,7 +291,7 @@ class OwnerMenuVC: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.setDimensions(height: 69, width: 342)
         button.layer.cornerRadius = 20
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         button.clipsToBounds = true
         button.backgroundColor = UIColor(named: "main")
         
@@ -320,6 +305,13 @@ class OwnerMenuVC: UIViewController {
             editVC.starttime = self.startLabel.text ?? ""
             editVC.endtime = self.endLabel.text ?? ""
             editVC.introduceTextView.text = self.introduceLabel.text ?? ""
+            
+            // 이미지를 복사해서 넘겨줌
+            for imageView in self.picsStackView.arrangedSubviews {
+                if let imageView = imageView as? UIImageView, let image = imageView.image {
+                    editVC.copiedImages.append(image)
+                }
+            }
             
             self.navigationController?.pushViewController(editVC, animated: true)
         }
@@ -335,8 +327,8 @@ class OwnerMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI()
         fetchData()
+        configureUI()
     }
     
     // MARK: - Actions
@@ -363,7 +355,7 @@ class OwnerMenuVC: UIViewController {
         picsScrollView.addSubview(picsStackView)
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
-        picsStackView.addArrangedSubview(addPicsView)
+        //picsStackView.addArrangedSubview(basicPicsView)
         
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
         
@@ -391,8 +383,10 @@ class OwnerMenuVC: UIViewController {
                 DispatchQueue.main.async {
                     self.nameLabel.text = info.shopName
                     self.addressLabel.text = info.roadNameAddress
+                    self.isOpenLabel.text = "영업중"
                     self.workingdayLabel.text = "매일" //model에 추가
                     self.startLabel.text = info.openTime
+                    self.spacerLabel.text = "-"
                     self.endLabel.text = info.closeTime
                     self.introduceLabel.text = info.desc
                     //self.totalNum = info.totalUmbrella
@@ -400,6 +394,29 @@ class OwnerMenuVC: UIViewController {
                     
                     //self.rentNumLabel.text = "\(self.totalNum)개"
                     self.availableNumLabel.text = "\(self.umbrellaNum)개"
+                    
+                    // 이미지 뷰 생성 및 추가
+                    if info.image.isEmpty {
+                        // 이미지가 없을 때 basicPicsView를 5개 추가
+                        for _ in 0..<5 {
+                            self.picsStackView.addArrangedSubview(self.basicPicsView)
+                        }
+                    } else {
+                        // 이미지가 있을 때 이미지들로 picsStackView를 채움
+                        for image in info.image {
+                            if let imageUrl = URL(string: image.url) {
+                                if let imageData = try? Data(contentsOf: imageUrl),
+                                   let loadedImage = UIImage(data: imageData) {
+                                    let imageView = UIImageView(image: loadedImage)
+                                    imageView.contentMode = .scaleAspectFill
+                                    imageView.clipsToBounds = true
+                                    imageView.layer.cornerRadius = 20
+                                    imageView.setDimensions(height: 107, width: 129)
+                                    self.picsStackView.addArrangedSubview(imageView)
+                                }
+                            }
+                        }
+                    }
                 }
                 
             case .failure(let error):

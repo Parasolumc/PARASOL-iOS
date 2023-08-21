@@ -11,6 +11,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
 
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
+    var copiedImages: [UIImage] = []
     
     /*var updatedWorkingday: String?
     var updatedStartTime: String?
@@ -41,7 +42,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let label = UILabel()
         
         label.text = ""
-        label.font = .boldSystemFont(ofSize: 24)
+        label.font = .B24
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -50,7 +51,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let label = UILabel()
         
         label.text = ""
-        label.font = .systemFont(ofSize: 16)
+        label.font = .M16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -59,7 +60,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let label = UILabel()
         
         label.text = "영업종료"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -68,7 +69,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     lazy var workingdayLabel: UILabel = {
         let label = UILabel()
         label.text = String(self.workingday)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -77,7 +78,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     lazy var startLabel: UILabel = {
         let label = UILabel()
         label.text = String(self.starttime)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -86,7 +87,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     lazy var spacerLabel: UILabel = {
         let label = UILabel()
         label.text = "-"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -95,7 +96,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     lazy var endLabel: UILabel = {
         let label = UILabel()
         label.text = String(self.endtime)
-        label.font = .systemFont(ofSize: 14)
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
@@ -180,7 +181,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     lazy var introduceLabel: UILabel = {
         let label = UILabel()
         label.text = "매장 설명"
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .SB16
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
@@ -195,7 +196,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         textview.layer.cornerRadius = 20
         textview.backgroundColor = UIColor(named: "gray00_opacity")
         textview.textContainerInset = .init(top: 30, left: 20, bottom: 30, right: 20)
-        textview.font = UIFont.systemFont(ofSize: 14)
+        textview.font = .M14
         
         return textview
     }()
@@ -234,6 +235,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         configureUI()
         setNavigationBar()
+        configureImages()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPlusButton))
         addPicsView.addGestureRecognizer(tapGesture)
@@ -282,12 +284,11 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 5)
         vStackView.centerX(inView: view)
         
-        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
-        picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
-        //picsScrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 12, paddingLeft: 25, paddingRight: 25)
+        picsScrollView.heightAnchor.constraint(equalToConstant: 112).isActive = true
+
         picsScrollView.addSubview(picsStackView)
-        
-        picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
+        picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 5)
         
         picsStackView.addArrangedSubview(addPicsView)
         picsStackView.addSubview(plusImageView)
@@ -326,15 +327,100 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             picView.clipsToBounds = true
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
+            uploadImage(image: selectedImage)
             
+            lazy var deleteButton: UIButton = {
+                let button = UIButton()
+                button.setDimensions(height: 22, width: 22)
+                button.layer.cornerRadius = 20 / 2
+                button.backgroundColor = UIColor(named: "main")
+                button.setImage(UIImage(named: "delete"), for: .normal)
+                
+                let deleteAction = UIAction { [weak self] _ in
+                    guard let self = self,
+                          let containerView = button.superview as? UIView else {
+                        return
+                    }
+                    self.didTapDeleteButton(containerView: containerView)
+                }
+                
+                button.addAction(deleteAction, for: .touchUpInside)
+                
+                return button
+            }()
             
-            picsStackView.addArrangedSubview(picView)
+            let containerView = UIView()
+            containerView.addSubview(picView)
+            containerView.addSubview(deleteButton)
+            
+            picView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor)
+            deleteButton.anchor(top: containerView.topAnchor, right: containerView.rightAnchor, paddingTop: -5, paddingRight: -5, width: 20, height: 20)
+            
+            picsStackView.addArrangedSubview(containerView)
         }
 
     }
     
+    // 이미지 레이아웃 세팅
+    func configureImages() {
+        // 이미지를 copiedImages 배열에서 가져와서 추가
+        for image in copiedImages {
+            let picView = UIImageView(image: image)
+            picView.contentMode = .scaleAspectFill
+            picView.clipsToBounds = true
+            picView.layer.cornerRadius = 20
+            picView.setDimensions(height: 107, width: 129)
+            
+            lazy var deleteButton: UIButton = {
+                let button = UIButton()
+                button.setDimensions(height: 22, width: 22)
+                button.layer.cornerRadius = 20 / 2
+                button.backgroundColor = UIColor(named: "main")
+                button.setImage(UIImage(named: "delete"), for: .normal)
+                
+                let deleteAction = UIAction { [weak self] _ in
+                    guard let self = self,
+                          let containerView = button.superview as? UIView else {
+                        return
+                    }
+                    self.didTapDeleteButton(containerView: containerView)
+                }
+                
+                button.addAction(deleteAction, for: .touchUpInside)
+                
+                return button
+            }()
+            
+            let containerView = UIView()
+            containerView.addSubview(picView)
+            containerView.addSubview(deleteButton)
+            
+            picView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor)
+            deleteButton.anchor(top: containerView.topAnchor, right: containerView.rightAnchor, paddingTop: -5, paddingRight: -5, width: 20, height: 20)
+            
+            picsStackView.addArrangedSubview(containerView)
+        }
+    }
+    
+    @objc func didTapDeleteButton(containerView: UIView) {
+        deleteImage(id: 22)
+        containerView.removeFromSuperview() // Remove the containerView from picsStackView
+    }
+    
+    /*@objc func didTapImageView(sender: UITapGestureRecognizer) {
+        if let tappedImageView = sender.view as? UIImageView {
+            // Perform your delete image logic here
+            // Call the deleteImage function with necessary parameters
+            deleteImage(id: 22)
+        }
+    }*/
+    
     @objc func didTapTimeLabel() {
         let popupVC = PopupVC()
+        
+        popupVC.dataCompletion = { [weak self] selectedDay, startTime, endTime in
+            self?.updateUI(with: selectedDay, startTime: startTime, endTime: endTime)
+        }
         
         popupVC.modalPresentationStyle = .overCurrentContext
         present(popupVC, animated: true, completion: nil)
@@ -350,7 +436,11 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }
     
     @objc func confirmButtonTapped() {
-        editData()
+        let desc = introduceTextView.text ?? ""
+        let openTime = startLabel.text ?? ""
+        let closeTime = endLabel.text ?? ""
+        
+        editData(desc: desc, openTime: openTime, closeTime: closeTime)
     }
     
     @objc func cancelButtonTapped() {
@@ -370,12 +460,8 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
-    func editData() {
-        /*let newInfo = introduceTextView.text
-        let startTime = startLabel.text
-        let endTime = endLabel.text*/
-        
-        let changeData: EditInfoModel = EditInfoModel(desc: "hello", openTime: "10:10", closeTime: "21:30")
+    func editData(desc: String, openTime: String, closeTime: String) {
+        let changeData: EditInfoModel = EditInfoModel(desc: desc, openTime: openTime, closeTime: closeTime)
         MenuManager.shared.editShopInfo(editShopInfoData: changeData) { result in
             switch result {
             case .success(let data):
@@ -394,14 +480,12 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }
     
     func uploadImage(image: UIImage) {
-        let imageData = UIImage(named: "temp")
         MenuManager.shared.upLoadPhoto(image: image) { result in
             switch result {
             case .success(let response):
                 // 업로드 성공 시 처리
                 if response["check"] as? Bool == true {
                     print("업로드 성공")
-                    self.showSuccessAlert()
                 } else {
                     print("업로드 실패")
                 }
@@ -410,6 +494,25 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 print(error)
                 return
             }
+        }
+        
+    }
+    
+    func deleteImage(id: Int) {
+        MenuManager.shared.deletePhoto(id: id) { result in
+            switch result {
+            case .success(let response):
+                if response["check"] as? Bool == true {
+                    print("삭제 완료")
+                }
+                else {
+                    print("삭제 실패")
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
+        
         }
     }
     

@@ -15,6 +15,7 @@ enum MenuAPI {
     case sellRecord
     case editInfo(param: EditInfoModel)
     case uploadPhoto(image: UIImage)
+    case deletePhoto(id: Int)
 }
 
 extension MenuAPI: TargetType {
@@ -37,6 +38,8 @@ extension MenuAPI: TargetType {
             return "/api/shop/info"
         case .uploadPhoto(image: _):
             return "/api/shop/image"
+        case .deletePhoto(let id):
+            return "/api/shop/image/\(id)"
         }
     }
     
@@ -54,6 +57,8 @@ extension MenuAPI: TargetType {
             return .put
         case .uploadPhoto(_):
             return .post
+        case .deletePhoto(_):
+            return .delete
         }
     }
     
@@ -72,11 +77,16 @@ extension MenuAPI: TargetType {
         case .uploadPhoto(let image):
             let imageData = MultipartFormData(provider: .data(image.jpegData(compressionQuality: 1.0)!), name: "image", fileName: "jpeg", mimeType: "image/jpeg")
             return .uploadMultipart([imageData])
+        case .deletePhoto(_):
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         switch self {
+        case .uploadPhoto(image: _):
+            return [ "Content-Type": "multipart/form-data",
+                    "Authorization": "Bearer \(ServiceAPI.token)" ]
         default:
             return [ "Content-Type": "application/json",
                     "Authorization": "Bearer \(ServiceAPI.token)" ]
