@@ -119,7 +119,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Naver 지도 열기 테스트
     func testOpen(dlat: String, dlng: String, dname: String, appName: String) {
         let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: "nmap://route/public?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
+        let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!
         let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
 
         if UIApplication.shared.canOpenURL(url) {
