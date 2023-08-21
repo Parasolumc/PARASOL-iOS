@@ -293,12 +293,10 @@ class LoginVC: UIViewController {
     // 홈 화면으로 이동
     func goToHome(at: String) {
         if at == "CUSTOMER" {
-            let root = UserTabBarVC()
-            let vc = UINavigationController(rootViewController: root)
+            let vc = UserTabBarVC()
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         } else if at == "OWNER" {
-            let root = OwnerTabBarVC()
-            let vc = UINavigationController(rootViewController: root)
+            let vc = OwnerTabBarVC()
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         } else {
             self.view.makeToast("앱 접속 실패", duration: 1.0, position: .center, style: self.style)

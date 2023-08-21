@@ -92,19 +92,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchData()
-        setNMap()
         setCurrentPos()
         configureUI()
-        setNavigationBar()
     }
     
     // MARK: - Actions
@@ -149,9 +142,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
     func configureUI() {
         view.backgroundColor = UIColor(named: "light")
         
-//        view.addSubview(mapMarkButton)
-//        mapMarkButton.centerY(inView: view)
-//        mapMarkButton.centerX(inView: view)
+        setNMap()
+        setNavigationBar()
         
     }
     // TODO: 네비게이션바 세팅(서치바 포함) method
@@ -163,12 +155,13 @@ class UserVC: UIViewController, UISearchBarDelegate {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = UIColor.clear
     
         searchBar.delegate = self
         searchBarSearchButtonClicked(searchBar)
         
         // 서치바 넣기
-        self.navigationController?.navigationBar.topItem?.titleView = searchBar
+        navigationController?.navigationBar.topItem?.titleView = searchBar
         
         // 네비게이션 바 아이템 넣기
         setNCRB()
