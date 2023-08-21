@@ -24,6 +24,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
     
     // MARK: [For Requesting URLScheme]
     let appName: String = "com.PARASOL"
+    let dlat: String = "37.5209436"
+    let dlng:String = "127.1230074"
     
     // MARK: [For Map]
     lazy var mapView: NMFNaverMapView = {
@@ -113,18 +115,6 @@ class UserVC: UIViewController, UISearchBarDelegate {
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
-    // MARK: - Naver 지도 열기 테스트
-    func testOpen() {
-        let url = URL(string: "nmap://map?&appname=\(appName)")!
-        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
-
-        if UIApplication.shared.canOpenURL(url) {
-          UIApplication.shared.open(url)
-        } else {
-          UIApplication.shared.open(appStoreURL)
-        }
-    }
-    
     // MARK: [Naver Map]
     // TODO: 네이버지도 생성 및 배치 method
     func setNMap() {
@@ -136,7 +126,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
         marker.iconTintColor = UIColor(named: "black")!
         marker.width = 41
         marker.height = 44
-        marker.userInfo = ["id": 1] // 저장한 값 사용시 타입캐스팅 해야 한다.
+        marker.userInfo = ["id": 12] // 저장한 값 사용시 타입캐스팅 해야 한다.
         print(marker.userInfo["id"] as! Int)
         marker.touchHandler = handler
         
