@@ -38,7 +38,7 @@ class Rental_ReturnVC: UIViewController {
     var QRImage: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = UIColor(named: "gray00")
         imageView.setDimensions(height: 240, width: 240)
         imageView.layer.cornerRadius = 5
         
@@ -55,7 +55,7 @@ class Rental_ReturnVC: UIViewController {
         } else if nowFun == "Sell" {
             label.text = "판매를 원하시면 QR코드를 \n사장님께 보여주세요."
         }
-        label.font = .systemFont(ofSize: 16)
+        label.font = .B16
         label.numberOfLines = 0
         label.textAlignment = .center
         

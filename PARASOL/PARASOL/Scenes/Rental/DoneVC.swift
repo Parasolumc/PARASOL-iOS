@@ -36,7 +36,8 @@ class DoneVC: UIViewController {
         } else if nowFun == "Sell" {
             label.text = "판매가 완료되었습니다"
         }
-        label.font = .boldSystemFont(ofSize: 24)
+        label.font = .B25
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -45,8 +46,8 @@ class DoneVC: UIViewController {
         let label = UILabel()
         
         label.text = "상점명"
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .B16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -54,8 +55,8 @@ class DoneVC: UIViewController {
         let label = UILabel()
         
         label.text = "서울 서대문구 이화여대길 77"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
         return label
     }()
     
@@ -78,14 +79,15 @@ class DoneVC: UIViewController {
         if (self.fee>0) && (self.nowFun=="Return") {
             label.text = "연체료 " + String(fee) + "원이\n자동 결제될 예정입니다."
         } else if self.nowFun == "Sell" {
-            label.text = "우산 컨디션 확인 후 7-10일 이내 \n고객님의 계좌에 금액이 자동입금됩니다."
-        } else {
-            label.text = ""
+            label.text = "우산 컨디션 확인 후 7-10일 이내\n고객님의 계좌에 금액이 자동입금됩니다."
+        } else if self.nowFun == "Rental" {
+            label.text = "~까지 무료\n초과시 1시간당 100씩 부과됩니다."
         }
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .B16
+        label.textColor = UIColor(named: "black")
+        
         return label
     }()
     
@@ -111,7 +113,7 @@ class DoneVC: UIViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(logoImage)
         view.addSubview(doneLabel)

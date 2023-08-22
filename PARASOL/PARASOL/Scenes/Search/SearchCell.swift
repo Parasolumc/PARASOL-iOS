@@ -25,8 +25,8 @@ class SearchCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "상점명"
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -35,8 +35,8 @@ class SearchCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "3000km"
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.font = .M14
+        label.textColor = UIColor(named: "gray22")
         return label
     }()
     
@@ -57,8 +57,8 @@ class SearchCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "신촌로 20길 81"
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.font = .R14
+        label.textColor = UIColor(named: "gray22")
         return label
     }()
     
