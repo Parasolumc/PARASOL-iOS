@@ -37,7 +37,7 @@ class Owner_Rental_ReturnVC: UIViewController {
         
         label.text = "손님이 보유한 QR코드를\n인식해주세요."
 
-        label.font = .systemFont(ofSize: 16)
+        label.font = .B16
         label.numberOfLines = 0
         label.textAlignment = .center
         
