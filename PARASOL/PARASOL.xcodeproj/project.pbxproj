@@ -52,8 +52,6 @@
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
 		09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C12A6533E6002C9F8B /* SampleModel.swift */; };
 		09CF04C42A6533F8002C9F8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C32A6533F8002C9F8B /* Endpoint.swift */; };
-		09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C52A653415002C9F8B /* SampleManager.swift */; };
-		09CF04C82A65342B002C9F8B /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04C72A65342B002C9F8B /* SampleAPI.swift */; };
 		09CF04D02A653477002C9F8B /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CF04CF2A653477002C9F8B /* Auth.storyboard */; };
 		09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04D12A6534A0002C9F8B /* LoginVC.swift */; };
 		09CF04D62A6534D2002C9F8B /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04D52A6534D2002C9F8B /* UserVC.swift */; };
@@ -140,8 +138,6 @@
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
 		09CF04C12A6533E6002C9F8B /* SampleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleModel.swift; sourceTree = "<group>"; };
 		09CF04C32A6533F8002C9F8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		09CF04C52A653415002C9F8B /* SampleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
-		09CF04C72A65342B002C9F8B /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
 		09CF04CF2A653477002C9F8B /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		09CF04D12A6534A0002C9F8B /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		09CF04D52A6534D2002C9F8B /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
@@ -283,10 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				09CF04C32A6533F8002C9F8B /* Endpoint.swift */,
-				09CF04C52A653415002C9F8B /* SampleManager.swift */,
 				097F0B8A2A84C96A00955BB1 /* HomeManager.swift */,
 				097F0B8C2A84D00900955BB1 /* HomeAPI.swift */,
-				09CF04C72A65342B002C9F8B /* SampleAPI.swift */,
 				5565674E2A8A420D00455BE1 /* MenuAPI.swift */,
 				556567542A8A969900455BE1 /* MypageAPI.swift */,
 				556567502A8A44B500455BE1 /* MenuManager.swift */,
@@ -660,7 +654,6 @@
 				09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */,
 				096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */,
 				556567572A8A97A200455BE1 /* MypageManager.swift in Sources */,
-				09CF04C62A653415002C9F8B /* SampleManager.swift in Sources */,
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
@@ -704,7 +697,6 @@
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
 				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
 				09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */,
-				09CF04C82A65342B002C9F8B /* SampleAPI.swift in Sources */,
 				093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */,
 				09D04EC22A80D1E0002F73A9 /* testVC.swift in Sources */,
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,
