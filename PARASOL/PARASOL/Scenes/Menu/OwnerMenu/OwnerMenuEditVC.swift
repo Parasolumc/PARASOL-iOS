@@ -12,10 +12,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     var copiedImages: [UIImage] = []
-    
-    /*var updatedWorkingday: String?
-    var updatedStartTime: String?
-    var updatedEndTime: String?*/
+    var imageIds: [Image] = []
     
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
@@ -233,6 +230,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchData()
         configureUI()
         setNavigationBar()
         configureImages()
@@ -250,19 +248,6 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
     }
-    
-    /*override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let workingday = updatedWorkingday, let startTime = updatedStartTime, let endTime = updatedEndTime {
-            updateUI(with: workingday, startTime: startTime, endTime: endTime)
-            
-            // 업데이트 후 초기화 (필요한 경우)
-            updatedWorkingday = nil
-            updatedStartTime = nil
-            updatedEndTime = nil
-        }
-    }*/
     
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
@@ -312,11 +297,11 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         present(imagePickerController, animated: true)
     }
     
-    @objc func didTapDeleteButton(sender: UIButton) {
+    /*@objc func didTapDeleteButton(sender: UIButton) {
         if let picView = sender.superview as? UIImageView {
             picView.removeFromSuperview()
         }
-    }
+    }*/
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
@@ -327,6 +312,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             picView.clipsToBounds = true
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
+            picView.tag = imageIds.count
             uploadImage(image: selectedImage)
             
             lazy var deleteButton: UIButton = {
@@ -337,11 +323,8 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 button.setImage(UIImage(named: "delete"), for: .normal)
                 
                 let deleteAction = UIAction { [weak self] _ in
-                    guard let self = self,
-                          let containerView = button.superview as? UIView else {
-                        return
-                    }
-                    self.didTapDeleteButton(containerView: containerView)
+                    self?.didTapDeleteButton(sender: button)
+                    
                 }
                 
                 button.addAction(deleteAction, for: .touchUpInside)
@@ -357,6 +340,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             deleteButton.anchor(top: containerView.topAnchor, right: containerView.rightAnchor, paddingTop: -5, paddingRight: -5, width: 20, height: 20)
             
             picsStackView.addArrangedSubview(containerView)
+
         }
 
     }
@@ -364,12 +348,13 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     // 이미지 레이아웃 세팅
     func configureImages() {
         // 이미지를 copiedImages 배열에서 가져와서 추가
-        for image in copiedImages {
+        for (index, image) in copiedImages.enumerated() {
             let picView = UIImageView(image: image)
             picView.contentMode = .scaleAspectFill
             picView.clipsToBounds = true
             picView.layer.cornerRadius = 20
             picView.setDimensions(height: 107, width: 129)
+            picView.tag = index
             
             lazy var deleteButton: UIButton = {
                 let button = UIButton()
@@ -379,11 +364,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 button.setImage(UIImage(named: "delete"), for: .normal)
                 
                 let deleteAction = UIAction { [weak self] _ in
-                    guard let self = self,
-                          let containerView = button.superview as? UIView else {
-                        return
-                    }
-                    self.didTapDeleteButton(containerView: containerView)
+                    self?.didTapDeleteButton(sender: button)
                 }
                 
                 button.addAction(deleteAction, for: .touchUpInside)
@@ -402,18 +383,27 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         }
     }
     
-    @objc func didTapDeleteButton(containerView: UIView) {
-        deleteImage(id: 22)
-        containerView.removeFromSuperview() // Remove the containerView from picsStackView
-    }
-    
-    /*@objc func didTapImageView(sender: UITapGestureRecognizer) {
-        if let tappedImageView = sender.view as? UIImageView {
-            // Perform your delete image logic here
-            // Call the deleteImage function with necessary parameters
-            deleteImage(id: 22)
+    @objc func didTapDeleteButton(sender: UIButton) {
+        if let containerView = sender.superview,
+           let containerViewIndex = picsStackView.arrangedSubviews.firstIndex(of: containerView) {
+            
+            // Remove the image data from your array
+            var imageIndex = containerViewIndex - 1
+            print("imageIndex : \(imageIndex)")
+            print("count : \(imageIds.count)")
+            print(imageIds)
+            if imageIndex >= 0 && imageIndex < imageIds.count {
+                let imageIdToDelete = imageIds[imageIndex].id
+                deleteImage(id: imageIdToDelete)
+                imageIds.remove(at: imageIndex)
+                
+                // Remove the container view from the picsStackView
+                containerView.removeFromSuperview()
+                fetchData()
+            }
         }
-    }*/
+
+    }
     
     @objc func didTapTimeLabel() {
         let popupVC = PopupVC()
@@ -483,14 +473,13 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         MenuManager.shared.upLoadPhoto(image: image) { result in
             switch result {
             case .success(let response):
-                // 업로드 성공 시 처리
                 if response["check"] as? Bool == true {
                     print("업로드 성공")
+                    self.fetchData()
                 } else {
                     print("업로드 실패")
                 }
             case .failure(let error):
-                // 업로드 실패 시 처리
                 print(error)
                 return
             }
@@ -514,6 +503,30 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
             }
         
         }
+    }
+    
+    func fetchData() {
+        HomeManager.shared.owner_getStore { result in
+            switch result {
+            case .success(let data):
+                self.imageIds.removeAll()
+                //print(data)
+                for record in data.information.image {
+                    //print("record : \(record)")
+                    self.imageIds.append(Image.init(id: record.id, url: record.url))
+                    //print(self.imageIds)
+                }
+                
+                /*DispatchQueue.main.async {
+                    self.configureImages()
+                }*/
+                
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
 }
