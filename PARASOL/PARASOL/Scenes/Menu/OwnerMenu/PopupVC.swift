@@ -130,33 +130,15 @@ class PopupVC: UIViewController {
     }()
 
     let daysOfWeek: [String] = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "매일", "평일", "주말"]
-
-    /*lazy var starttimePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .time
-        picker.minuteInterval = 30 // 30분 간격으로 설정
-        picker.addTarget(self, action: #selector(starttimePickerValueChanged), for: .valueChanged)
-        
-        return picker
-    }()
     
-    lazy var endtimePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .time
-        picker.minuteInterval = 30 // 30분 간격으로 설정
-        picker.addTarget(self, action: #selector(endtimePickerValueChanged), for: .valueChanged)
-        
-        return picker
-    }()*/
-    
-    lazy var plusButton: UIButton = {
+    /*lazy var plusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "plus_round"), for: .normal)
         button.setDimensions(height: 20, width: 20)
         //button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         return button
-    }()
+    }()*/
     
 
     // MARK: - Lifecycle
@@ -167,17 +149,10 @@ class PopupVC: UIViewController {
         configureUI()
         
         dayTextField.inputView = dayPicker
-        //startTextField.inputView = starttimePicker
-        //endTextField.inputView = endtimePicker
         dayPicker.delegate = self
         dayPicker.dataSource = self
         
-        //startTextField.text = formatTime(starttimePicker.date)
-        //endTextField.text = formatTime(endtimePicker.date)
-        
         dayTextField.inputAccessoryView = createToolbarForPicker(selector: #selector(dismissPicker))
-        //startTextField.inputAccessoryView = createToolbarForPicker(selector: #selector(dismissPicker))
-        //endTextField.inputAccessoryView = createToolbarForPicker(selector: #selector(dismissPicker))
     }
     
     // MARK: - Actions
@@ -195,7 +170,7 @@ class PopupVC: UIViewController {
         containerView.addSubview(startTextField)
         containerView.addSubview(endTextField)
         
-        containerView.addSubview(plusButton)
+        //containerView.addSubview(plusButton)
         
         containerView.addSubview(cancelButton)
         containerView.addSubview(confirmButton)
@@ -215,7 +190,7 @@ class PopupVC: UIViewController {
         
         tagLabel2.anchor(top: dayTextField.bottomAnchor, left: endTextField.rightAnchor, paddingTop: 19, paddingLeft: 5)
         
-        plusButton.anchor(top: dayTextField.bottomAnchor, left: tagLabel2.rightAnchor, paddingTop: 18, paddingLeft: 20)
+        //plusButton.anchor(top: dayTextField.bottomAnchor, left: tagLabel2.rightAnchor, paddingTop: 18, paddingLeft: 20)
         
         cancelButton.anchor(left: containerView.leftAnchor, bottom: containerView.bottomAnchor, paddingLeft: 30, paddingBottom: 20)
         
@@ -261,16 +236,6 @@ class PopupVC: UIViewController {
         return dateFormatter.string(from: date)
     }
     
-    /*@objc func starttimePickerValueChanged(sender: UIDatePicker) {
-        let selectedTime = sender.date
-        startTextField.text = formatTime(selectedTime)
-    }
-    
-    @objc func endtimePickerValueChanged(sender: UIDatePicker) {
-        let selectedTime = sender.date
-        endTextField.text = formatTime(selectedTime)
-    }*/
-    
     func createToolbarForPicker(selector: Selector) -> UIToolbar {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -285,7 +250,6 @@ class PopupVC: UIViewController {
     }
     
     /*@objc func plusButtonTapped(sender: UIButton) {
-        // Increase containerView height
         containerView.frame.size.height += 150
     }*/
     
