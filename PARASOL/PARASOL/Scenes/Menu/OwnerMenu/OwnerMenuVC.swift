@@ -403,9 +403,9 @@ class OwnerMenuVC: UIViewController {
                     self.addressLabel.text = info.roadNameAddress
                     self.isOpenLabel.text = "영업중"
                     self.workingdayLabel.text = "매일" //model에 추가
-                    self.startLabel.text = info.openTime
+//                    self.startLabel.text = info.openTime
                     self.spacerLabel.text = "-"
-                    self.endLabel.text = info.closeTime
+//                    self.endLabel.text = info.closeTime
                     self.introduceLabel.text = info.desc
                     //self.totalNum = info.totalUmbrella
                     self.umbrellaNum = info.availableUmbrella
