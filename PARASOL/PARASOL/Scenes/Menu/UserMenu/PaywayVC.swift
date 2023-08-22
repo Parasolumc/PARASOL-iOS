@@ -12,11 +12,11 @@ class PaywayVC: UIViewController{
     // 변수 및 상수, IBOutlet
 
     // MARK: [UI components]
+    var money: String = ""
     
-    
-    let guidelabel: UILabel = {
+    lazy var guidelabel: UILabel = {
         let label = UILabel()
-        label.text = "결제수단을 등록하시면 \n바로 대여가 가능합니다."
+        label.text = "미납된 연체료는 총 \(money)입니다."
         label.numberOfLines = 0
         label.font = .SB18
 
@@ -25,7 +25,7 @@ class PaywayVC: UIViewController{
     
     let registerlabel: UILabel = {
         let label = UILabel()
-        label.text = "결제수단 등록"
+        label.text = "결제하기"
         label.font = .SB18
         
         return label
@@ -33,7 +33,7 @@ class PaywayVC: UIViewController{
     
     lazy var registerbutton: UIButton = {
         let button = UIButton()
-        button.setTitle("결제수단 선택하기", for: .normal)
+        button.setTitle("파라솔페이로 결제하기", for: .normal)
         button.setDimensions(height: 49, width: 342)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
@@ -63,7 +63,7 @@ class PaywayVC: UIViewController{
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     
     func setNavigationBar() {
-        self.navigationItem.title = "결제수단"
+        self.navigationItem.title = "연체료 결제"
     }
     
     func configureUI() {
@@ -74,7 +74,7 @@ class PaywayVC: UIViewController{
         view.addSubview(registerbutton)
         
         guidelabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 30)
-        registerlabel.anchor(top: guidelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 30)
+        registerlabel.anchor(top: guidelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 60, paddingLeft: 30)
         registerbutton.anchor(top:registerlabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 30)
         
     }

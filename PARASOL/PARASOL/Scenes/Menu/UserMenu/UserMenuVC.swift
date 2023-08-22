@@ -289,6 +289,7 @@ class UserMenuVC: UIViewController {
         
         let goTopaywayVCAction = UIAction { _ in
             let paywayVC = PaywayVC()
+            paywayVC.money = self.moneylabel.text ?? ""
             self.navigationController?.pushViewController(paywayVC, animated: true)
         }
         
