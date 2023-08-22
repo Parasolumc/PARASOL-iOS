@@ -89,9 +89,10 @@ struct OwnerStoreInformation: Codable {
     let id: Int
     let shopName, desc: String
     let latitude, longitude: Double
-    let roadNameAddress, openTime, closeTime: String
+    let roadNameAddress: String
     let availableUmbrella: Int
     let image: [Image]
+    let times: [Time]
 }
 
 // MARK: - Image

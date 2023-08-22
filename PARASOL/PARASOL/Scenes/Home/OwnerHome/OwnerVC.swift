@@ -72,7 +72,7 @@ class OwnerVC: UIViewController {
     lazy var tag2Label: UILabel = {
         var label = UILabel()
         
-        label.text = ": " + String(self.umbrellaNum) + "개"
+        label.text = ": ?개"
         label.font = .B20
         label.textColor = UIColor(named: "black")
         return label
@@ -260,12 +260,12 @@ class OwnerVC: UIViewController {
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        postData()
-        fetchData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchData()
         
         configureUI()
     }
@@ -288,6 +288,17 @@ class OwnerVC: UIViewController {
         buyButton.anchor(top: buttonHStackView.bottomAnchor, paddingTop: 15)
         buyButton.centerX(inView: view)
         
+    }
+    
+    // TODO: 우산 대여가능 여부 체크
+    func checkRentAvailable(availableNum: Int) {
+        if availableNum == 0 {
+            rentButton.isUserInteractionEnabled = false
+            rentButton.backgroundColor = UIColor(named: "gray00")
+        } else {
+            rentButton.isUserInteractionEnabled = false
+            rentButton.backgroundColor = UIColor(named: "light")
+        }
     }
     
     // 사장님 Rent 페이지로 이동
@@ -334,6 +345,11 @@ class OwnerVC: UIViewController {
             case .success(let data):
                 print("본인 매장 조회")
                 print(data) // 데이터 확인용
+                self.nameLabel.text = data.information.shopName
+                self.addressLabel.text = data.information.roadNameAddress
+                self.umbrellaNum = data.information.availableUmbrella
+                self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
+                self.checkRentAvailable(availableNum: data.information.availableUmbrella)
             case .failure(let error):
                 print("본인 매장 조회 에러\n\(error)")
             }
