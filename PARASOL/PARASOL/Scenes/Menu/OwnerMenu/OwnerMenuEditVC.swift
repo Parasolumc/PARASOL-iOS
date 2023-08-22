@@ -277,7 +277,6 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         picsStackView.addArrangedSubview(addPicsView)
         picsStackView.addSubview(plusImageView)
-        
         addPicsView.addSubview(plusImageView)
         plusImageView.centerX(inView: addPicsView)
         plusImageView.centerY(inView: addPicsView)

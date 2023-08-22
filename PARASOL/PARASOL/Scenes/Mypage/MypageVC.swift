@@ -40,6 +40,7 @@ class MypageVC: UIViewController {
         button.setTitle("비밀번호 변경", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let goToChangePwVCAction = UIAction { _ in
             let changepwVC = ChangePwVC()
@@ -56,6 +57,7 @@ class MypageVC: UIViewController {
         button.setTitle("로그아웃", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let logOutAction = UIAction { _ in
             self.showLogoutAlert()
@@ -71,6 +73,7 @@ class MypageVC: UIViewController {
         button.setTitle("회원탈퇴", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let withDrawalAction = UIAction { _ in
             self.showwithdrawalAlert()
@@ -86,6 +89,7 @@ class MypageVC: UIViewController {
         button.setTitle("이용약관", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let goToContractVCAction = UIAction { _ in
             let contractVC = ContractVC()
@@ -121,13 +125,13 @@ class MypageVC: UIViewController {
         
         titleLabel.anchor(top:view.topAnchor, paddingTop: 75)
         titleLabel.centerX(inView: view)
-        title1.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 25)
-        changePwLabel.anchor(top: title1.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
-        logoutLabel.anchor(top: changePwLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
-        withdrawalLabel.anchor(top: logoutLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
+        title1.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 25)
+        changePwLabel.anchor(top: title1.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
+        logoutLabel.anchor(top: changePwLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
+        withdrawalLabel.anchor(top: logoutLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
         
         title2.anchor(top: withdrawalLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 35, paddingLeft: 25)
-        contractLabel.anchor(top: title2.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 25)
+        contractLabel.anchor(top: title2.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
         
     }
     

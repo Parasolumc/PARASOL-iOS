@@ -286,6 +286,7 @@ class UserMenuVC: UIViewController {
         button.setTitle("연체료 결제", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let goTopaywayVCAction = UIAction { _ in
             let paywayVC = PaywayVC()
@@ -303,6 +304,7 @@ class UserMenuVC: UIViewController {
         button.setTitle("대여기록", for: .normal)
         button.titleLabel?.font = .SB18
         button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
         
         let goTorecordVCAction = UIAction { _ in
             let recordVC = RecordVC()
@@ -344,8 +346,8 @@ class UserMenuVC: UIViewController {
         sellbutton.centerX(inView: view)
         soldbutton.centerX(inView: view)
         manageLabel.anchor(top: soldbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 24)
-        payLabel.anchor(top: manageLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 24)
-        rentalLabel.anchor(top: payLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
+        payLabel.anchor(top: manageLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 24, paddingRight: 24)
+        rentalLabel.anchor(top: payLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, paddingLeft: 24, paddingRight: 24)
         
     }
     
