@@ -149,7 +149,7 @@ class Rental_ReturnVC: UIViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         view.addSubview(QRImage)
         createQRImage(url: "https://github.com/Parasolumc")
         view.addSubview(guideLabel)
