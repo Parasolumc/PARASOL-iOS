@@ -250,8 +250,7 @@ class UserVC: UIViewController, UISearchBarDelegate {
                                                                  latitude: store.latitude,
                                                                  longitude: store.longitude,
                                                                  roadNameAddress: store.roadNameAddress,
-                                                                 openTime: store.openTime,
-                                                                 closeTime: store.closeTime,
+                                                                 times: store.times,
                                                                  availableUmbrella: store.availableUmbrella,
                                                                  unavailableUmbrella: store.unavailableUmbrella))
 

@@ -20,7 +20,7 @@ struct StoreListInformation: Codable {
     let shopName: String
     let latitude, longitude: Double
     let roadNameAddress: String
-    var openTime, closeTime: String
+    let times: [Time]
     let availableUmbrella, unavailableUmbrella: Int
 }
 
@@ -36,15 +36,21 @@ struct StoreInformation: Codable {
     let id: Int
     let shopName, desc: String
     let latitude, longitude: Double
-    let roadNameAddress, openTime, closeTime: String
+    let roadNameAddress: String
     let availableUmbrella: Int
     let image: [StoreImage]
+    let times: [Time]
 }
 
 // MARK: [StoreImage]
 struct StoreImage: Codable {
     let id: Int
     let url: String
+}
+
+// MARK: [Time]
+struct Time: Codable {
+    let day, openTime, endTime: String
 }
 
 // MARK: - 우산 추가 등록
