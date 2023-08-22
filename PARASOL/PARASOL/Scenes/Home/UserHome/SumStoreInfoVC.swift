@@ -330,7 +330,7 @@ class SumStoreInfoVC: UIViewController {
     
     // TODO: 네이버지도 길찾기 연동
     func findLoad(dlat: Double, dlng: Double, dname: String, appName: String) {
-        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let encodeDname: String = dname.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let dlat: String = String(dlat)
         let dlng: String = String(dlng)
         let url = URL(string: "nmap://route/walk?&dlat=\(dlat)&dlng=\(dlng)&dname=\(encodeDname)&appname=\(appName)")!

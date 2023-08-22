@@ -15,6 +15,9 @@
 		093E1BE62A8D28680035E443 /* image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BE52A8D28680035E443 /* image.swift */; };
 		093E1BE82A8D50440035E443 /* SumStoreInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BE72A8D50440035E443 /* SumStoreInfoVC.swift */; };
 		093E1BEC2A9498FA0035E443 /* QRReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BEB2A9498FA0035E443 /* QRReaderView.swift */; };
+		093E1BEE2A94C3880035E443 /* UmbrellaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BED2A94C3880035E443 /* UmbrellaModel.swift */; };
+		093E1BF02A94C3920035E443 /* UmbrellaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */; };
+		093E1BF22A94C39B0035E443 /* UmbrellaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
 		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
 		0963D12A2A80DD070070D9ED /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1202A80DD070070D9ED /* LICENSE.txt */; };
@@ -102,6 +105,9 @@
 		093E1BE52A8D28680035E443 /* image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = image.swift; sourceTree = "<group>"; };
 		093E1BE72A8D50440035E443 /* SumStoreInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumStoreInfoVC.swift; sourceTree = "<group>"; };
 		093E1BEB2A9498FA0035E443 /* QRReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRReaderView.swift; sourceTree = "<group>"; };
+		093E1BED2A94C3880035E443 /* UmbrellaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaModel.swift; sourceTree = "<group>"; };
+		093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaAPI.swift; sourceTree = "<group>"; };
+		093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaManager.swift; sourceTree = "<group>"; };
 		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
 		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
 		0963D1202A80DD070070D9ED /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -274,6 +280,7 @@
 				5565674C2A8A418C00455BE1 /* MenuModel.swift */,
 				556567582A8AA71100455BE1 /* MypageModel.swift */,
 				09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */,
+				093E1BED2A94C3880035E443 /* UmbrellaModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +297,8 @@
 				556567562A8A97A200455BE1 /* MypageManager.swift */,
 				09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */,
 				09A0A4012A8A9584006FB24E /* AuthManager.swift */,
+				093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */,
+				093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -656,11 +665,14 @@
 			files = (
 				09CF04E22A653537002C9F8B /* MypageVC.swift in Sources */,
 				096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */,
+				093E1BF02A94C3920035E443 /* UmbrellaAPI.swift in Sources */,
 				556567572A8A97A200455BE1 /* MypageManager.swift in Sources */,
+				093E1BEE2A94C3880035E443 /* UmbrellaModel.swift in Sources */,
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
 				55A5D2252A817D19006AE177 /* OwnerJoinVC.swift in Sources */,
 				093E1BE82A8D50440035E443 /* SumStoreInfoVC.swift in Sources */,
+				093E1BF22A94C39B0035E443 /* UmbrellaManager.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
 				556567512A8A44B500455BE1 /* MenuManager.swift in Sources */,
 				093E1BE42A8D1D970035E443 /* QRCodeView.swift in Sources */,
@@ -852,7 +864,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6GY9T72LC5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PARASOL/Global/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "파라솔";
@@ -887,7 +899,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6GY9T72LC5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PARASOL/Global/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "파라솔";
