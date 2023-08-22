@@ -162,7 +162,25 @@ class OwnerMenuVC: UIViewController {
         return stackview
     }()
     
-    let basicPicsView: UIView = {
+    let basicPicsView1: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00_opacity")
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    let basicPicsView2: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 107, width: 129)
+        view.backgroundColor = UIColor(named: "gray00_opacity")
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
+    let basicPicsView3: UIView = {
         let view = UIView()
         view.setDimensions(height: 107, width: 129)
         view.backgroundColor = UIColor(named: "gray00_opacity")
@@ -397,10 +415,10 @@ class OwnerMenuVC: UIViewController {
                     
                     // 이미지 뷰 생성 및 추가
                     if info.image.isEmpty {
-                        // 이미지가 없을 때 basicPicsView를 5개 추가
-                        for _ in 0..<5 {
-                            self.picsStackView.addArrangedSubview(self.basicPicsView)
-                        }
+                        // 이미지가 없을 때 basicPicsView를 3개 추가
+                        self.picsStackView.addArrangedSubview(self.basicPicsView1)
+                        self.picsStackView.addArrangedSubview(self.basicPicsView2)
+                        self.picsStackView.addArrangedSubview(self.basicPicsView3)
                     } else {
                         // 이미지가 있을 때 이미지들로 picsStackView를 채움
                         for image in info.image {
