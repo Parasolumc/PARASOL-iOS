@@ -239,6 +239,7 @@ class StoreInfoVC: UIViewController {
             let rentalVC = Rental_ReturnVC()
             rentalVC.nowFun = "Rental"
             rentalVC.beforeView = "StoreInfoVC"
+            rentalVC.shopId = self.store.id
             self.navigationController?.pushViewController(rentalVC, animated: true)
             }
             
@@ -261,6 +262,7 @@ class StoreInfoVC: UIViewController {
             let returnVC = Rental_ReturnVC()
             returnVC.nowFun = "Return"
             returnVC.beforeView = "StoreInfoVC"
+            returnVC.shopId = self.store.id
             self.navigationController?.pushViewController(returnVC, animated: true)
             }
             

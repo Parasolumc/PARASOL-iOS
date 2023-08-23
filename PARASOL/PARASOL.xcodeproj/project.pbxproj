@@ -18,6 +18,9 @@
 		093E1BEE2A94C3880035E443 /* UmbrellaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BED2A94C3880035E443 /* UmbrellaModel.swift */; };
 		093E1BF02A94C3920035E443 /* UmbrellaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */; };
 		093E1BF22A94C39B0035E443 /* UmbrellaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */; };
+		093E1BF42A96A6620035E443 /* AlarmAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BF32A96A6620035E443 /* AlarmAPI.swift */; };
+		093E1BF62A96A66B0035E443 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BF52A96A66B0035E443 /* AlarmManager.swift */; };
+		093E1BF82A96A6790035E443 /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E1BF72A96A6790035E443 /* AlarmModel.swift */; };
 		0941D3A32A80D73700153D92 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A22A80D73700153D92 /* SelectVC.swift */; };
 		0941D3A52A80D76700153D92 /* UserJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0941D3A42A80D76700153D92 /* UserJoinVC.swift */; };
 		0963D12A2A80DD070070D9ED /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0963D1202A80DD070070D9ED /* LICENSE.txt */; };
@@ -108,6 +111,9 @@
 		093E1BED2A94C3880035E443 /* UmbrellaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaModel.swift; sourceTree = "<group>"; };
 		093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaAPI.swift; sourceTree = "<group>"; };
 		093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmbrellaManager.swift; sourceTree = "<group>"; };
+		093E1BF32A96A6620035E443 /* AlarmAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAPI.swift; sourceTree = "<group>"; };
+		093E1BF52A96A66B0035E443 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
+		093E1BF72A96A6790035E443 /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
 		0941D3A22A80D73700153D92 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
 		0941D3A42A80D76700153D92 /* UserJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJoinVC.swift; sourceTree = "<group>"; };
 		0963D1202A80DD070070D9ED /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				09CF04C12A6533E6002C9F8B /* SampleModel.swift */,
+				093E1BF72A96A6790035E443 /* AlarmModel.swift */,
 				097F0B8E2A84E61200955BB1 /* HomeModel.swift */,
 				5565674C2A8A418C00455BE1 /* MenuModel.swift */,
 				556567582A8AA71100455BE1 /* MypageModel.swift */,
@@ -299,6 +306,8 @@
 				09A0A4012A8A9584006FB24E /* AuthManager.swift */,
 				093E1BEF2A94C3920035E443 /* UmbrellaAPI.swift */,
 				093E1BF12A94C39B0035E443 /* UmbrellaManager.swift */,
+				093E1BF32A96A6620035E443 /* AlarmAPI.swift */,
+				093E1BF52A96A66B0035E443 /* AlarmManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -685,9 +694,11 @@
 				091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */,
 				096D1DBA2A80CF1F00708B51 /* RecordVC.swift in Sources */,
 				09D48BD42A8A8204001F9E41 /* AgreementVC.swift in Sources */,
+				093E1BF62A96A66B0035E443 /* AlarmManager.swift in Sources */,
 				096D1DBE2A80CF4C00708B51 /* DoneVC.swift in Sources */,
 				09A0A4002A8A92AB006FB24E /* AuthAPI.swift in Sources */,
 				09CF04C22A6533E6002C9F8B /* SampleModel.swift in Sources */,
+				093E1BF82A96A6790035E443 /* AlarmModel.swift in Sources */,
 				09CF04B72A653355002C9F8B /* SetFont.swift in Sources */,
 				09CF04E02A653519002C9F8B /* UserMenuVC.swift in Sources */,
 				096D1DB42A80CF0200708B51 /* OwnerMenuEditVC.swift in Sources */,
@@ -717,6 +728,7 @@
 				093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */,
 				09D04EC22A80D1E0002F73A9 /* testVC.swift in Sources */,
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,
+				093E1BF42A96A6620035E443 /* AlarmAPI.swift in Sources */,
 				09CF04F62A66B98C002C9F8B /* AlarmVC.swift in Sources */,
 				09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */,
 				09A0A3FE2A8A8B42006FB24E /* AuthModel.swift in Sources */,

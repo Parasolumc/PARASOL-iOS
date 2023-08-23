@@ -14,6 +14,7 @@ class Rental_ReturnVC: UIViewController {
     
     // 대여/반납/판매 페이지 종류 결정 변수
     var nowFun = "Rental"
+    var shopId = 0
 
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
@@ -21,6 +22,10 @@ class Rental_ReturnVC: UIViewController {
     lazy var screenHeight = bounds.size.height //화면 높이
     
     // MARK: [For Transition]
+    var timer: Timer?
+    var timerCount = 0
+    var totalTimerCount = 6
+    
     let transition: CATransition = {
         let transition = CATransition()
         
@@ -36,6 +41,7 @@ class Rental_ReturnVC: UIViewController {
     var beforeView: String = "" // SumStoreInfoVC or StoreInfoVC or UserMenuVC
     
     let stringMemberId: String = String(UserDefaults.standard.value(forKey: "memberId") as! Int)
+    var qrGeneratedDate: String = ""
     
     var QRImage: UIImageView = {
         let imageView = UIImageView()
@@ -79,10 +85,8 @@ class Rental_ReturnVC: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(named: "main")
         
-        let goToDoneVCAction = UIAction { _ in
-            let doneVC = DoneVC()
-            doneVC.nowFun = self.nowFun
-            self.navigationController?.pushViewController(doneVC, animated: true)
+        let goToDoneVCAction = UIAction { [self] _ in
+            isComplete(nowFun: nowFun, qrGeneratedDate: qrGeneratedDate, memberId: UserDefaults.standard.value(forKey: "memberId") as! Int, shopId: shopId)
         }
             
         button.addAction(goToDoneVCAction, for: .touchUpInside)
@@ -95,9 +99,13 @@ class Rental_ReturnVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        qrGeneratedDate = (getCurrentTime())["date"]!
+        
         configureUI()
         setNavigationBar()
 //        sellPostData()
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(doCheck), userInfo: nil, repeats: true)
+        
     }
     
     // MARK: - Actions
@@ -160,16 +168,16 @@ class Rental_ReturnVC: UIViewController {
         guideLabel.anchor(top: QRImage.bottomAnchor, paddingTop: 50)
         guideLabel.centerX(inView: view)
         
-        // testing done page
-        view.addSubview(button)
-        button.anchor(bottom: view.bottomAnchor, right: view.rightAnchor, paddingBottom: 20, paddingRight: 20)
+//        testing done page
+//        view.addSubview(button)
+//        button.anchor(bottom: view.bottomAnchor, right: view.rightAnchor, paddingBottom: 20, paddingRight: 20)
     }
     
     func createQRImage(url: String) {
         let frame = CGRect(origin: .zero, size: QRImage.frame.size)
         let qrcode = QRCodeView(frame: frame)
 
-        qrcode.generateCode(url, foregroundColor: UIColor(named: "black")!, backgroundColor: UIColor(named: "white")!)
+        qrcode.generateCode(url, foregroundColor: UIColor(named: "white")!, backgroundColor: UIColor(named: "black")!)
 
         QRImage.addSubview(qrcode)
         qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
@@ -178,6 +186,64 @@ class Rental_ReturnVC: UIViewController {
     @objc func goToBeforeVCFunc() {
         view.window?.layer.add(transition, forKey: kCATransition)
         dismiss(animated: true, completion: nil)
+    }
+    
+    // TODO: 현재 시간 가져오기
+    func getCurrentTime() -> [String : String] {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+                
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let qrDate = dateFormatter.string(from: date)
+        
+        return ["date": qrDate]
+    }
+    
+    // TODO: 시간 비교하기
+    func compareDates(qrGeneratedDate: String, alarmDate: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date1 = dateFormatter.date(from: qrGeneratedDate),
+           let date2 = dateFormatter.date(from: alarmDate) {
+            
+            if date1 < date2 {
+                return true
+            } else if date1 > date2 {
+                return false
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    // TODO: 24시간 더하기
+    func convertDate(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let calendar = Calendar.current
+            let newDate = calendar.date(byAdding: .hour, value: 24, to: date)
+            
+            dateFormatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
+            return dateFormatter.string(from: newDate ?? Date())
+        }
+        
+        return nil
+    }
+
+    @objc func doCheck() {
+        timerCount += 1
+        if timerCount >= totalTimerCount {
+            timer?.invalidate()
+            timer = nil
+        } else {
+            isComplete(nowFun: nowFun, qrGeneratedDate: qrGeneratedDate, memberId: UserDefaults.standard.value(forKey: "memberId") as! Int, shopId: shopId)
+        }
+        
     }
     
     // MARK: - Helpers
@@ -199,6 +265,43 @@ class Rental_ReturnVC: UIViewController {
                 return
             }
         
+        }
+    }
+    
+    func isComplete(nowFun: String, qrGeneratedDate: String, memberId: Int, shopId: Int) {
+        AlarmManager.shared.getAlarmList() { [self] result in
+            switch result {
+            case .success(let data):
+                print("알람 조회 성공")
+                print(data.information[data.information.count-1])
+                let compareData = data.information[data.information.count-1]
+                if nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
+                    && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                    && memberId == compareData.recipientId && shopId == compareData.shopId {
+                    // 타이머 종료
+                    timer?.invalidate()
+                    timer = nil
+                    // 화면 전환
+                    let doneVC = DoneVC()
+                    doneVC.nowFun = self.nowFun
+                    doneVC.nowUser = "일반"
+                    doneVC.freeRentDate = convertDate(compareData.sentTime)!
+                    self.navigationController?.pushViewController(doneVC, animated: true)
+                } else if nowFun == "Return" && compareData.content == "반납을 완료했어요!"
+                            && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                            && memberId == compareData.recipientId && shopId == compareData.shopId {
+                    // 타이머 종료
+                    timer?.invalidate()
+                    timer = nil
+                    // 화면 전환
+                    let doneVC = DoneVC()
+                    doneVC.nowFun = self.nowFun
+                    doneVC.nowUser = "일반"
+                    self.navigationController?.pushViewController(doneVC, animated: true)
+                }
+            case .failure(let error):
+                print("알람 조회 에러\n\(error)")
+            }
         }
     }
 

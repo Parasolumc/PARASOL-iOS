@@ -210,6 +210,7 @@ class SumStoreInfoVC: UIViewController {
             let rentalVC = Rental_ReturnVC()
             rentalVC.nowFun = "Rental"
             rentalVC.beforeView = "SumStoreInfoVC"
+            rentalVC.shopId = self.store.id
             let vc = UINavigationController(rootViewController: rentalVC)
             vc.modalPresentationStyle = .fullScreen
             self.view.window?.layer.add(self.transition, forKey: kCATransition)
@@ -235,6 +236,7 @@ class SumStoreInfoVC: UIViewController {
             let returnVC = Rental_ReturnVC()
             returnVC.nowFun = "Return"
             returnVC.beforeView = "SumStoreInfoVC"
+            returnVC.shopId = self.store.id
             let vc = UINavigationController(rootViewController: returnVC)
             vc.modalPresentationStyle = .fullScreen
             self.view.window?.layer.add(self.transition, forKey: kCATransition)

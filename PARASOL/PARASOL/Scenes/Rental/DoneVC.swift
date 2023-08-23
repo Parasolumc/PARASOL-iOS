@@ -15,6 +15,7 @@ class DoneVC: UIViewController {
     var nowFun = "Rental" // 대여/반납/판매 중 어떤 페이지에서 넘어온 페이지인지 체크
     var nowUser = "일반" // 현재 사용자가 일반 사용자인지 사장님인지 체크
     var fee = 0
+    var freeRentDate = "" // 무료 대여 기간
     
     // MARK: [UI components]
     var logoImage: UIImageView = {
@@ -82,7 +83,7 @@ class DoneVC: UIViewController {
             } else if self.nowFun == "Sell" {
                 label.text = "우산 컨디션 확인 후 7-10일 이내\n고객님의 계좌에 금액이 자동입금됩니다."
             } else if self.nowFun == "Rental" {
-                label.text = "~까지 무료\n초과시 1시간당 100씩 부과됩니다."
+                label.text = "\(freeRentDate)까지 무료\n초과시 1시간당 100씩 부과됩니다."
             }
         } else {
             label.text = ""
