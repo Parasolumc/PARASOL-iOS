@@ -56,7 +56,7 @@ extension MypageAPI: TargetType {
         switch self {
         default:
             return [ "Content-Type": "application/json",
-                    "Authorization": "Bearer \(ServiceAPI.token)" ]
+                    "Authorization": "Bearer \(UserDefaults.standard.value(forKey: "accessToken") as! String)" ]
         }
     }
     
