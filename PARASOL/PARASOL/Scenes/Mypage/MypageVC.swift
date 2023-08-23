@@ -163,7 +163,8 @@ class MypageVC: UIViewController {
     func logoutshowSuccessAlert() {
         let alert = UIAlertController(title: "로그아웃 성공", message: "로그아웃에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            let vc = LoginVC()
+            let root = LoginVC()
+            let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
@@ -180,7 +181,8 @@ class MypageVC: UIViewController {
     func withdrawalshowSuccessAlert() {
         let alert = UIAlertController(title: "회원 탈퇴 성공", message: "회원 탈퇴에 성공했습니다. \n첫 화면으로 돌아갑니다.", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            let vc = LoginVC()
+            let root = LoginVC()
+            let vc = UINavigationController(rootViewController: root) // 네비게이션 컨트롤러 추가
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
         }
         alert.addAction(confirmAction)
@@ -194,17 +196,25 @@ class MypageVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func setUserDefaultsInitial() {
+        UserDefaults.standard.set("", forKey: "accessToken")
+        UserDefaults.standard.set("", forKey: "refreshToken")
+        UserDefaults.standard.set("", forKey: "role")
+        UserDefaults.standard.set("", forKey: "memberId")
+    }
+    
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
     func performLogout() {
-        let refreshToken: LogoutModel = LogoutModel(refreshToken: ServiceAPI.refreshtoken )
+        let refreshToken: LogoutModel = LogoutModel(refreshToken: UserDefaults.standard.value(forKey: "refreshToken") as! String )
         MypageManager.shared.logOut(logOutData: refreshToken) { result in
             switch result {
             case .success(let data):
                 if data["check"] as? Bool == true {
                     print("로그아웃되었습니다.")
+                    self.setUserDefaultsInitial()
                     self.logoutshowSuccessAlert()
                 }
                 else {
@@ -224,6 +234,7 @@ class MypageVC: UIViewController {
             case .success(let data):
                 if data["check"] as? Bool == true {
                     print("회원 탈퇴 성공")
+                    self.setUserDefaultsInitial()
                     self.withdrawalshowSuccessAlert()
                 } else {
                     print("회원 탈퇴 실패")

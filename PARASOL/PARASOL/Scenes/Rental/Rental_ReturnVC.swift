@@ -35,7 +35,7 @@ class Rental_ReturnVC: UIViewController {
     // MARK: [UI components]
     var beforeView: String = "" // SumStoreInfoVC or StoreInfoVC or UserMenuVC
     
-    let stringMemberId: String = String(ServiceAPI.memberID)
+    let stringMemberId: String = String(UserDefaults.standard.value(forKey: "memberId") as! Int)
     
     var QRImage: UIImageView = {
         let imageView = UIImageView()
