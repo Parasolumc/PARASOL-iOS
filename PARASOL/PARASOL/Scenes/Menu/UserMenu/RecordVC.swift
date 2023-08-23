@@ -40,6 +40,7 @@ class RecordVC: UIViewController{
     
     func setNavigationBar() {
         self.navigationItem.title = "대여기록"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {
@@ -62,11 +63,13 @@ class RecordVC: UIViewController{
             dateLabel.text = date
         }
         dateLabel.font = .SB16
+        dateLabel.textColor = UIColor(named: "black")
 
         
         let locationLabel = UILabel()
         locationLabel.text = location
         locationLabel.font = .SB16
+        locationLabel.textColor = UIColor(named: "black")
         
         let clockImage = UIImageView(image: UIImage(named: "clock"))
         clockImage.setDimensions(height: 19, width: 19)
@@ -78,6 +81,7 @@ class RecordVC: UIViewController{
             stateLabel.text = "\(timeDifference)시간 이용"
         }
         stateLabel.font = .M16
+        stateLabel.textColor = UIColor(named: "black")
         
         let dlStackview = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
         dlStackview.axis = .horizontal

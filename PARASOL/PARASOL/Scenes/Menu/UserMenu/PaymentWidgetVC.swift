@@ -51,6 +51,7 @@ class PaymentWidgetVC: UIViewController{
     
     func setNavigationBar() {
         self.navigationItem.title = "결제하기"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {

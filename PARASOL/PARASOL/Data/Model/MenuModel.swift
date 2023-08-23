@@ -43,8 +43,15 @@ struct SellRecordInformation: Codable {
 // MARK: 사장님 매장 정보 수정
 // MARK: - EditInfoModel
 struct EditInfoModel: Codable {
-    let desc, openTime, closeTime: String
+    let desc: String
+    let times: [WorkingTime]
 }
+
+// MARK: - Time
+struct WorkingTime: Codable {
+    let day, openTime, endTime: String
+}
+
 
 // MARK: 사장님 매장 사진 업로드
 

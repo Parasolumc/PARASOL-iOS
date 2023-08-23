@@ -14,7 +14,7 @@ enum MenuAPI {
     case sellUmbrella(id: Int)
     case sellRecord
     case editInfo(param: EditInfoModel)
-    case uploadPhoto(image: UIImage)
+    case uploadPhoto(image: UIImage, imageName: String)
     case deletePhoto(id: Int)
 }
 
@@ -36,7 +36,7 @@ extension MenuAPI: TargetType {
             return "/api/sell"
         case .editInfo(param: _):
             return "/api/shop/info"
-        case .uploadPhoto(image: _):
+        case .uploadPhoto(image: _, imageName: _):
             return "/api/shop/image"
         case .deletePhoto(let id):
             return "/api/shop/image/\(id)"
@@ -55,7 +55,7 @@ extension MenuAPI: TargetType {
             return .get
         case .editInfo:
             return .put
-        case .uploadPhoto(_):
+        case .uploadPhoto(_,_):
             return .post
         case .deletePhoto(_):
             return .delete
@@ -74,8 +74,8 @@ extension MenuAPI: TargetType {
             return .requestPlain
         case .editInfo(param: let param):
             return .requestJSONEncodable(param)
-        case .uploadPhoto(let image):
-            let imageData = MultipartFormData(provider: .data(image.jpegData(compressionQuality: 1.0)!), name: "image", fileName: "jpeg", mimeType: "image/jpeg")
+        case .uploadPhoto(let image, let imageName):
+            let imageData = MultipartFormData(provider: .data(image.jpegData(compressionQuality: 1.0)!), name: "image", fileName: imageName, mimeType: "image/jpeg")
             return .uploadMultipart([imageData])
         case .deletePhoto(_):
             return .requestPlain
@@ -84,7 +84,7 @@ extension MenuAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-        case .uploadPhoto(image: _):
+        case .uploadPhoto(image: _, imageName: _):
             return [ "Content-Type": "multipart/form-data",
                     "Authorization": "Bearer \(ServiceAPI.token)" ]
         default:

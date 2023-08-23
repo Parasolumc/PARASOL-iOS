@@ -26,7 +26,8 @@ class PopupVC: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "매장 영업시간 설정"
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .SB16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -36,10 +37,12 @@ class PopupVC: UIViewController {
         textfield.setDimensions(height: 35, width: 71)
         textfield.layer.cornerRadius = 5
         textfield.borderStyle = .roundedRect
-        textfield.text = "월요일"
-        textfield.font = .systemFont(ofSize: 13)
+        textfield.attributedPlaceholder = NSAttributedString(string: "요일", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
+        textfield.textColor = UIColor(named: "black")
+        textfield.font = .R13
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 1
+        textfield.backgroundColor = UIColor(named: "white")
         textfield.textAlignment = .center
         
         return textfield
@@ -48,7 +51,8 @@ class PopupVC: UIViewController {
     let tagLabel1: UILabel = {
         let label = UILabel()
         label.text = "부터"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .M14
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -56,7 +60,8 @@ class PopupVC: UIViewController {
     let tagLabel2: UILabel = {
         let label = UILabel()
         label.text = "까지"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .M14
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -66,11 +71,13 @@ class PopupVC: UIViewController {
         textfield.setDimensions(height: 35, width: 71)
         textfield.layer.cornerRadius = 5
         textfield.borderStyle = .roundedRect
-        textfield.placeholder = "00:00"
-        textfield.font = .systemFont(ofSize: 13)
+        textfield.attributedPlaceholder = NSAttributedString(string: "00:00", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
+        textfield.font = .R13
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 1
+        textfield.backgroundColor = UIColor(named: "white")
         textfield.textAlignment = .center
+        textfield.textColor = UIColor(named: "black")
         
         return textfield
     }()
@@ -80,11 +87,13 @@ class PopupVC: UIViewController {
         textfield.setDimensions(height: 35, width: 71)
         textfield.layer.cornerRadius = 5
         textfield.borderStyle = .roundedRect
-        textfield.placeholder = "23:59"
+        textfield.attributedPlaceholder = NSAttributedString(string: "23:59", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
         textfield.font = .systemFont(ofSize: 13)
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 1
+        textfield.backgroundColor = UIColor(named: "white")
         textfield.textAlignment = .center
+        textfield.textColor = UIColor(named: "black")
         
         return textfield
     }()
@@ -105,7 +114,7 @@ class PopupVC: UIViewController {
         button.backgroundColor = UIColor(named: "main")
         button.setDimensions(height: 42, width: 114)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         button.layer.cornerRadius = 20
         
         return button
@@ -118,7 +127,7 @@ class PopupVC: UIViewController {
         button.backgroundColor = UIColor(named: "main")
         button.setDimensions(height: 42, width: 114)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .SB16
         button.layer.cornerRadius = 20
         
         return button

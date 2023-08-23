@@ -193,7 +193,7 @@ class OwnerMenuVC: UIViewController {
         let label = UILabel()
         
         label.font = .M14
-        label.textColor = .black
+        label.textColor = UIColor(named: "black")
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
@@ -243,7 +243,7 @@ class OwnerMenuVC: UIViewController {
     lazy var rentNumLabel: UILabel = {
         var label = UILabel()
         
-        label.text = "10개"
+        label.text = "20개"
         label.font = .SB22
         label.textColor = UIColor(named: "black")
         return label
@@ -383,8 +383,35 @@ class OwnerMenuVC: UIViewController {
         labelHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 55)
         labelHStackView.centerX(inView: view)
         
-        editButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 24, paddingBottom: 20)
+        editButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 24,  paddingBottom: 20, paddingRight: 24)
         
+    }
+    
+    func fullDayName(from abbreviation: String) -> String {
+        switch abbreviation {
+        case "MON":
+            return "월요일"
+        case "TUE":
+            return "화요일"
+        case "WED":
+            return "수요일"
+        case "THU":
+            return "목요일"
+        case "FRI":
+            return "금요일"
+        case "SAT":
+            return "토요일"
+        case "SUN":
+            return "일요일"
+        case "ALL":
+            return "매일"
+        case "NORMAL":
+            return "평일"
+        case "END":
+            return "주말"
+        default:
+            return ""
+        }
     }
     
     // MARK: - Helpers
@@ -401,11 +428,13 @@ class OwnerMenuVC: UIViewController {
                 DispatchQueue.main.async {
                     self.nameLabel.text = info.shopName
                     self.addressLabel.text = info.roadNameAddress
-                    self.isOpenLabel.text = "영업중"
-                    self.workingdayLabel.text = "매일" //model에 추가
-//                    self.startLabel.text = info.openTime
+                    self.isOpenLabel.text = "영업시간"
+                    let abbreviatedDay = info.times[0].day
+                    let fullDay = self.fullDayName(from: abbreviatedDay)
+                    self.workingdayLabel.text = fullDay
+                    self.startLabel.text = info.times[0].openTime
                     self.spacerLabel.text = "-"
-//                    self.endLabel.text = info.closeTime
+                    self.endLabel.text = info.times[0].endTime
                     self.introduceLabel.text = info.desc
                     //self.totalNum = info.totalUmbrella
                     self.umbrellaNum = info.availableUmbrella

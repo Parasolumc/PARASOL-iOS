@@ -21,6 +21,7 @@ class SoldVC: UIViewController{
         let label = UILabel()
         label.text = "내가 판매한 우산"
         label.font = .B20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -39,6 +40,7 @@ class SoldVC: UIViewController{
         let label = UILabel()
         label.text = "내가 절약한 탄소량"
         label.font = .B20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -78,6 +80,7 @@ class SoldVC: UIViewController{
     
     func setNavigationBar() {
         self.navigationItem.title = "내가 판매한 우산"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {
@@ -99,14 +102,17 @@ class SoldVC: UIViewController{
         let dateLabel = UILabel()
         dateLabel.text = date.replacingOccurrences(of: "-", with: ".")
         dateLabel.font = .M16
+        dateLabel.textColor = UIColor(named: "black")
         
         let locationLabel = UILabel()
         locationLabel.text = location
         locationLabel.font = .M16
+        locationLabel.textColor = UIColor(named: "black")
         
         let numLabel = UILabel()
         numLabel.text = "\(num)개"
         numLabel.font = .M16
+        numLabel.textColor = UIColor(named: "black")
         
     
         let infoStackView = UIStackView(arrangedSubviews: [dateLabel, locationLabel])

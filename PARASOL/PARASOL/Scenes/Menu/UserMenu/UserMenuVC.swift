@@ -30,6 +30,7 @@ class UserMenuVC: UIViewController {
         let label = UILabel()
         label.text = "내 우산"
         label.font = .B24
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -53,6 +54,7 @@ class UserMenuVC: UIViewController {
     
     lazy var statelabel: UILabel = {
         let label = UILabel()
+        label.textColor = UIColor(named: "black")
 
         if state == "USE" || state == "DELAY" {
             let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
@@ -130,6 +132,7 @@ class UserMenuVC: UIViewController {
         let label = UILabel()
         label.text = "초과시간"
         label.font = .B16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -162,6 +165,7 @@ class UserMenuVC: UIViewController {
 
             // 두 시간 사이의 차이 계산
             let calendar = Calendar.current
+            print("현재시간: \(currentTime)")
             let components = calendar.dateComponents([.hour], from: timeDate, to: currentTime)
             if let calculatedHours = components.hour {
                 // 시간 차이
@@ -175,6 +179,7 @@ class UserMenuVC: UIViewController {
         }
         
         label.font = .SB20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -193,6 +198,7 @@ class UserMenuVC: UIViewController {
         let label = UILabel()
         label.text = "연체료"
         label.font = .B16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -217,6 +223,7 @@ class UserMenuVC: UIViewController {
         let money = self.hours * 100
         label.text = "\(money)원"
         label.font = .SB20
+        label.textColor = UIColor(named: "black")
         
         return label
     }()

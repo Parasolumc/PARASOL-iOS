@@ -12,6 +12,7 @@ class MypageVC: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "마이페이지"
+        label.textColor = UIColor(named: "black")
         label.font = .B24
         
         return label

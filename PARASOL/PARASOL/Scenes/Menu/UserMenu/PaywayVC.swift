@@ -19,6 +19,7 @@ class PaywayVC: UIViewController{
         label.text = "미납된 연체료는 총 \(money)입니다."
         label.numberOfLines = 0
         label.font = .SB18
+        label.textColor = UIColor(named: "black")
 
         return label
     }()
@@ -27,6 +28,7 @@ class PaywayVC: UIViewController{
         let label = UILabel()
         label.text = "결제하기"
         label.font = .SB18
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -64,6 +66,7 @@ class PaywayVC: UIViewController{
     
     func setNavigationBar() {
         self.navigationItem.title = "연체료 결제"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {
