@@ -34,6 +34,7 @@ class ContractVC: UIViewController {
         let label = UILabel()
         label.text = "서비스 이용약관"
         label.font = .B16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -52,6 +53,7 @@ class ContractVC: UIViewController {
     lazy var contractLabel2: UILabel = {
         let label = UILabel()
         label.text = "개인정보수집/이용 동의"
+        label.textColor = UIColor(named: "black")
         label.font = .B16
         
         return label
@@ -71,6 +73,7 @@ class ContractVC: UIViewController {
     lazy var contractLabel3: UILabel = {
         let label = UILabel()
         label.text = "위치기반 서비스 이용약관 동의"
+        label.textColor = UIColor(named: "black")
         label.font = .B16
         
         return label
@@ -125,6 +128,7 @@ class ContractVC: UIViewController {
     // UI 설정들 관련 method
     func setNavigationBar() {
         self.navigationItem.title = "파라솔 이용약관"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {

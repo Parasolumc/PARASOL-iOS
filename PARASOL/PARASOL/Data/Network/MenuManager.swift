@@ -61,7 +61,18 @@ class MenuManager {
     }
     
     func editShopInfo(editShopInfoData: EditInfoModel, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
-        provider.request(.editInfo(param: editShopInfoData)) { result in
+        var modifiedTimes: [WorkingTime] = []
+
+        // Loop through the provided times and create new WorkingTime instances
+        for time in editShopInfoData.times {
+            let modifiedTime = WorkingTime(day: time.day, openTime: time.openTime, endTime: time.endTime)
+            modifiedTimes.append(modifiedTime)
+        }
+
+        // Create a new EditInfoModel with the modified times
+        let modifiedEditShopInfoData = EditInfoModel(desc: editShopInfoData.desc, times: modifiedTimes)
+        
+        provider.request(.editInfo(param: modifiedEditShopInfoData)) { result in
             switch result {
             case .success(let data):
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
@@ -73,8 +84,8 @@ class MenuManager {
         }
     }
     
-    func upLoadPhoto(image: UIImage, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
-        provider.request(.uploadPhoto(image: image)) { result in
+    func upLoadPhoto(image: UIImage, imageName: String, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
+        provider.request(.uploadPhoto(image: image, imageName: imageName)) { result in
             switch result {
             case .success(let data):
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {

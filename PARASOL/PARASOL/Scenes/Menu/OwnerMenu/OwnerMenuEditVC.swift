@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
@@ -56,7 +57,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     var isOpenLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "영업종료"
+        label.text = "영업시간"
         label.font = .SB14
         label.textColor = UIColor(named: "black")
         
@@ -160,7 +161,6 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     let plusImageView: UIImageView = {
         let imageview = UIImageView(image: UIImage(named: "plus"))
         imageview.setDimensions(height: 30, width: 30)
-        imageview.alpha = 1.0
         
         return imageview
     }()
@@ -179,7 +179,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let label = UILabel()
         label.text = "매장 설명"
         label.font = .SB16
-        label.textColor = .black
+        label.textColor = UIColor(named: "black")
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
@@ -193,7 +193,9 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         textview.layer.cornerRadius = 20
         textview.backgroundColor = UIColor(named: "gray00_opacity")
         textview.textContainerInset = .init(top: 30, left: 20, bottom: 30, right: 20)
+        textview.text = "300자 이내 작성"
         textview.font = .M14
+        textview.textColor = UIColor(named: "black")
         
         return textview
     }()
@@ -205,6 +207,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         button.setDimensions(height: 69, width: 166)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
+        button.titleLabel?.font = .SB16
         
         button.backgroundColor = UIColor(named: "main")
         
@@ -218,6 +221,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         button.setDimensions(height: 69, width: 166)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
+        button.titleLabel?.font = .SB16
         
         button.backgroundColor = UIColor(named: "main")
         
@@ -254,6 +258,7 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     
     func setNavigationBar() {
         self.navigationItem.title = "정보 수정"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     // UI 레이아웃 세팅
@@ -275,14 +280,14 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         picsScrollView.addSubview(picsStackView)
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 5)
         
-        picsStackView.addArrangedSubview(addPicsView)
+        picsStackView.insertArrangedSubview(addPicsView, at: 0)
         picsStackView.addSubview(plusImageView)
         addPicsView.addSubview(plusImageView)
         plusImageView.centerX(inView: addPicsView)
         plusImageView.centerY(inView: addPicsView)
         
         introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
-        introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
+        introduceTextView.anchor(top: introduceLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 18, paddingLeft: 24, paddingRight: 24)
         
         cancelButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  paddingLeft: 24, paddingBottom: 20)
         
@@ -293,7 +298,35 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }
     
     @objc func didTapPlusButton() {
-        present(imagePickerController, animated: true)
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        switch status {
+        case .authorized:
+            showImagePicker()
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                if status == .authorized {
+                    self?.showImagePicker()
+                } else {
+                    // Handle authorization denial or restricted access
+                }
+            }
+        case .denied, .restricted:
+            // Handle authorization denial or restricted access
+            break
+        @unknown default:
+            fatalError("Unhandled case")
+        }
+        
+        //present(imagePickerController, animated: true)
+    }
+    
+    private func showImagePicker() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.imagePickerController.modalPresentationStyle = .overFullScreen
+            self.present(self.imagePickerController, animated: true)
+        }
     }
     
     /*@objc func didTapDeleteButton(sender: UIButton) {
@@ -424,12 +457,45 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         configureUI()
     }
     
+    func abbreviatedDayName(from fullDay: String) -> String {
+        switch fullDay {
+        case "월요일":
+            return "MON"
+        case "화요일":
+            return "TUE"
+        case "수요일":
+            return "WED"
+        case "목요일":
+            return "THU"
+        case "금요일":
+            return "FRI"
+        case "토요일":
+            return "SAT"
+        case "일요일":
+            return "SUN"
+        case "매일":
+            return "ALL"
+        case "평일":
+            return "NORMAL"
+        case "주말":
+            return "END"
+        default:
+            return ""
+        }
+    }
+    
     @objc func confirmButtonTapped() {
         let desc = introduceTextView.text ?? ""
+        let fullDay = workingdayLabel.text ?? ""
         let openTime = startLabel.text ?? ""
         let closeTime = endLabel.text ?? ""
         
-        editData(desc: desc, openTime: openTime, closeTime: closeTime)
+        let abbreviatedDay = abbreviatedDayName(from: fullDay)
+        let workingTimes = [
+            WorkingTime(day: abbreviatedDay, openTime: openTime, endTime: closeTime)
+        ]
+        
+        editData(desc: desc, times: workingTimes)
     }
     
     @objc func cancelButtonTapped() {
@@ -446,11 +512,16 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
         present(alert, animated: true, completion: nil)
     }
     
+    func generateUniqueImageName() -> String {
+        let uuid = UUID().uuidString
+        return "\(uuid).jpeg" // 이미지 포맷에 맞게 파일 확장자를 선택해주세요
+    }
+    
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
-    func editData(desc: String, openTime: String, closeTime: String) {
-        let changeData: EditInfoModel = EditInfoModel(desc: desc, openTime: openTime, closeTime: closeTime)
+    func editData(desc: String, times: [WorkingTime]) {
+        let changeData = EditInfoModel(desc: desc, times: times)
         MenuManager.shared.editShopInfo(editShopInfoData: changeData) { result in
             switch result {
             case .success(let data):
@@ -469,7 +540,8 @@ class OwnerMenuEditVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }
     
     func uploadImage(image: UIImage) {
-        MenuManager.shared.upLoadPhoto(image: image) { result in
+        let uniqueImageName = generateUniqueImageName()
+        MenuManager.shared.upLoadPhoto(image: image, imageName: uniqueImageName) { result in
             switch result {
             case .success(let response):
                 if response["check"] as? Bool == true {

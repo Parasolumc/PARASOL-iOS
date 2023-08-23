@@ -14,6 +14,7 @@ class ChangePwVC: UIViewController {
         let label = UILabel()
         label.text = "현재 비밀번호"
         label.font = .M16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -22,6 +23,7 @@ class ChangePwVC: UIViewController {
         let label = UILabel()
         label.text = "새 비밀번호"
         label.font = .M16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -30,6 +32,7 @@ class ChangePwVC: UIViewController {
         let label = UILabel()
         label.text = "새 비밀번호 확인"
         label.font = .M16
+        label.textColor = UIColor(named: "black")
         
         return label
     }()
@@ -37,7 +40,7 @@ class ChangePwVC: UIViewController {
     let currentpwTf: UITextField = {
         let textfield = UITextField()
         textfield.borderStyle = .none
-        textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.attributedPlaceholder = NSAttributedString(string: "8-12자리 영문, 숫자 조합", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
         textfield.isSecureTextEntry = true
         
         return textfield
@@ -46,7 +49,7 @@ class ChangePwVC: UIViewController {
     let newpwTf: UITextField = {
         let textfield = UITextField()
         textfield.borderStyle = .none
-        textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.attributedPlaceholder = NSAttributedString(string: "8-12자리 영문, 숫자 조합", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
         textfield.isSecureTextEntry = true
         
         return textfield
@@ -55,7 +58,7 @@ class ChangePwVC: UIViewController {
     let renewpwTf: UITextField = {
         let textfield = UITextField()
         textfield.borderStyle = .none
-        textfield.placeholder = "8-12자리 영문, 숫자 조합"
+        textfield.attributedPlaceholder = NSAttributedString(string: "8-12자리 영문, 숫자 조합", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "gray11")])
         textfield.isSecureTextEntry = true
         
         return textfield
@@ -112,6 +115,7 @@ class ChangePwVC: UIViewController {
     
     func setNavigationBar() {
         self.navigationItem.title = "비밀번호 변경"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
     }
     
     func configureUI() {
