@@ -76,7 +76,6 @@ class SumStoreInfoVC: UIViewController {
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "서울 서대문구 이화여대길 77"
         label.font = .M16
         label.textColor = UIColor(named: "black")
         return label
@@ -85,24 +84,55 @@ class SumStoreInfoVC: UIViewController {
     var isOpenLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "영업종료"
-        label.font = .SB16
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
         
         return label
     }()
     
-    var timeLabel: UILabel = {
+    lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "09:00에 영업 시작"
-        label.font = .M16
+        label.font = .SB14
         label.textColor = UIColor(named: "black")
+        
         return label
+    }()
+    
+    lazy var startLabel: UILabel = {
+        let label = UILabel()
+        label.font = .SB14
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var spacerLabel: UILabel = {
+        let label = UILabel()
+        label.font = .SB14
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var endLabel: UILabel = {
+        let label = UILabel()
+        label.font = .SB14
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var timeStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.workingdayLabel, self.startLabel, self.spacerLabel, self.endLabel])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .horizontal
+        stackview.spacing = 4
+        
+        return stackview
     }()
     
     lazy var storeTimeHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeLabel])
+        let stackView = UIStackView(arrangedSubviews: [self.isOpenLabel, self.timeStackView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -120,9 +150,9 @@ class SumStoreInfoVC: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
-        stackView.spacing = 10
+        stackView.spacing = 8
         
-        stackView.setDimensions(height: 80, width: (screenWidth - 74))
+        stackView.setDimensions(height: 110, width: (screenWidth - 50))
         return stackView
     }()
     
@@ -342,6 +372,34 @@ class SumStoreInfoVC: UIViewController {
           UIApplication.shared.open(appStoreURL)
         }
     }
+    
+    func fullDayName(from abbreviation: String) -> String {
+        switch abbreviation {
+        case "MON":
+            return "월요일"
+        case "TUE":
+            return "화요일"
+        case "WED":
+            return "수요일"
+        case "THU":
+            return "목요일"
+        case "FRI":
+            return "금요일"
+        case "SAT":
+            return "토요일"
+        case "SUN":
+            return "일요일"
+        case "ALL":
+            return "매일"
+        case "NORMAL":
+            return "평일"
+        case "END":
+            return "주말"
+        default:
+            return ""
+        }
+    }
+    
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     func getStoreInfo(id: Int) {
@@ -358,6 +416,13 @@ class SumStoreInfoVC: UIViewController {
                 self.nameLabel.text = self.store.shopName
                 self.addressLabel.text = self.store.roadNameAddress
                 self.umbrellaNum = self.store.availableUmbrella
+                self.isOpenLabel.text = "영업시간"
+                let abbreviatedDay = self.store.times[0].day
+                let fullDay = self.fullDayName(from: abbreviatedDay)
+                self.workingdayLabel.text = fullDay
+                self.startLabel.text = self.store.times[0].openTime
+                self.spacerLabel.text = "-"
+                self.endLabel.text = self.store.times[0].endTime
                 self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
                 // 길찾기 버튼에 동작 연동
                 let findLoadAction = UIAction { _ in
