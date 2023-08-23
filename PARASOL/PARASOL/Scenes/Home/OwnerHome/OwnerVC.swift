@@ -273,7 +273,7 @@ class OwnerVC: UIViewController {
     // MARK: - Actions
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         view.addSubview(vStackView)
         view.addSubview(umbrellaHStackView)
         view.addSubview(buttonHStackView)
