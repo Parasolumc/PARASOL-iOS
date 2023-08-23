@@ -49,19 +49,6 @@ class OwnerMenuVC: UIViewController {
         return stackView
     }()
     
-    let findLoadButton: UIButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "find_load"), for: .normal)
-        button.setDimensions(height: 45, width: 45)
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.layer.cornerRadius = 45 / 2
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
     var addressLabel: UILabel = {
         let label = UILabel()
         
@@ -356,7 +343,6 @@ class OwnerMenuVC: UIViewController {
     func configureUI() {
         view.backgroundColor = .white
         view.addSubview(vStackView)
-        view.addSubview(findLoadButton)
         view.addSubview(picsScrollView)
         view.addSubview(introduceLabel)
         view.addSubview(umbrellaHStackView)
@@ -365,8 +351,6 @@ class OwnerMenuVC: UIViewController {
         
         vStackView.anchor(top: view.topAnchor, paddingTop: 65)
         vStackView.centerX(inView: view)
-        
-        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
         
         picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25, paddingRight: 25)
         picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
