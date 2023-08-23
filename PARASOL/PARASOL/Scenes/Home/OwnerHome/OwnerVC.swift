@@ -296,7 +296,7 @@ class OwnerVC: UIViewController {
             rentButton.isUserInteractionEnabled = false
             rentButton.backgroundColor = UIColor(named: "gray00")
         } else {
-            rentButton.isUserInteractionEnabled = false
+            rentButton.isUserInteractionEnabled = true
             rentButton.backgroundColor = UIColor(named: "light")
         }
     }
