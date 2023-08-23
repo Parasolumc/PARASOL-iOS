@@ -90,7 +90,7 @@ class AuthManager {
                         UserDefaults.standard.set(tokens["accessToken"], forKey: "accessToken")
                         UserDefaults.standard.set(tokens["refreshToken"], forKey: "refreshToken")
                         UserDefaults.standard.set(tokens["role"], forKey: "role")
-                        UserDefaults.standard.set(tokens["memderId"], forKey: "memberId")
+                        UserDefaults.standard.set(tokens["memberId"], forKey: "memberId")
                     }
                     completion(.success(json))
                 }
