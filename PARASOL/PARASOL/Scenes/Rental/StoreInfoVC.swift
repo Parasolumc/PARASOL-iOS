@@ -372,8 +372,16 @@ class StoreInfoVC: UIViewController {
         let hour = timeFormatter.string(from: time)
         timeFormatter.dateFormat = "mm"
         let minute = timeFormatter.string(from: time)
+  
+        timeFormatter.dateFormat = "EEEE" // "EEEE"는 전체 요일 이름을 나타냄
+
+        let calendar = Calendar.current
+        let dayOfWeek = calendar.component(.weekday, from: time) // 1: 일요일, 2: 월요일, ..., 7: 토요일
+
+        let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
+        let weekDayName = days[dayOfWeek - 1]
         
-        return ["hour": hour, "minute": minute]
+        return ["hour": hour, "minute": minute, "day": weekDayName]
     }
     
     // TODO: 네이버지도 길찾기 연동
