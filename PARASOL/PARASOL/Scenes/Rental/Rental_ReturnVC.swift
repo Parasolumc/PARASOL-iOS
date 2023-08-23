@@ -35,6 +35,8 @@ class Rental_ReturnVC: UIViewController {
     // MARK: [UI components]
     var beforeView: String = "" // SumStoreInfoVC or StoreInfoVC or UserMenuVC
     
+    let stringMemberId: String = String(UserDefaults.standard.value(forKey: "memberId") as! Int)
+    
     var QRImage: UIImageView = {
         let imageView = UIImageView()
         
@@ -95,8 +97,7 @@ class Rental_ReturnVC: UIViewController {
         
         configureUI()
         setNavigationBar()
-        sellPostData()
-        
+//        sellPostData()
     }
     
     // MARK: - Actions
@@ -151,7 +152,7 @@ class Rental_ReturnVC: UIViewController {
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
         view.addSubview(QRImage)
-        createQRImage(url: "https://github.com/Parasolumc")
+        createQRImage(url: stringMemberId)
         view.addSubview(guideLabel)
         
         QRImage.anchor(top: view.topAnchor, paddingTop: 250)

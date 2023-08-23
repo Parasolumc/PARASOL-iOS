@@ -86,10 +86,10 @@ extension MenuAPI: TargetType {
         switch self {
         case .uploadPhoto(image: _, imageName: _):
             return [ "Content-Type": "multipart/form-data",
-                    "Authorization": "Bearer \(ServiceAPI.token)" ]
+                    "Authorization": "Bearer \(UserDefaults.standard.value(forKey: "accessToken") as! String)" ]
         default:
             return [ "Content-Type": "application/json",
-                    "Authorization": "Bearer \(ServiceAPI.token)" ]
+                    "Authorization": "Bearer \(UserDefaults.standard.value(forKey: "accessToken") as! String)" ]
         }
     }
     

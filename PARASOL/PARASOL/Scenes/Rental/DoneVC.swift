@@ -14,7 +14,7 @@ class DoneVC: UIViewController {
 
     var nowFun = "Rental" // 대여/반납/판매 중 어떤 페이지에서 넘어온 페이지인지 체크
     var nowUser = "일반" // 현재 사용자가 일반 사용자인지 사장님인지 체크
-    var fee = 100
+    var fee = 0
     
     // MARK: [UI components]
     var logoImage: UIImageView = {
@@ -76,13 +76,18 @@ class DoneVC: UIViewController {
     lazy var infoLabel: UILabel = {
         let label = UILabel()
         
-        if (self.fee>0) && (self.nowFun=="Return") {
-            label.text = "연체료 " + String(fee) + "원이\n자동 결제될 예정입니다."
-        } else if self.nowFun == "Sell" {
-            label.text = "우산 컨디션 확인 후 7-10일 이내\n고객님의 계좌에 금액이 자동입금됩니다."
-        } else if self.nowFun == "Rental" {
-            label.text = "~까지 무료\n초과시 1시간당 100씩 부과됩니다."
+        if nowUser != "사장님" {
+            if (self.fee>0) && (self.nowFun=="Return") {
+                label.text = "연체료 " + String(fee) + "원이\n자동 결제될 예정입니다."
+            } else if self.nowFun == "Sell" {
+                label.text = "우산 컨디션 확인 후 7-10일 이내\n고객님의 계좌에 금액이 자동입금됩니다."
+            } else if self.nowFun == "Rental" {
+                label.text = "~까지 무료\n초과시 1시간당 100씩 부과됩니다."
+            }
+        } else {
+            label.text = ""
         }
+        
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .B16
@@ -131,7 +136,7 @@ class DoneVC: UIViewController {
     }
     
     func goToUserHome() {
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(goToUserFunc), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(goToUserFunc), userInfo: nil, repeats: false)
     }
     
     @objc func goToUserFunc() {
@@ -140,7 +145,7 @@ class DoneVC: UIViewController {
     }
     
     func goToOwnerHome() {
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(goToOwnerFunc), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(goToOwnerFunc), userInfo: nil, repeats: false)
     }
     
     @objc func goToOwnerFunc() {

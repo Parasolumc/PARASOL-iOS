@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Moya
 
 class Owner_Rental_ReturnVC: UIViewController {
 
@@ -119,6 +120,35 @@ class Owner_Rental_ReturnVC: UIViewController {
         self.QRReader.delegate = self
     }
     
+    // TODO: 대여 처리 또는 반납 처리 수행해주는 method
+    func act(nowFun: String, userID: String) {
+        if nowFun == "Rental" {
+            rentUmbrell(userId: userID)
+        } else if nowFun == "Return" {
+            returnUmbrell(userID: userID)
+        } else if  nowFun == "Buy" {
+            // 구매 통신
+        }
+    }
+    
+    // TODO: 완료 화면으로 넘겨주는 method
+    func goToDone(nowFun: String, nowUser: String) {
+        let doneVC = DoneVC()
+        doneVC.nowFun = nowFun
+        doneVC.nowUser = nowUser
+        self.navigationController?.pushViewController(doneVC, animated: true)
+    }
+    
+    // TODO: alert 창 띄워주는 method
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
         view.addSubview(QRReader)
@@ -142,6 +172,42 @@ class Owner_Rental_ReturnVC: UIViewController {
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
+    
+    // 대여처리
+    func rentUmbrell(userId: String) {
+        UmbrellaManager.shared.rentUmbrella(userId: userId) { result in
+            switch result {
+            case .success(let data):
+                print("우산 대여 처리")
+                print(data) // 데이터 확인용
+                self.goToDone(nowFun: "Rental", nowUser: "사장님")
+            case .failure(let error):
+                print("우산 대여 처리 에러\n\(error)")
+            }
+        }
+    }
+    
+    // 반납처리
+    func returnUmbrell(userID: String) {
+        UmbrellaManager.shared.returnUmbrella(userId: userID) { result in
+            switch result {
+            case .success(let data):
+                print("우산 반납 처리")
+                print(data) // 데이터 확인용
+                if data != ["message" : "반납처리 할 우산이 없습니다."] {
+                    self.goToDone(nowFun: "Return", nowUser: "사장님")
+                } else {
+                    let alert = UIAlertController(title: .none, message: "반납 처리할 우산이 없습니다.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            case .failure(let error):
+                print("우산 반납 처리 에러\n\(error)")
+            }
+        }
+    }
+
 
 }
 
@@ -155,29 +221,26 @@ extension Owner_Rental_ReturnVC: ReaderViewDelegate {
             guard let code = code else {
                 title = "에러"
                 message = "QR코드 or 바코드를 인식하지 못했습니다.\n다시 시도해주세요."
+                showAlert(title: title, message: message)
                 break
             }
-
-            title = "알림"
-            message = "인식성공\n\(code)"
+            
+            print("인식성공\n\(code)")
+            act(nowFun: nowFun, userID: code)
+            
         case .fail:
             title = "에러"
             message = "QR코드 or 바코드를 인식하지 못했습니다.\n다시 시도해주세요."
+            showAlert(title: title, message: message)
         case let .stop(isButtonTap):
             if isButtonTap {
                 title = "알림"
                 message = "바코드 읽기를 멈추었습니다."
+                showAlert(title: title, message: message)
             } else {
                 return
             }
         }
-
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
 }
     
