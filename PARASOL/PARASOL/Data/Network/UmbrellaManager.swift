@@ -61,4 +61,25 @@ class UmbrellaManager {
             }
         }
     }
+    
+    // 판매 처리
+    func sellUmbrella(userId: String, completion: @escaping (Result<[String : String], Error>) -> Void ) {
+        provider.request(.sellUmbrella(id: userId)) { result in
+            switch result {
+            case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
+                    if json["check"] as? Bool == true {
+                        let information: [String : String] = json["information"] as? [String : String] ?? ["shopName": "",
+                                                                                                           "roadNameAddress": ""]
+                        completion(.success(information))
+                    }
+                } else {
+                    completion(.success(["message" : "판매처리를 할 수 없습니다."]))
+                }
+                
+            case .failure(let Error):
+                completion(.failure(Error))
+            }
+        }
+    }
 }

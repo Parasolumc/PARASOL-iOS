@@ -105,6 +105,10 @@ class Rental_ReturnVC: UIViewController {
         setNavigationBar()
 //        sellPostData()
         Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(doCheck), userInfo: nil, repeats: true)
+        print(shopId)
+        print(UserDefaults.standard.value(forKey: "memberId") as! Int)
+        print(qrGeneratedDate)
+        print(nowFun)
         
     }
     
@@ -177,7 +181,7 @@ class Rental_ReturnVC: UIViewController {
         let frame = CGRect(origin: .zero, size: QRImage.frame.size)
         let qrcode = QRCodeView(frame: frame)
 
-        qrcode.generateCode(url, foregroundColor: UIColor(named: "black")!, backgroundColor: UIColor(named: "white")!)
+        qrcode.generateCode(url, foregroundColor: UIColor(named: "white")!, backgroundColor: UIColor(named: "black")!)
 
         QRImage.addSubview(qrcode)
         qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
@@ -277,7 +281,7 @@ class Rental_ReturnVC: UIViewController {
                 let compareData = data.information[data.information.count-1]
                 if nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
                     && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
-                    && memberId == compareData.recipientId && shopId == compareData.shopId {
+                    && memberId == compareData.recipientId{
                     // 타이머 종료
                     timer?.invalidate()
                     timer = nil
@@ -289,7 +293,18 @@ class Rental_ReturnVC: UIViewController {
                     self.navigationController?.pushViewController(doneVC, animated: true)
                 } else if nowFun == "Return" && compareData.content == "반납을 완료했어요!"
                             && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
-                            && memberId == compareData.recipientId && shopId == compareData.shopId {
+                            && memberId == compareData.recipientId{
+                    // 타이머 종료
+                    timer?.invalidate()
+                    timer = nil
+                    // 화면 전환
+                    let doneVC = DoneVC()
+                    doneVC.nowFun = self.nowFun
+                    doneVC.nowUser = "일반"
+                    self.navigationController?.pushViewController(doneVC, animated: true)
+                } else if nowFun == "Sell" && compareData.content == "판매를 완료했어요!"
+                            && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                            && memberId == compareData.recipientId{
                     // 타이머 종료
                     timer?.invalidate()
                     timer = nil

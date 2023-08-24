@@ -11,6 +11,7 @@ import Moya
 enum UmbrellaAPI {
     case rentUmbrella(id: String)
     case returnUmbrella(id: String)
+    case sellUmbrella(id: String)
 }
 
 extension UmbrellaAPI: TargetType {
@@ -24,6 +25,8 @@ extension UmbrellaAPI: TargetType {
             return "/api/umbrella/rental/\(id)"
         case .returnUmbrella(let id):
             return "/api/umbrella/return/\(id)"
+        case .sellUmbrella(let id):
+            return "/api/sell/\(id)"
         }
     }
     
@@ -33,6 +36,8 @@ extension UmbrellaAPI: TargetType {
             return .post
         case .returnUmbrella(_):
             return .post
+        case .sellUmbrella(_):
+            return .post
         }
     }
     
@@ -41,6 +46,8 @@ extension UmbrellaAPI: TargetType {
         case .rentUmbrella(_):
             return .requestPlain
         case .returnUmbrella(_):
+            return .requestPlain
+        case .sellUmbrella(_):
             return .requestPlain
         }
     }

@@ -127,7 +127,7 @@ class Owner_Rental_ReturnVC: UIViewController {
         } else if nowFun == "Return" {
             returnUmbrell(userID: userID)
         } else if  nowFun == "Buy" {
-            // 구매 통신
+            sellUmbrella(userID: userID)
         }
     }
     
@@ -165,9 +165,6 @@ class Owner_Rental_ReturnVC: UIViewController {
 //        guideLabel.anchor(top: QRReader.bottomAnchor, paddingTop: 50)
 //        guideLabel.centerX(inView: view)
         
-        // testing done page
-        view.addSubview(button)
-        button.anchor(bottom: view.bottomAnchor, right: view.rightAnchor, paddingBottom: 20, paddingRight: 20)
     }
     
     // MARK: - Helpers
@@ -204,6 +201,27 @@ class Owner_Rental_ReturnVC: UIViewController {
                 }
             case .failure(let error):
                 print("우산 반납 처리 에러\n\(error)")
+            }
+        }
+    }
+    
+    // 판매처리
+    func sellUmbrella(userID: String) {
+        UmbrellaManager.shared.sellUmbrella(userId: userID) { result in
+            switch result {
+            case.success(let data):
+                print("우산 판매 처리")
+                print(data) // 데이터 확인용
+                if data != ["message" : "판매처리를 할 수 없습니다."] {
+                    self.goToDone(nowFun: "Sell", nowUser: "사장님")
+                } else {
+                    let alert = UIAlertController(title: .none, message: "판매 처리할 수 없습니다.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            case .failure(let error):
+                print("우산 판매 처리 에러\n\(error)")
             }
         }
     }
