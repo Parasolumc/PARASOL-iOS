@@ -181,7 +181,7 @@ class Rental_ReturnVC: UIViewController {
         let frame = CGRect(origin: .zero, size: QRImage.frame.size)
         let qrcode = QRCodeView(frame: frame)
 
-        qrcode.generateCode(url, foregroundColor: UIColor(named: "white")!, backgroundColor: UIColor(named: "black")!)
+        qrcode.generateCode(url, foregroundColor: UIColor(named: "black")!, backgroundColor: UIColor(named: "white")!)
 
         QRImage.addSubview(qrcode)
         qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
