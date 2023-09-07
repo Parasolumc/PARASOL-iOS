@@ -413,12 +413,23 @@ class OwnerMenuVC: UIViewController {
                     self.nameLabel.text = info.shopName
                     self.addressLabel.text = info.roadNameAddress
                     self.isOpenLabel.text = "영업시간"
-                    let abbreviatedDay = info.times[0].day
-                    let fullDay = self.fullDayName(from: abbreviatedDay)
-                    self.workingdayLabel.text = fullDay
-                    self.startLabel.text = info.times[0].openTime
-                    self.spacerLabel.text = "-"
-                    self.endLabel.text = info.times[0].endTime
+                    
+                    if info.times.isEmpty {
+                        // 시간 설정 없을 때
+                        self.workingdayLabel.text = "영업 정보 없음"
+                        self.startLabel.text = ""
+                        self.spacerLabel.text = ""
+                        self.endLabel.text = ""
+                    } else {
+                        // 영업 시간 추가하게 되면 배열 다 읽는 걸로 수정 예정
+                        let abbreviatedDay = info.times[0].day
+                        let fullDay = self.fullDayName(from: abbreviatedDay)
+                        self.workingdayLabel.text = fullDay
+                        self.startLabel.text = info.times[0].openTime
+                        self.spacerLabel.text = "-"
+                        self.endLabel.text = info.times[0].endTime
+                    }
+                    
                     self.introduceLabel.text = info.desc
                     //self.totalNum = info.totalUmbrella
                     self.umbrellaNum = info.availableUmbrella
