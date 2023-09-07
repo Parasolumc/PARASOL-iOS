@@ -115,7 +115,8 @@ class ChangePwVC: UIViewController {
     
     func setNavigationBar() {
         self.navigationItem.title = "비밀번호 변경"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
+        // 네비게이션바 폰트 및 색상 설정
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")!, NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!]
     }
     
     func configureUI() {

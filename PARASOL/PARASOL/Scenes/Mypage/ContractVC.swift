@@ -128,7 +128,8 @@ class ContractVC: UIViewController {
     // UI 설정들 관련 method
     func setNavigationBar() {
         self.navigationItem.title = "파라솔 이용약관"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
+        // 네비게이션바 폰트 및 색상 설정
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")!, NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!]
     }
     
     func configureUI() {

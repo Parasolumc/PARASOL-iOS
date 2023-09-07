@@ -107,6 +107,9 @@ class Owner_Rental_ReturnVC: UIViewController {
     
     // method - setting navigation bar
     func setNavigationBar() {
+        // 네비게이션바 폰트 및 색상 설정
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")!, NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!]
+        
         if nowFun == "Rental" {
             self.navigationItem.title = "대여하기"
         } else if nowFun == "Return" {

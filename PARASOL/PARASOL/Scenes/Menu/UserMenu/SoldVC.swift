@@ -80,7 +80,8 @@ class SoldVC: UIViewController{
     
     func setNavigationBar() {
         self.navigationItem.title = "내가 판매한 우산"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")]
+        // 네비게이션바 폰트 및 색상 설정
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")!, NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!]
     }
     
     func configureUI() {
