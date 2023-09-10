@@ -45,6 +45,7 @@
 		096D1DC32A80CF5600708B51 /* StoreInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */; };
 		096D1DC42A80CF5600708B51 /* Rental_ReturnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */; };
 		096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096D1DC52A80CF8800708B51 /* SearchCell.swift */; };
+		0979D3142AA18A04002093F0 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979D3132AA18A04002093F0 /* AlarmCell.swift */; };
 		097F0B8B2A84C96A00955BB1 /* HomeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8A2A84C96A00955BB1 /* HomeManager.swift */; };
 		097F0B8D2A84D00900955BB1 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8C2A84D00900955BB1 /* HomeAPI.swift */; };
 		097F0B8F2A84E61200955BB1 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F0B8E2A84E61200955BB1 /* HomeModel.swift */; };
@@ -138,6 +139,7 @@
 		096D1DC02A80CF5600708B51 /* StoreInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoreInfo.storyboard; sourceTree = "<group>"; };
 		096D1DC12A80CF5600708B51 /* Rental_ReturnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rental_ReturnVC.swift; sourceTree = "<group>"; };
 		096D1DC52A80CF8800708B51 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		0979D3132AA18A04002093F0 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		097F0B8A2A84C96A00955BB1 /* HomeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeManager.swift; sourceTree = "<group>"; };
 		097F0B8C2A84D00900955BB1 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		097F0B8E2A84E61200955BB1 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				09CF04F52A66B98C002C9F8B /* AlarmVC.swift */,
+				0979D3132AA18A04002093F0 /* AlarmCell.swift */,
 				09CF04F72A66B9A4002C9F8B /* Alarm.storyboard */,
 			);
 			path = Alarm;
@@ -684,6 +687,7 @@
 				093E1BE82A8D50440035E443 /* SumStoreInfoVC.swift in Sources */,
 				093E1BF22A94C39B0035E443 /* UmbrellaManager.swift in Sources */,
 				09CF04F32A66B948002C9F8B /* SearchVC.swift in Sources */,
+				0979D3142AA18A04002093F0 /* AlarmCell.swift in Sources */,
 				556567512A8A44B500455BE1 /* MenuManager.swift in Sources */,
 				093E1BE42A8D1D970035E443 /* QRCodeView.swift in Sources */,
 				5565674F2A8A420D00455BE1 /* MenuAPI.swift in Sources */,
