@@ -178,6 +178,12 @@ class UserVC: UIViewController, UISearchBarDelegate {
         setNCRB()
     }
     // TODO: 네비게이션바 오른쪽 아이템 세팅 method
+    // 알람 페이지로 이동
+    @objc func goToAlarmVCFunc() {
+        let AlarmVC = AlarmVC()
+        navigationController?.pushViewController(AlarmVC, animated: true)
+    }
+    
     // 알림 벨 세팅
     func setNCRB() {
         // right bar item
@@ -190,6 +196,10 @@ class UserVC: UIViewController, UISearchBarDelegate {
             
             imageView.contentMode = .scaleToFill
             imageView.setDimensions(height: 28.0, width: 28.0)
+            
+            imageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToAlarmVCFunc))
+            imageView.addGestureRecognizer(tapGesture)
             
             return imageView
         }()
