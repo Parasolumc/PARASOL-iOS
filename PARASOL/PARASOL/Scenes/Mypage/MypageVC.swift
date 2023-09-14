@@ -13,94 +13,21 @@ class MypageVC: UIViewController {
         let label = UILabel()
         label.text = "마이페이지"
         label.textColor = UIColor(named: "black")
-        label.font = .B24
+        label.font = .B20
         
         return label
     }()
     
-    let title1: UILabel = {
-        let label = UILabel()
-        label.text = "관리"
-        label.font = .M16
-        label.textColor = UIColor(named: "gray22")
+    let tableView: UITableView = {
+        let tableview = UITableView(frame: .zero, style: .plain)
         
-        return label
+        return tableview
     }()
     
-    let title2: UILabel = {
-        let label = UILabel()
-        label.text = "이용약관"
-        label.font = .M16
-        label.textColor = UIColor(named: "gray22")
-        
-        return label
-    }()
+    let sections = ["계정 관리", "이용약관"]
+    let accountItems = ["비밀번호 변경", "로그아웃", "회원 탈퇴"]
+    let termsItems = ["이용약관"]
     
-    lazy var changePwLabel: UIButton = {
-        let button = UIButton()
-        button.setTitle("비밀번호 변경", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
-        
-        let goToChangePwVCAction = UIAction { _ in
-            let changepwVC = ChangePwVC()
-            self.navigationController?.pushViewController(changepwVC, animated: true)
-        }
-        
-        button.addAction(goToChangePwVCAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var logoutLabel: UIButton = {
-        let button = UIButton()
-        button.setTitle("로그아웃", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
-        
-        let logOutAction = UIAction { _ in
-            self.showLogoutAlert()
-        }
-        
-        button.addAction(logOutAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var withdrawalLabel: UIButton = {
-        let button = UIButton()
-        button.setTitle("회원탈퇴", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
-        
-        let withDrawalAction = UIAction { _ in
-            self.showwithdrawalAlert()
-        }
-        
-        button.addAction(withDrawalAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var contractLabel: UIButton = {
-        let button = UIButton()
-        button.setTitle("이용약관", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
-        
-        let goToContractVCAction = UIAction { _ in
-            let contractVC = ContractVC()
-            self.navigationController?.pushViewController(contractVC, animated: true)
-        }
-        
-        button.addAction(goToContractVCAction, for: .touchUpInside)
-        
-        return button
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,24 +42,22 @@ class MypageVC: UIViewController {
         view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(titleLabel)
-        view.addSubview(title1)
-        view.addSubview(changePwLabel)
-        view.addSubview(logoutLabel)
-        view.addSubview(withdrawalLabel)
-        view.addSubview(title2)
-        view.addSubview(contractLabel)
+        view.addSubview(tableView)
         
-        //titleLabel.anchor(top:view.topAnchor, left: view.leftAnchor, paddingTop: 75, paddingLeft: 24)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.anchor(top:view.topAnchor, paddingTop: 75)
         titleLabel.centerX(inView: view)
-        title1.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 25)
-        changePwLabel.anchor(top: title1.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
-        logoutLabel.anchor(top: changePwLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
-        withdrawalLabel.anchor(top: logoutLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
         
-        title2.anchor(top: withdrawalLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 35, paddingLeft: 25)
-        contractLabel.anchor(top: title2.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 25, paddingRight: 25)
+        tableView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 15, paddingRight: 10)
+
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
     }
     
@@ -248,4 +173,58 @@ class MypageVC: UIViewController {
         }
     }
 
+}
+
+
+extension MypageVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return accountItems.count
+        } else if section == 1 {
+            return termsItems.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            cell.textLabel?.text = accountItems[indexPath.row]
+            cell.textLabel?.font = .SB18
+        } else if indexPath.section == 1 {
+            cell.textLabel?.text = termsItems[indexPath.row]
+            cell.textLabel?.font = .SB18
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 {
+            if indexPath.row == 0 { // "비밀번호 변경" 셀을 눌렀을 때
+                let changepwVC = ChangePwVC()
+                self.navigationController?.pushViewController(changepwVC, animated: true)
+            } else if indexPath.row == 1 { // "로그아웃" 셀을 눌렀을 때
+                showLogoutAlert() // 로그아웃 팝업 표시
+            } else if indexPath.row == 2 { // "회원탈퇴" 셀을 눌렀을 때
+                showwithdrawalAlert() // 탈퇴 팝업 표시
+            }
+        } else if indexPath.section == 1 {
+            // 이용약관 셀의 동작 구현
+            let contractVC = ContractVC()
+            self.navigationController?.pushViewController(contractVC, animated: true)
+            
+        }
+    }
+    
 }
