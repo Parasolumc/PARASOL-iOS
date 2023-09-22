@@ -486,12 +486,23 @@ class StoreInfoVC: UIViewController {
     func setData() {
         self.nameLabel.text = self.store.shopName
         self.addressLabel.text = self.store.roadNameAddress
-        let abbreviatedDay = self.store.times[0].day
-        let fullDay = self.fullDayName(from: abbreviatedDay)
-        self.workingdayLabel.text = fullDay
-        self.startLabel.text = self.store.times[0].openTime
-        self.spacerLabel.text = "-"
-        self.endLabel.text = self.store.times[0].endTime
+        if self.store.times.isEmpty {
+            // 시간 설정 없을 때
+            self.isOpenLabel.text = "영업 정보 없음"
+            self.workingdayLabel.text = ""
+            self.startLabel.text = ""
+            self.spacerLabel.text = ""
+            self.endLabel.text = ""
+        } else {
+            // 영업 시간 추가하게 되면 배열 다 읽는 걸로 수정 예정
+            self.isOpenLabel.text = "영업시간"
+            let abbreviatedDay = self.store.times[0].day
+            let fullDay = self.fullDayName(from: abbreviatedDay)
+            self.workingdayLabel.text = fullDay
+            self.startLabel.text = self.store.times[0].openTime
+            self.spacerLabel.text = "-"
+            self.endLabel.text = self.store.times[0].endTime
+        }
         self.introduceLabel.text = self.store.desc
         self.umbrellaNum = self.store.availableUmbrella
         self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"

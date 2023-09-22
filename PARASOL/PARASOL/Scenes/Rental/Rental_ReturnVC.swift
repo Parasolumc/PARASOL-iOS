@@ -279,43 +279,47 @@ class Rental_ReturnVC: UIViewController {
             switch result {
             case .success(let data):
                 print("알람 조회 성공")
-                print(data.information[data.information.count-1])
-                let compareData = data.information[data.information.count-1]
-                if nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
-                    && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
-                    && memberId == compareData.recipientId{
-                    // 타이머 종료
-                    timer?.invalidate()
-                    timer = nil
-                    // 화면 전환
-                    let doneVC = DoneVC()
-                    doneVC.nowFun = self.nowFun
-                    doneVC.nowUser = "일반"
-                    doneVC.freeRentDate = convertDate(compareData.sentTime)!
-                    self.navigationController?.pushViewController(doneVC, animated: true)
-                } else if nowFun == "Return" && compareData.content == "반납을 완료했어요!"
-                            && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
-                            && memberId == compareData.recipientId{
-                    // 타이머 종료
-                    timer?.invalidate()
-                    timer = nil
-                    // 화면 전환
-                    let doneVC = DoneVC()
-                    doneVC.nowFun = self.nowFun
-                    doneVC.nowUser = "일반"
-                    self.navigationController?.pushViewController(doneVC, animated: true)
-                } else if nowFun == "Sell" && compareData.content == "판매를 완료했어요!"
-                            && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
-                            && memberId == compareData.recipientId{
-                    // 타이머 종료
-                    timer?.invalidate()
-                    timer = nil
-                    // 화면 전환
-                    let doneVC = DoneVC()
-                    doneVC.nowFun = self.nowFun
-                    doneVC.nowUser = "일반"
-                    self.navigationController?.pushViewController(doneVC, animated: true)
+                if data.information.isEmpty {
+                    
+                } else {
+                    let compareData = data.information[data.information.count-1]
+                    if nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
+                        && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                        && memberId == compareData.recipientId {
+                        // 타이머 종료
+                        timer?.invalidate()
+                        timer = nil
+                        // 화면 전환
+                        let doneVC = DoneVC()
+                        doneVC.nowFun = self.nowFun
+                        doneVC.nowUser = "일반"
+                        doneVC.freeRentDate = convertDate(compareData.sentTime)!
+                        self.navigationController?.pushViewController(doneVC, animated: true)
+                    } else if nowFun == "Return" && compareData.content == "반납을 완료했어요!"
+                                && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                                && memberId == compareData.recipientId {
+                        // 타이머 종료
+                        timer?.invalidate()
+                        timer = nil
+                        // 화면 전환
+                        let doneVC = DoneVC()
+                        doneVC.nowFun = self.nowFun
+                        doneVC.nowUser = "일반"
+                        self.navigationController?.pushViewController(doneVC, animated: true)
+                    } else if nowFun == "Sell" && compareData.content == "판매를 완료했어요!"
+                                && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
+                                && memberId == compareData.recipientId {
+                        // 타이머 종료
+                        timer?.invalidate()
+                        timer = nil
+                        // 화면 전환
+                        let doneVC = DoneVC()
+                        doneVC.nowFun = self.nowFun
+                        doneVC.nowUser = "일반"
+                        self.navigationController?.pushViewController(doneVC, animated: true)
+                    }
                 }
+                
             case .failure(let error):
                 print("알람 조회 에러\n\(error)")
             }
