@@ -84,6 +84,7 @@ class SumStoreInfoVC: UIViewController {
     var isOpenLabel: UILabel = {
         let label = UILabel()
         
+        label.text = "영업시간"
         label.font = .SB14
         label.textColor = UIColor(named: "black")
         
@@ -308,10 +309,8 @@ class SumStoreInfoVC: UIViewController {
         introView.addSubview(buttonHStackView)
         
 
-        introView.centerX(inView: view)
-        introView.centerY(inView: view)
-        vStackView.anchor(top: introView.topAnchor, paddingTop: 41)
-        vStackView.centerX(inView: introView)
+        introView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        vStackView.anchor(top: introView.topAnchor, left: introView.leftAnchor, paddingTop: 41, paddingLeft: 37)
         findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
         umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 38)
         umbrellaHStackView.centerX(inView: introView)
@@ -326,6 +325,7 @@ class SumStoreInfoVC: UIViewController {
     
     func configureUI2() {
         view.backgroundColor = UIColor(named: "white")
+        introView.backgroundColor = .blue
         
         view.addSubview(introView)
         introView.addSubview(vStackView)
@@ -336,8 +336,7 @@ class SumStoreInfoVC: UIViewController {
 
         introView.centerX(inView: view)
         introView.centerY(inView: view)
-        vStackView.anchor(top: introView.topAnchor)
-        vStackView.centerX(inView: introView)
+        vStackView.anchor(top: introView.topAnchor, left: introView.leftAnchor, paddingTop: 41, paddingLeft: 37)
         findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
         umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 128)
         umbrellaHStackView.centerX(inView: introView)
@@ -418,13 +417,23 @@ class SumStoreInfoVC: UIViewController {
                 self.nameLabel.text = self.store.shopName
                 self.addressLabel.text = self.store.roadNameAddress
                 self.umbrellaNum = self.store.availableUmbrella
-                self.isOpenLabel.text = "영업시간"
-                let abbreviatedDay = self.store.times[0].day
-                let fullDay = self.fullDayName(from: abbreviatedDay)
-                self.workingdayLabel.text = fullDay
-                self.startLabel.text = self.store.times[0].openTime
-                self.spacerLabel.text = "-"
-                self.endLabel.text = self.store.times[0].endTime
+                if self.store.times.isEmpty {
+                    // 시간 설정 없을 때
+                    self.isOpenLabel.text = "영업 정보 없음"
+                    self.workingdayLabel.text = ""
+                    self.startLabel.text = ""
+                    self.spacerLabel.text = ""
+                    self.endLabel.text = ""
+                } else {
+                    // 영업 시간 추가하게 되면 배열 다 읽는 걸로 수정 예정
+                    self.isOpenLabel.text = "영업시간"
+                    let abbreviatedDay = self.store.times[0].day
+                    let fullDay = self.fullDayName(from: abbreviatedDay)
+                    self.workingdayLabel.text = fullDay
+                    self.startLabel.text = self.store.times[0].openTime
+                    self.spacerLabel.text = "-"
+                    self.endLabel.text = self.store.times[0].endTime
+                }
                 self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
                 // 길찾기 버튼에 동작 연동
                 let findLoadAction = UIAction { _ in
