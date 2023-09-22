@@ -166,7 +166,7 @@ class Rental_ReturnVC: UIViewController {
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
         view.addSubview(QRImage)
-        createQRImage(url: stringMemberId)
+        createQRImage(url: (stringMemberId + "/" + String(shopId)))
         view.addSubview(guideLabel)
         
         QRImage.anchor(top: view.topAnchor, paddingTop: 250)
@@ -183,7 +183,7 @@ class Rental_ReturnVC: UIViewController {
         let frame = CGRect(origin: .zero, size: QRImage.frame.size)
         let qrcode = QRCodeView(frame: frame)
 
-        qrcode.generateCode(url, foregroundColor: UIColor(named: "black")!, backgroundColor: UIColor(named: "white")!)
+        qrcode.generateCode(url, foregroundColor: UIColor(named: "white")!, backgroundColor: UIColor(named: "black")!)
 
         QRImage.addSubview(qrcode)
         qrcode.anchor(top: QRImage.topAnchor, left: QRImage.leftAnchor, bottom: QRImage.bottomAnchor, right: QRImage.rightAnchor)
