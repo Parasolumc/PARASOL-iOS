@@ -18,6 +18,16 @@ class AlarmVC: UIViewController {
     var alarmList: [AlarmInformation] = [AlarmInformation(id: 3, content: "알람 내역을 불러오는 데 실패하였습니다.", sentTime: "9999-99-99T00:00:00", recipientId: 3, shopId: 3, type: "", shopName: "알람 조회 실패")]
     
     // MARK: [For UI Components]
+    let noneLabel: UILabel = {
+       let label = UILabel()
+        
+        label.text = "알림이 없습니다."
+        label.font = .M16
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
     let alarmTableView = UITableView()
 
     // MARK: - Lifecycle
@@ -34,6 +44,18 @@ class AlarmVC: UIViewController {
     func configureUI() {
         setNavigationBar()
         setTableView()
+        setNone()
+    }
+    
+    func setNone() {
+        view.addSubview(noneLabel)
+        
+        noneLabel.centerX(inView: view)
+        noneLabel.centerY(inView: view)
+    }
+    
+    func setExist() {
+        noneLabel.translatesAutoresizingMaskIntoConstraints = true
     }
     
     func setNavigationBar() {
@@ -127,8 +149,9 @@ extension AlarmVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! AlarmCell
         
         if alarmList.isEmpty {
-            
+            self.setNone()
         } else {
+            self.setExist()
             cell.nameLabel.text = alarmList[indexPath.row].shopName
             cell.contentLabel.text = alarmList[indexPath.row].content
             cell.timeLabel.text = changeDateFormat(alarmList[indexPath.row].sentTime)
