@@ -9,8 +9,8 @@ import Foundation
 import Moya
 
 enum UmbrellaAPI {
-    case rentUmbrella(id: String)
-    case returnUmbrella(id: String)
+    case rentUmbrella(userId: String, selectShopId:String)
+    case returnUmbrella(userId: String, selectShopId:String)
     case sellUmbrella(id: String)
 }
 
@@ -21,10 +21,10 @@ extension UmbrellaAPI: TargetType {
     
     var path: String {
         switch self {
-        case .rentUmbrella(let id):
-            return "/api/umbrella/rental/\(id)"
-        case .returnUmbrella(let id):
-            return "/api/umbrella/return/\(id)"
+        case .rentUmbrella(let userId, let shopId):
+            return "/api/umbrella/rental/\(userId)/\(shopId)"
+        case .returnUmbrella(let userId, let shopId):
+            return "/api/umbrella/return/\(userId)/\(shopId)"
         case .sellUmbrella(let id):
             return "/api/sell/\(id)"
         }
@@ -32,9 +32,9 @@ extension UmbrellaAPI: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .rentUmbrella(_):
+        case .rentUmbrella(_,_):
             return .post
-        case .returnUmbrella(_):
+        case .returnUmbrella(_,_):
             return .post
         case .sellUmbrella(_):
             return .post
@@ -43,9 +43,9 @@ extension UmbrellaAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .rentUmbrella(_):
+        case .rentUmbrella(_,_):
             return .requestPlain
-        case .returnUmbrella(_):
+        case .returnUmbrella(_,_):
             return .requestPlain
         case .sellUmbrella(_):
             return .requestPlain

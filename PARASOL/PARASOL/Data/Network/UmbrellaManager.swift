@@ -14,8 +14,8 @@ class UmbrellaManager {
     lazy var provider = MoyaProvider<UmbrellaAPI>()
     
     // 대여 처리
-    func rentUmbrella(userId: String, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
-        provider.request(.rentUmbrella(id: userId)) { result in
+    func rentUmbrella(userId: String, shopId: String, completion: @escaping (Result<[String : Any], Error>) -> Void ) {
+        provider.request(.rentUmbrella(userId: userId, selectShopId: shopId)) { result in
             switch result {
             case .success(let data):
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
@@ -38,8 +38,8 @@ class UmbrellaManager {
     }
     
     // 반납 처리
-    func returnUmbrella(userId: String, completion: @escaping (Result<[String : String], Error>) -> Void ) {
-        provider.request(.returnUmbrella(id: userId)) { result in
+    func returnUmbrella(userId: String, shopId: String, completion: @escaping (Result<[String : String], Error>) -> Void ) {
+        provider.request(.returnUmbrella(userId: userId, selectShopId: shopId)) { result in
             switch result {
             case .success(let data):
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {

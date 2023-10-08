@@ -31,5 +31,23 @@ class AlarmManager {
         }
     }
     
+    // 알람 삭제
+    func deleteAlarm(alarmId: Int, completion: @escaping (Result<Bool, Error>) -> Void ) {
+        provider.request(.deleteAlarm(alarmId: String(alarmId))) { result in
+            switch result {
+            case .success(let response):
+                // 서버 응답의 상태 코드를 확인
+                let statusCode = response.statusCode
+                if statusCode == 200 {
+                    completion(.success(true))
+                } else {
+                    completion(.success(false))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     
 }

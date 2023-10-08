@@ -124,11 +124,11 @@ class Owner_Rental_ReturnVC: UIViewController {
     }
     
     // TODO: 대여 처리 또는 반납 처리 수행해주는 method
-    func act(nowFun: String, userID: String) {
+    func act(nowFun: String, userID: String, shopId: String) {
         if nowFun == "Rental" {
-            rentUmbrell(userId: userID)
+            rentUmbrell(userId: userID, shopId: shopId)
         } else if nowFun == "Return" {
-            returnUmbrell(userID: userID)
+            returnUmbrell(userID: userID, shopId: shopId)
         } else if  nowFun == "Buy" {
             sellUmbrella(userID: userID)
         }
@@ -174,8 +174,8 @@ class Owner_Rental_ReturnVC: UIViewController {
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
     
     // 대여처리
-    func rentUmbrell(userId: String) {
-        UmbrellaManager.shared.rentUmbrella(userId: userId) { result in
+    func rentUmbrell(userId: String, shopId: String) {
+        UmbrellaManager.shared.rentUmbrella(userId: userId, shopId: shopId) { result in
             switch result {
             case .success(let data):
                 print("우산 대여 처리")
@@ -188,8 +188,8 @@ class Owner_Rental_ReturnVC: UIViewController {
     }
     
     // 반납처리
-    func returnUmbrell(userID: String) {
-        UmbrellaManager.shared.returnUmbrella(userId: userID) { result in
+    func returnUmbrell(userID: String, shopId: String) {
+        UmbrellaManager.shared.returnUmbrella(userId: userID, shopId: shopId) { result in
             switch result {
             case .success(let data):
                 print("우산 반납 처리")
@@ -228,6 +228,11 @@ class Owner_Rental_ReturnVC: UIViewController {
             }
         }
     }
+    
+    // "/"을 기준으로 string 분리
+    func splitString(input: String) -> [String] {
+        return input.split(separator: "/").map { String($0) }
+    }
 
 
 }
@@ -247,7 +252,8 @@ extension Owner_Rental_ReturnVC: ReaderViewDelegate {
             }
             
             print("인식성공\n\(code)")
-            act(nowFun: nowFun, userID: code)
+            let splitStings: Array = splitString(input: code) // "/"으로 분리하기
+            act(nowFun: nowFun, userID: splitStings[0], shopId: splitStings[1])
             
         case .fail:
             title = "에러"

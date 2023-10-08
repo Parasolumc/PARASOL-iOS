@@ -37,6 +37,7 @@ class AlarmCell: UITableViewCell {
         label.text = "가게명"
         label.font = .B16
         label.textColor = UIColor(named: "black")
+        
         return label
     }()
 
@@ -46,6 +47,8 @@ class AlarmCell: UITableViewCell {
         label.text = "알림 내용"
         label.font = .M16
         label.textColor = UIColor(named: "black")
+        label.numberOfLines = 0
+        
         return label
     }()
     
@@ -55,6 +58,7 @@ class AlarmCell: UITableViewCell {
         label.text = "2023년 00월 00일"
         label.font = .M14
         label.textColor = UIColor(named: "gray22")
+        
         return label
     }()
     
@@ -115,7 +119,7 @@ class AlarmCell: UITableViewCell {
         wholeView.centerX(inView: self)
         wholeView.anchor(top: self.topAnchor, bottom: self.bottomAnchor, paddingTop: 5, paddingBottom: 5)
         vStackView.centerY(inView: wholeView)
-        vStackView.anchor(left: wholeView.leftAnchor, paddingLeft: 27)
+        vStackView.anchor(left: wholeView.leftAnchor, right: wholeView.rightAnchor, paddingLeft: 27, paddingRight: 94)
         deleteButton.anchor(top: wholeView.topAnchor, right: wholeView.rightAnchor, paddingTop: 12, paddingRight: 16)
 
     }
