@@ -17,6 +17,10 @@ target 'PARASOL' do
   pod 'Toast-Swift', '~> 5.0.1'
   ## 토스페이먼츠
   pod 'TossPayments'
+  ## 푸쉬알람(Firebase)
+  pod 'Firebase/Messaging'
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
   
 
 end
