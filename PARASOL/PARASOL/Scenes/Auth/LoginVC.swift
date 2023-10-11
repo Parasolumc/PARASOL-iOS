@@ -234,15 +234,6 @@ class LoginVC: UIViewController {
         return stackView
     }()
     
-    let socialLoginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "소셜로그인 추가 예정"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = UIColor(named: "gray11")
-        
-        return label
-    }()
-    
 //    let kakaoLoginButton: UIButton = {
 //        let button = UIButton(type: .system)
 //        button.setImage(UIImage(systemName: "message.circle.fill"), for: .normal)
@@ -250,6 +241,19 @@ class LoginVC: UIViewController {
 //
 //        return button
 //    }()
+    
+    let appleLoginButton:UIButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(named: "apple_login"), for: .normal)
+        button.setDimensions(height: 54, width: 54)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.layer.cornerRadius = 45 / 2
+        button.clipsToBounds = true
+        
+        return button
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -313,26 +317,11 @@ class LoginVC: UIViewController {
         view.addSubview(loginButton)
         view.addSubview(fndjoinStackView)
         view.addSubview(orStackView)
-        view.addSubview(socialLoginLabel)
 //        view.addSubview(kakaoLoginButton)
+        view.addSubview(appleLoginButton)
         
         self.idTextField.autocapitalizationType = .none
         self.pwTextField.autocapitalizationType = .none
-        
-//        .anchor에서 호출되어 따로 지정하지 않아도 돼서 주석처리
-//        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-//        idTextField.translatesAutoresizingMaskIntoConstraints = false
-//        pwTextField.translatesAutoresizingMaskIntoConstraints = false
-//        idLineView.translatesAutoresizingMaskIntoConstraints = false
-//        pwLineView.translatesAutoresizingMaskIntoConstraints = false
-//        idtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        pwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        idpwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        loginButton.translatesAutoresizingMaskIntoConstraints = false
-//        fndjoinStackView.translatesAutoresizingMaskIntoConstraints = false
-//        orStackView.translatesAutoresizingMaskIntoConstraints = false
-//        socialLoginLabel.translatesAutoresizingMaskIntoConstraints = false
-//        kakaoLoginButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.backgroundColor = UIColor(named: "main")
         
@@ -348,11 +337,9 @@ class LoginVC: UIViewController {
         
         orStackView.anchor(top: fndjoinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 70, paddingRight: 70)
         
-        socialLoginLabel.anchor(top: orStackView.bottomAnchor, paddingTop: 35)
-        socialLoginLabel.centerX(inView: view)
-        
 //        kakaoLoginButton.anchor(top: orStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 724, paddingLeft: 122)
-        
+        appleLoginButton.anchor(top: orStackView.bottomAnchor, paddingTop: 28)
+        appleLoginButton.centerX(inView: view)
     }
     
     // MARK: - Helpers
