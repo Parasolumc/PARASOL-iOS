@@ -49,5 +49,24 @@ class AlarmManager {
         }
     }
     
+    // 푸쉬 알람 fcmToken 보내기
+    func sendFcmToken(param: PushAlarmModel, completion: @escaping (Result<String, Error>) -> Void ) {
+        provider.request(.sendFcmToken(param: param)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    // 서버 응답 데이터를 문자열로 변환
+                    let responseString = try response.mapString()
+                    completion(.success(responseString))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
     
 }
