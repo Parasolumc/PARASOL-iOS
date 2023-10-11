@@ -127,10 +127,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        // 여기서 이제 서버로 다시 fcm 토큰을 보내줘야 한다!
-        // 그러나 서버가 없기 때문에 이렇게 token을 출력하게 한다.
-        // 이 토큰은 뒤에서 Test할때 필요하다!
-        print("\n\nFCM Token: \(String(describing: fcmToken))\n\n")
+        
+        // TODO: 서버로 fcm 토큰을 보내기
+        if let fcmToken = fcmToken {
+            print("\n\n\nUnwrapped token: \(fcmToken)")
+            UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        } else {
+            print("fcmToken을 upwrapping 할 수 없습니다.")
+        }
+
+        
     }
 }
 

@@ -356,6 +356,8 @@ class LoginVC: UIViewController {
     }
     
     // MARK: - Helpers
+    
+    // 로그인 서버 통신
     func login(userID: String, userPW: String) {
         let loginData: LoginModel = LoginModel(email: userID, password: userPW)
         AuthManager.shared.doLogin(loginData: loginData) { result in
@@ -363,7 +365,7 @@ class LoginVC: UIViewController {
             case .success(let data):
                 print(data)
                 if data["check"] as? Bool == true {
-//                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
+                    self.sendFcmToken(fcmToken: UserDefaults.standard.value(forKey: "fcmToken") as! String)
                     self.goToHome(at: UserDefaults.standard.value(forKey: "role") as! String)
                 } else if data["check"] as? Bool == false {
                     self.view.makeToast("로그인 실패", duration: 1.0, position: .center, style: self.style)
@@ -373,6 +375,20 @@ class LoginVC: UIViewController {
                 print(error)
                 self.view.makeToast("로그인 실패", duration: 1.0, position: .center, style: self.style)
             }
+        }
+    }
+    
+    // 푸쉬 알림 통신
+    func sendFcmToken(fcmToken: String) {
+        let param: PushAlarmModel = PushAlarmModel(fcmToken: fcmToken)
+        AlarmManager.shared.sendFcmToken(param: param) { result in
+            switch result {
+            case .success(let response):
+                print("fcm 토큰 업데이트 서버 통신 성공: \(response)")
+            case .failure(let error):
+                print("fcm 토큰 업데이트 서버 통신 실페: \(error)")
+            }
+            
         }
     }
 }

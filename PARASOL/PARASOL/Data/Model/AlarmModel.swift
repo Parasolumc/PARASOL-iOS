@@ -20,3 +20,8 @@ struct AlarmInformation: Codable {
     let recipientId, shopId: Int
     let type, shopName: String
 }
+
+// MARK: - PushAlarmModel
+struct PushAlarmModel: Codable {
+    let fcmToken: String
+}
