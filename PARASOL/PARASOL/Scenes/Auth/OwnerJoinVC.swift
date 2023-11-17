@@ -12,7 +12,8 @@ class OwnerJoinVC : UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    var join = "OwnerJoin"
+    var join: String = ""
+    var userType: String = ""
     
     // 화면 사이즈
     var bounds = UIScreen.main.bounds
