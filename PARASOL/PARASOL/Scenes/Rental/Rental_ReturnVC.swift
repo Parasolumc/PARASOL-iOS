@@ -24,7 +24,7 @@ class Rental_ReturnVC: UIViewController {
     // MARK: [For Transition]
     var timer: Timer?
     var timerCount = 0
-    var totalTimerCount = 6
+    var totalTimerCount = 6 // 대여/반납 완료 여부 확인
     
     let transition: CATransition = {
         let transition = CATransition()
@@ -283,7 +283,7 @@ class Rental_ReturnVC: UIViewController {
                     
                 } else {
                     let compareData = data.information[data.information.count-1]
-                    if nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
+                    if shopId == compareData.shopId && nowFun == "Rental" && compareData.content == "대여를 완료했어요!"
                         && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
                         && memberId == compareData.recipientId {
                         // 타이머 종료
@@ -295,7 +295,7 @@ class Rental_ReturnVC: UIViewController {
                         doneVC.nowUser = "일반"
                         doneVC.freeRentDate = convertDate(compareData.sentTime)!
                         self.navigationController?.pushViewController(doneVC, animated: true)
-                    } else if nowFun == "Return" && compareData.content == "반납을 완료했어요!"
+                    } else if shopId == compareData.shopId && nowFun == "Return" && compareData.content == "반납을 완료했어요!"
                                 && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
                                 && memberId == compareData.recipientId {
                         // 타이머 종료
@@ -306,7 +306,7 @@ class Rental_ReturnVC: UIViewController {
                         doneVC.nowFun = self.nowFun
                         doneVC.nowUser = "일반"
                         self.navigationController?.pushViewController(doneVC, animated: true)
-                    } else if nowFun == "Sell" && compareData.content == "판매를 완료했어요!"
+                    } else if shopId == compareData.shopId && nowFun == "Sell" && compareData.content == "판매를 완료했어요!"
                                 && self.compareDates(qrGeneratedDate: qrGeneratedDate, alarmDate: compareData.sentTime)
                                 && memberId == compareData.recipientId {
                         // 타이머 종료
