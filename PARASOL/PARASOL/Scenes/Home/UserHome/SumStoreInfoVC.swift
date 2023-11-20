@@ -55,7 +55,7 @@ class SumStoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "벨라프라하"
-        label.font = .B18
+        label.font = .B20
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -64,10 +64,10 @@ class SumStoreInfoVC: UIViewController {
         let button = UIButton()
         
         button.setImage(UIImage(named: "find_load"), for: .normal)
-        button.setDimensions(height: 45, width: 45)
+        button.setDimensions(height: 56, width: 56)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
-        button.layer.cornerRadius = 45 / 2
+        button.layer.cornerRadius = 56 / 2
         button.clipsToBounds = true
         
         return button
@@ -76,7 +76,7 @@ class SumStoreInfoVC: UIViewController {
     var addressLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .M16
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -85,7 +85,7 @@ class SumStoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "영업시간"
-        label.font = .SB14
+        label.font = .SB16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -93,7 +93,7 @@ class SumStoreInfoVC: UIViewController {
     
     lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -101,7 +101,7 @@ class SumStoreInfoVC: UIViewController {
     
     lazy var startLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -109,7 +109,7 @@ class SumStoreInfoVC: UIViewController {
     
     lazy var spacerLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -117,7 +117,7 @@ class SumStoreInfoVC: UIViewController {
     
     lazy var endLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -138,23 +138,31 @@ class SumStoreInfoVC: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.spacing = 15
 
         return stackView
     }()
 
-    lazy var vStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.addressLabel, self.storeTimeHStackView])
+    lazy var vStackView1: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.addressLabel, self.storeTimeHStackView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.spacing = 0
         
-        stackView.setDimensions(height: 110, width: (screenWidth - 50))
+        stackView.setDimensions(height: 56, width: (screenWidth - 50))
         return stackView
+    }()
+    
+    lazy var separatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray33")
+        view.setDimensions(height: 1, width: (screenWidth - 50))
+        
+        return view
     }()
     
     // 대여 가능 우산 개수 관련 요소들 생성
@@ -260,6 +268,32 @@ class SumStoreInfoVC: UIViewController {
 
         return stackView
     }()
+    
+    lazy var vStackView2: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.vStackView1, self.separatorLineView, self.umbrellaHStackView, self.buttonHStackView])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 16
+        
+        stackView.setDimensions(height: 187, width: (screenWidth - 50))
+        return stackView
+    }()
+    
+    lazy var vStackView3: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.vStackView2])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 10
+        
+        stackView.setDimensions(height: 221, width: (screenWidth - 50))
+        return stackView
+    }()
 
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
@@ -272,7 +306,7 @@ class SumStoreInfoVC: UIViewController {
             if #available(iOS 16.0, *) {
                 sheetPresentationController.detents = [
                     .custom { _ in
-                        return 300
+                        return 284
                     }
                 ]
                 configureUI()
@@ -303,19 +337,14 @@ class SumStoreInfoVC: UIViewController {
         view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(introView)
-        introView.addSubview(vStackView)
+        introView.addSubview(vStackView3)
         introView.addSubview(findLoadButton)
-        introView.addSubview(umbrellaHStackView)
-        introView.addSubview(buttonHStackView)
         
 
         introView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-        vStackView.anchor(top: introView.topAnchor, left: introView.leftAnchor, paddingTop: 41, paddingLeft: 37)
-        findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
-        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 38)
-        umbrellaHStackView.centerX(inView: introView)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 34)
-        buttonHStackView.centerX(inView: introView)
+        vStackView3.anchor(top: introView.topAnchor, paddingTop: 37)
+        vStackView3.centerX(inView: introView)
+        findLoadButton.anchor(top: vStackView3.topAnchor, right: vStackView3.rightAnchor)
         
         view.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))
@@ -325,23 +354,16 @@ class SumStoreInfoVC: UIViewController {
     
     func configureUI2() {
         view.backgroundColor = UIColor(named: "white")
-        introView.backgroundColor = .blue
         
         view.addSubview(introView)
-        introView.addSubview(vStackView)
+        introView.addSubview(vStackView3)
         introView.addSubview(findLoadButton)
-        introView.addSubview(umbrellaHStackView)
-        introView.addSubview(buttonHStackView)
         
 
-        introView.centerX(inView: view)
-        introView.centerY(inView: view)
-        vStackView.anchor(top: introView.topAnchor, left: introView.leftAnchor, paddingTop: 41, paddingLeft: 37)
-        findLoadButton.anchor(top: introView.topAnchor, right: introView.rightAnchor, paddingTop: 37, paddingRight: 40)
-        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 128)
-        umbrellaHStackView.centerX(inView: introView)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 34)
-        buttonHStackView.centerX(inView: introView)
+        introView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        vStackView3.centerY(inView: introView)
+        vStackView3.centerX(inView: introView)
+        findLoadButton.anchor(top: vStackView3.topAnchor, right: vStackView3.rightAnchor)
         
         view.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToStoreInfoFunc))

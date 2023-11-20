@@ -7,6 +7,7 @@
 
 import UIKit
 import Toast_Swift
+import AuthenticationServices // 애플 로그인
 
 class LoginVC: UIViewController {
     
@@ -242,7 +243,7 @@ class LoginVC: UIViewController {
 //        return button
 //    }()
     
-    let appleLoginButton:UIButton = {
+    lazy var appleLoginButton:UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(named: "apple_login"), for: .normal)
@@ -251,6 +252,11 @@ class LoginVC: UIViewController {
         button.contentHorizontalAlignment = .fill
         button.layer.cornerRadius = 45 / 2
         button.clipsToBounds = true
+        
+        let appleLoginAction = UIAction { _ in
+            self.doAppleLogin()
+        }
+        button.addAction(appleLoginAction, for: .touchUpInside)
         
         return button
     }()
@@ -380,4 +386,26 @@ class LoginVC: UIViewController {
     }
 }
 
+// 애플 로그인
+extension LoginVC: ASAuthorizationControllerDelegate {
+//, ASAuthorizationControllerPresentationContextProviding {
+
+//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+//        <#code#>
+//    }
+
+
+    // 애플 로그인 버튼 클릭시 실행되는 함수
+    func doAppleLogin() {
+        print("애플 로그인 버튼 클릭")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+//        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
 

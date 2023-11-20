@@ -19,6 +19,10 @@ class AlarmCell: UITableViewCell {
         return UIScreen.main.bounds.size.height
     }
     
+    // MARK: [for delte Alarm]
+    var deleteAlarmId: Int = 0
+    weak var alarmCellDelegate: AlarmCellDelegate?
+    
     // MARK: [UI components]
     lazy var wholeView: UIView = {
         let view = UIView()
@@ -74,14 +78,15 @@ class AlarmCell: UITableViewCell {
         return stackView
     }()
     
-    let deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(named: "clear_delete"), for: .normal)
         button.setDimensions(height: 22, width: 22)
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
+        button.backgroundColor = UIColor(named: "light")
         
+        button.isUserInteractionEnabled = true
+                                                          
         return button
     }()
     
@@ -113,18 +118,33 @@ class AlarmCell: UITableViewCell {
         backgroundColor = UIColor(named: "white")
         
         addSubview(wholeView)
-        wholeView.addSubview(vStackView)
         wholeView.addSubview(deleteButton)
+        wholeView.addSubview(vStackView)
         
         wholeView.centerX(inView: self)
         wholeView.anchor(top: self.topAnchor, bottom: self.bottomAnchor, paddingTop: 5, paddingBottom: 5)
-        vStackView.centerY(inView: wholeView)
-        vStackView.anchor(left: wholeView.leftAnchor, right: wholeView.rightAnchor, paddingLeft: 27, paddingRight: 94)
         deleteButton.anchor(top: wholeView.topAnchor, right: wholeView.rightAnchor, paddingTop: 12, paddingRight: 16)
-
+        vStackView.centerY(inView: wholeView)
+        vStackView.anchor(left: wholeView.leftAnchor, right: deleteButton.leftAnchor, paddingLeft: 27)
+            
+        deleteButton.addTarget(self, action: #selector(deleteaaa), for: .touchUpInside)
+        
+    }
+        
+    @objc func deleteaaa() {
+        alarmCellDelegate?.didTapDeleteButton()
     }
     
     // MARK: - Helpers
     // 설정, 데이터처리 등 액션 외의 메서드를 정의
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        alarmCellDelegate = nil
+    }
+}
+
+// 알람 삭제 프로토콜
+protocol AlarmCellDelegate: AnyObject {
+    func didTapDeleteButton()
 }
