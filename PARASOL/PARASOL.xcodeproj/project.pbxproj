@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0913631F2A80F13E0028669A /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0913631E2A80F13E0028669A /* mapMarker.swift */; };
+		091D7BAE2AFE517A0012C610 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D7BAD2AFE517A0012C610 /* Protocols.swift */; };
 		091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */; };
 		092037332A810022003FA716 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092037322A810022003FA716 /* TextField.swift */; };
 		093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */; };
@@ -103,6 +104,7 @@
 
 /* Begin PBXFileReference section */
 		0913631E2A80F13E0028669A /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapMarker.swift; sourceTree = "<group>"; };
+		091D7BAD2AFE517A0012C610 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agreement1VC.swift; sourceTree = "<group>"; };
 		092037322A810022003FA716 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerStoreVC.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				0913631E2A80F13E0028669A /* mapMarker.swift */,
 				093E1BE32A8D1D970035E443 /* QRCodeView.swift */,
 				093E1BEB2A9498FA0035E443 /* QRReaderView.swift */,
+				091D7BAD2AFE517A0012C610 /* Protocols.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
 				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
 				09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */,
+				091D7BAE2AFE517A0012C610 /* Protocols.swift in Sources */,
 				093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */,
 				09D04EC22A80D1E0002F73A9 /* testVC.swift in Sources */,
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,

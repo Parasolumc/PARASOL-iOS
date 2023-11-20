@@ -112,28 +112,16 @@ class AlarmVC: UIViewController {
             case "성공":
                 print("테이블 데이터 세팅")
                 alarmTableView.reloadData()
+                if alarmList.isEmpty {
+                    noneLabel.text = "알림이 없습니다."
+                } else {
+                    noneLabel.text = ""
+                }
             case "실패":
                 print("테이블 데이터 세팅 실패")
             default:
                 print("테이블 데이터 세팅 시")
             }
-        }
-    }
-    
-    func deleteAlarm(selectedAlarmId: Int) {
-        AlarmManager.shared.deleteAlarm(alarmId: selectedAlarmId) { [self] result in
-            switch result {
-            case .success(let data):
-                if data == true {
-                    print("알람 삭제 성공")
-                    setTableViewData()
-                } else if data == false {
-                    print("알람 삭제 실패")
-                }
-            case .failure(let error):
-                print("알람 삭제 에러\n\(error)")
-            }
-            
         }
     }
     
@@ -155,7 +143,11 @@ extension AlarmVC: UITableViewDataSource {
             cell.nameLabel.text = alarmList[indexPath.row].shopName
             cell.contentLabel.text = alarmList[indexPath.row].content
             cell.timeLabel.text = changeDateFormat(alarmList[indexPath.row].sentTime)
+            cell.deleteAlarmId = alarmList[indexPath.row].id
         }
+        
+//        cell.selectionStyle = .none // 셀 선택 안되게 막기
+        cell.alarmCellDelegate = self
         
         return cell
     }
@@ -169,5 +161,12 @@ extension AlarmVC: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension AlarmVC: AlarmCellDelegate {
+    // MARK: - setting delete Alarm method
+    func didTapDeleteButton() {
+        print("tab")
     }
 }
