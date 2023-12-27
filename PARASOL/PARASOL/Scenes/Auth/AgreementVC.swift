@@ -12,7 +12,7 @@ class AgreementVC : UIViewController {
     // MARK: - Properties
     // 변수 및 상수, IBOutlet
     
-    var agree = "UserOwner"
+    var agree = ""
     var isAllAgreed = false
     
     // 화면 사이즈
@@ -423,6 +423,8 @@ class AgreementVC : UIViewController {
         FirstCheckBoxBtn.addTarget(self, action: #selector(agreementButtonTapped), for: .touchUpInside)
         SecondCheckBoxBtn.addTarget(self, action: #selector(agreementButtonTapped), for: .touchUpInside)
         ThirdCheckBoxBtn.addTarget(self, action: #selector(agreementButtonTapped), for: .touchUpInside)
+        
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -467,38 +469,39 @@ class AgreementVC : UIViewController {
         FinalFinalStackView.anchor(top: allAgreeView.bottomAnchor, left: view.leftAnchor, bottom: nextButton.topAnchor, right: view.rightAnchor, paddingTop: 43, paddingLeft: 24, paddingBottom: 350, paddingRight: 24)
         nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
         
-        nextButton.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: AgreementVC.self, action: #selector(goToJoinVC))
-        nextButton.addGestureRecognizer(tapGesture)
+//        nextButton.isUserInteractionEnabled = true
+//        let tapGesture = UITapGestureRecognizer(target: AgreementVC.self, action: #selector(goToJoinVC))
+//        nextButton.addGestureRecognizer(tapGesture)
     }
     
-    @objc func goToJoinVC() {
+    @objc func nextButtonTapped() {
         let userJoinVC = UserJoinVC()
         let ownerJoinVC = OwnerJoinVC()
-        
-        if self.agree == "User" {
+
+        if agree == "User" {
             userJoinVC.join = "UserJoin"
             userJoinVC.userType = "User" // 사용자 유형 전달
-            self.navigationController?.pushViewController(userJoinVC, animated: true)
-        } else if self.agree == "Owner" {
+            navigationController?.pushViewController(userJoinVC, animated: true)
+        } else if agree == "Owner" {
             ownerJoinVC.join = "OwnerJoin"
             ownerJoinVC.userType = "Owner" // 사용자 유형 전달
-            self.navigationController?.pushViewController(ownerJoinVC, animated: true)
+            navigationController?.pushViewController(ownerJoinVC, animated: true)
         }
     }
     
-//    @objc func test() {
-//        print("버튼 눌림")
-//    }
-//    
-//    func nextbuttonActions() {
-//        let goToUserJoinVCAction = UIAction {[weak self] _ in
-//            guard let self = self else { return }
-//            let userjoinVC = UserJoinVC()
-//            self.navigationController?.pushViewController(userjoinVC, animated: true)
-//        }
+//    @objc func goToJoinVC() {
+//        let userJoinVC = UserJoinVC()
+//        let ownerJoinVC = OwnerJoinVC()
 //        
-//        nextButton
+//        if self.agree == "User" {
+//            userJoinVC.join = "UserJoin"
+//            userJoinVC.userType = "User" // 사용자 유형 전달
+//            self.navigationController?.pushViewController(userJoinVC, animated: true)
+//        } else if self.agree == "Owner" {
+//            ownerJoinVC.join = "OwnerJoin"
+//            ownerJoinVC.userType = "Owner" // 사용자 유형 전달
+//            self.navigationController?.pushViewController(ownerJoinVC, animated: true)
+//        }
 //    }
     
     // 약관별 더보기 버튼 (>)
