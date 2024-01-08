@@ -411,8 +411,8 @@ class StoreInfoVC: UIViewController {
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
         
-        umbrellaHStackView.anchor(top: picsScrollView.bottomAnchor, paddingTop: 23)
-        umbrellaHStackView.centerX(inView: view)
+        umbrellaHStackView.anchor(top: separatorLineView2.bottomAnchor, left: view.leftAnchor, paddingTop: 232, paddingLeft: 24)
+        
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 22)
         buttonHStackView.centerX(inView: view)
  
@@ -445,13 +445,12 @@ class StoreInfoVC: UIViewController {
         separatorLineView.anchor(top: vStackView.bottomAnchor, paddingTop: 8)
         separatorLineView.centerX(inView: view)
         
-        introduceLabel.anchor(top: separatorLineView.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 25)
+        introduceLabel.anchor(top: separatorLineView.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
         
         separatorLineView2.anchor(top: introduceLabel.bottomAnchor, paddingTop: 18)
         separatorLineView2.centerX(inView: view)
         
-        umbrellaHStackView.anchor(top: separatorLineView2.bottomAnchor, paddingTop: 232)
-        umbrellaHStackView.centerX(inView: view)
+        umbrellaHStackView.anchor(top: separatorLineView2.bottomAnchor, left: view.leftAnchor, paddingTop: 232, paddingLeft: 24)
         
         buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 22)
         buttonHStackView.centerX(inView: view)
