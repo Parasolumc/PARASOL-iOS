@@ -208,10 +208,10 @@ class SumStoreInfoVC: UIViewController {
     lazy var rentalButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("대여", for: .normal)
+        button.setTitle("대여하기", for: .normal)
         button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
+        button.setDimensions(height: 54, width: (screenWidth-58)/2)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
         
@@ -234,10 +234,10 @@ class SumStoreInfoVC: UIViewController {
     lazy var returnButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("반납", for: .normal)
+        button.setTitle("반납하기", for: .normal)
         button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
+        button.setDimensions(height: 54, width: (screenWidth-58)/2)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
         
@@ -264,7 +264,7 @@ class SumStoreInfoVC: UIViewController {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.spacing = 31
+        stackView.spacing = 8
 
         return stackView
     }()
@@ -306,7 +306,7 @@ class SumStoreInfoVC: UIViewController {
             if #available(iOS 16.0, *) {
                 sheetPresentationController.detents = [
                     .custom { _ in
-                        return 284
+                        return 294
                     }
                 ]
                 configureUI()
@@ -341,8 +341,10 @@ class SumStoreInfoVC: UIViewController {
         introView.addSubview(findLoadButton)
         
 
-        introView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-        vStackView3.anchor(top: introView.topAnchor, paddingTop: 37)
+        introView.anchor(left: view.leftAnchor, right: view.rightAnchor)
+        introView.centerY(inView: view)
+        
+        vStackView3.centerY(inView: introView)
         vStackView3.centerX(inView: introView)
         findLoadButton.anchor(top: vStackView3.topAnchor, right: vStackView3.rightAnchor)
         
@@ -360,7 +362,9 @@ class SumStoreInfoVC: UIViewController {
         introView.addSubview(findLoadButton)
         
 
-        introView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        introView.anchor(left: view.leftAnchor, right: view.rightAnchor)
+        introView.centerY(inView: view)
+        
         vStackView3.centerY(inView: introView)
         vStackView3.centerX(inView: introView)
         findLoadButton.anchor(top: vStackView3.topAnchor, right: vStackView3.rightAnchor)
