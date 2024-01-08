@@ -33,6 +33,7 @@ extension UIFont {
     static let SB20 = UIFont(name: BasicFont.semibold.rawValue, size: 20)
     static let SB22 = UIFont(name: BasicFont.semibold.rawValue, size: 22)
     // medium(width:500)
+    static let M12 = UIFont(name: BasicFont.medium.rawValue, size: 12)
     static let M14 = UIFont(name: BasicFont.medium.rawValue, size: 14)
     static let M16 = UIFont(name: BasicFont.medium.rawValue, size: 16)
     static let M18 = UIFont(name: BasicFont.medium.rawValue, size: 18)
