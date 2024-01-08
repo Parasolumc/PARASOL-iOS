@@ -57,6 +57,7 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         textfield.textAlignment = .left
         textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         textfield.borderStyle = .none
+        textfield.autocapitalizationType = .none
         
         return textfield
     }()
@@ -110,6 +111,8 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         textfield.textAlignment = .left
         textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         textfield.borderStyle = .none
+        textfield.isSecureTextEntry = true
+        textfield.autocapitalizationType = .none
         
         return textfield
     }()
@@ -163,6 +166,8 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         textfield.textAlignment = .left
         textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         textfield.borderStyle = .none
+        textfield.isSecureTextEntry = true
+        textfield.autocapitalizationType = .none
         
         return textfield
     }()
@@ -216,6 +221,7 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         textfield.textAlignment = .left
         textfield.font = UIFont(name: "Pretendard-Regular", size: 14)
         textfield.borderStyle = .none
+        textfield.autocapitalizationType = .none
         
         return textfield
     }()
@@ -228,24 +234,14 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         return view
     }()
     
-    let nameCheckLabel : UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 9)
-        label.textAlignment = .left
-        label.setDimensions(height: 11, width: 342)
-        
-        return label
-    }()
-    
     lazy var nameStackView : UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.nameLabel, self.nameTextField, self.nameLineView, self.nameCheckLabel])
+        let stackview = UIStackView(arrangedSubviews: [self.nameLabel, self.nameTextField, self.nameLineView])
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .vertical
         stackview.alignment = .leading
         stackview.distribution = .fillProportionally
         stackview.spacing = 13
-        stackview.setDimensions(height: 60, width: (screenWidth - 48))
+        stackview.setDimensions(height: 61, width: (screenWidth - 48))
         
         return stackview
     }()
@@ -317,7 +313,7 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
     }()
     
     lazy var phonenumStackView : UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.phonenumStackView, self.AuthRequestButton])
+        let stackview = UIStackView(arrangedSubviews: [self.phonenumTextField, self.AuthRequestButton])
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .horizontal
         stackview.alignment = .center
@@ -399,7 +395,7 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
     }()
     
     lazy var authnumStackView: UIStackView = {
-        let stackview = UIStackView()
+        let stackview = UIStackView(arrangedSubviews: [self.authnumTextField, self.StackView])
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .horizontal
         stackview.alignment = .center
@@ -456,22 +452,15 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    lazy var nextButton : UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 390).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 72).isActive = true
-        view.layer.cornerRadius = 0
-        view.backgroundColor = UIColor(named: "main")
-        view.addSubview(nextLabel)
-        nextLabel.centerX(inView: view)
-        nextLabel.centerY(inView: view)
+    let nextButton : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("완료", for: .normal)
+        btn.setTitleColor(UIColor(named: "black"), for: .normal)
+        btn.setDimensions(height: 72, width: 390)
+        btn.backgroundColor = UIColor(named: "gray00")
+        btn.clipsToBounds = true
         
-        view.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(nextButtonTapped))
-        view.addGestureRecognizer(tapGesture)
-        
-        return view
+        return btn
     }()
     
     // MARK: - LifeCycle
@@ -480,12 +469,15 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         configureUI()
         setNavigationBar()
+        nextButtonActivated()
         postData()
         
         emailTextField.delegate = self
         pwTextField.delegate = self
         pwcheckTextField.delegate = self
         nameTextField.delegate = self
+        
+        nextButton.addTarget(self, action: #selector(goToLoginVC), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -499,11 +491,6 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         view.addSubview(joinLabel)
         view.addSubview(joinStackView)
         view.addSubview(nextButton)
-        
-        self.emailTextField.autocapitalizationType = .none
-        self.pwTextField.autocapitalizationType = .none
-        self.pwcheckTextField.autocapitalizationType = .none
-        self.nameTextField.autocapitalizationType = .none
         
         joinLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -542,40 +529,23 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 390, height: 72)
     }
     
+    // 화면 이동
     @objc func goToLoginVC() {
-        let root = LoginVC()
-        let vc = UINavigationController(rootViewController: root)
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: false)
+        let loginVC = LoginVC()
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     
-    @objc func nextButtonTapped() {
-        
-        guard let email = emailTextField.text,
-              let password = pwTextField.text,
-              let confirmpassword = pwcheckTextField.text,
-              let name = nameTextField.text else {
-            
-            displayAlert(message: "Please fill in all fields.")
-            return
-        }
-        
-        if email.isEmpty || password.isEmpty || confirmpassword.isEmpty || name.isEmpty {
-            displayAlert(message: "Please fill in all fields.")
-            return
-        }
-        
-        if !isValidEmail(email) {
-            displayAlert(message: "Invalid email address.")
-            return
-        }
-        
-        if !isValidPassword(password) {
-            displayAlert(message: "Invalid password.")
-        }
-        
-        if password != confirmpassword {
-            displayAlert(message: "Passwords do not match.")
-            return
+    func nextButtonActivated() {
+        // 모든 항목이 선택되어야 다음 버튼이 활성화됩니다.
+        if let email = emailTextField.text, !email.isEmpty,
+           let password = pwTextField.text, !password.isEmpty,
+           let confirmPassword = pwcheckTextField.text, !confirmPassword.isEmpty,
+           let name = nameTextField.text, !name.isEmpty {
+            nextButton.isEnabled = true
+            nextButton.backgroundColor = UIColor(named: "main")
+        } else {
+            nextButton.isEnabled = false
+            nextButton.backgroundColor = UIColor(named: "gray00")
         }
     }
     
@@ -591,29 +561,60 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
         return passwordPredicate.evaluate(with: password)
     }
     
-    func displayAlert(message: String) {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func updateAuthButton() {
-        if isAuthButtonEnabled {
-            // authButton 활성화
-            AuthRequestButton.alpha = 1.0
-            AuthRequestButton.isUserInteractionEnabled = true
-        } else {
-            // authButton 비활성화
-            AuthRequestButton.alpha = 0.5
-            AuthRequestButton.isUserInteractionEnabled = false
-            AuthRequestButton.backgroundColor = UIColor(named: "gray00")
+    // Textfield 변화에 따라 형식검사 문구 변경
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == emailTextField {
+            validateEmail()
+        } else if textField == pwTextField {
+            validatePassword()
+        } else if textField == pwcheckTextField {
+            validatePasswordConfirmation()
+        } else if textField == authnumTextField {
+            nextButtonActivated()
         }
     }
     
+    func validateEmail() {
+        if let email = emailTextField.text {
+            if isValidEmail(email) {
+                emailCheckLabel.text = "사용 가능한 이메일입니다"
+                emailCheckLabel.textColor = UIColor(named: "green")
+            } else {
+                emailCheckLabel.text = "사용 불가능한 이메일입니다"
+                emailCheckLabel.textColor = .red
+            }
+        }
+    }
+    
+    func validatePassword() {
+        if let password = pwTextField.text {
+            if isValidPassword(password) {
+                pwCheckLabel.text = "사용 가능한 비밀번호입니다"
+                pwCheckLabel.textColor = UIColor(named: "green")
+            } else {
+                pwCheckLabel.text = "사용 불가능한 비밀번호입니다"
+                pwCheckLabel.textColor = .red
+            }
+        }
+    }
+    
+    func validatePasswordConfirmation() {
+        if let password = pwTextField.text, let confirmPassword = pwcheckTextField.text {
+            if password == confirmPassword {
+                pwcheckCheckLabel.text = "비밀번호가 일치합니다"
+                pwcheckCheckLabel.textColor = UIColor(named: "green")
+            } else {
+                pwcheckCheckLabel.text = "비밀번호가 일치하지 않습니다"
+                pwcheckCheckLabel.textColor = .red
+            }
+        }
+    }
     
     // MARK: - Helpers
     
     func postData() {
+        let phonenum = phonenumTextField.text ?? ""
+        
         let userNickname : UserJoinModel = UserJoinModel(nickname: "joo", email: "joo@gmail.com", password: "1234")
         AuthManager.shared.userJoin(userJoinData: userNickname) { result in
             switch result {
@@ -627,7 +628,7 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
             }
         }
         
-        let verify: VerifyModel = VerifyModel(name: "", email: "", phoneNumber: "")
+        let verify: VerifyModel = VerifyModel(name: "", email: "", phoneNumber: phonenum)
         AuthManager.shared.verify(verifyData: verify) { result in
             switch result {
             case .success(let data) :
@@ -639,7 +640,9 @@ class UserJoinVC : UIViewController, UITextFieldDelegate {
             }
         }
         
-        let verifyCheck: VerifyCheckModel = VerifyCheckModel(code: "201023", phoneNumber: "010-1234-1234")
+        let verificationCode = authnumTextField.text ?? ""
+        
+        let verifyCheck: VerifyCheckModel = VerifyCheckModel(code: verificationCode, phoneNumber: phonenum)
         AuthManager.shared.verifyCheck(verifyCheckData: verifyCheck) { result in
             switch result {
             case .success(let data) :
