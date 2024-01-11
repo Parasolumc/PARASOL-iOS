@@ -262,8 +262,18 @@ class LoginVC: UIViewController {
     }()
     
     // MARK: - Lifecycle
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+           if (UIApplication.shared.delegate as? AppDelegate)?.isLogin == true {
+               self.goToHome(at: UserDefaults.standard.value(forKey: "role") as! String)
+           } else {
+           }
+       }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureUI()
         buttonActionUI()
         

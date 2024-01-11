@@ -17,7 +17,8 @@ import FirebaseMessaging
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    // Validate refresh token
+    lazy var isLogin:Bool = false // isLogin == false => 첫화면이 로그인 화면
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -47,6 +48,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         application.registerForRemoteNotifications()
+        
+        
+        // Validate refresh token
+        let accessToken:String? = UserDefaults.standard.string(forKey: "accessToken")
+        
+        if accessToken != nil {
+            let refreshToken:String = UserDefaults.standard.string(forKey: "refreshToken")!
+            AuthManager.shared.refreshToken(refreshTokenData: RefreshTokenModel(refreshToken: refreshToken)) { [self] result in
+                switch result {
+                case .success(let message):
+                    if message == "success"{
+                        print("refreshToken 유효성 검사 성공!\n결과 : 유효하다.")
+                        isLogin = true
+                        print("isLogin = true")
+                    } else {
+                        print("refreshToken 유효성 검사 성공!\n결과 : 유효하지않다.")
+                        isLogin = false
+                        print("isLogin = false")
+                    }
+                case .failure(_):
+                    print("refreshToken 유효성 검사 실패")
+                    isLogin = false
+                    print("isLogin = false")
+                }
+            }
+        } else {
+            isLogin = false
+            print("isLogin = false")
+        }
         
         return true
     }
