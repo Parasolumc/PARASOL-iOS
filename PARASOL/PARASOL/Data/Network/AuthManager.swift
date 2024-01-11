@@ -65,12 +65,21 @@ class AuthManager {
         }
     }
     
-    func refreshToken(refreshTokenData: RefreshTokenModel, completion: @escaping (Result<[String : Any], Error>) -> Void) {
+    func refreshToken(refreshTokenData: RefreshTokenModel, completion: @escaping (Result<String, Error>) -> Void) {
         provider.request(.refreshToken(param: refreshTokenData)) { result in
             switch result {
             case .success(let data) :
                 if let json = try? JSONSerialization.jsonObject(with: data.data, options: []) as? [String : Any] {
-                    completion(.success(json))
+                    if json["check"] as? Bool == true {
+                        completion(.success("success"))
+                        // MARK: - UserDefaults에 token 갱신
+                        let tokens: [String : Any] = json["information"] as? [String : Any] ?? ["accessToken": "", "refreshToken": ""]
+                        UserDefaults.standard.set(tokens["accessToken"], forKey: "accessToken")
+                        UserDefaults.standard.set(tokens["refreshToken"], forKey: "refreshToken")
+                        completion(.success("success"))
+                    } else {
+                        completion(.success("fail"))
+                    }
                 }
             case .failure(let Error) :
                 completion(.failure(Error))
