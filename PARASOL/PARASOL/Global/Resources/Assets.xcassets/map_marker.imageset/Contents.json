@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "ic_umbrella.svg",
-      "idiom" : "universal"
+      "filename" : "ic_umbrella1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ic_umbrella2.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ic_umbrella3.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
