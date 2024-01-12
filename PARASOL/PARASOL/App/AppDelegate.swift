@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 키보드 설정
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.resignOnTouchOutside = true
         
         // Firebase 설정
         FirebaseApp.configure()
