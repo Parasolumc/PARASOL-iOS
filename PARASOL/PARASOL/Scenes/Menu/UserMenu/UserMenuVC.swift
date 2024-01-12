@@ -2,7 +2,7 @@
 //  UserMenuVC.swift
 //  PARASOL
 //
-//  Created by Jini on 2023/07/29.
+//  Created by Jini on 2023/11/22.
 //
 
 import UIKit
@@ -13,16 +13,17 @@ class UserMenuVC: UIViewController {
     var rentalRecords: [RentalRecordInformation] = []
     
     var state: String = ""
-    var start: String = ""
+    var startLo: String = ""
+    var startTime: String = ""
     var end: String = ""
     var hours: Int = 0
+    var numberOfRecordsToShow = 4
     
     lazy var titleStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [self.titleLabel, self.umbrellaImageView])
         stackview.axis = .horizontal
         stackview.spacing = 8
         stackview.alignment = .center
-        
         return stackview
     }()
     
@@ -42,61 +43,27 @@ class UserMenuVC: UIViewController {
         return imageview
     }()
     
-    
-    let info: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "light")
-        view.layer.cornerRadius = 30
-        view.setDimensions(height: 272, width: 342)
-        
-        return view
-    }()
-    
-    lazy var statelabel: UILabel = {
+    let rentalLabel: UILabel = {
         let label = UILabel()
+        label.text = "우산을 빌리러 갈까요?"
+        label.font = .SB20
         label.textColor = UIColor(named: "black")
-
-        if state == "USE" || state == "DELAY" {
-            let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
-            let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
-            let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
-            let time = start[rangeStartIndex ..< rangeEndIndex]
-            
-            label.text = "\(date) \(time) 에 빌렸어요"
-            label.font = .SB16
-        }
-        else { // 대여중이 아닌 상태
-            label.text = "아직 빌린 우산이 없어요!"
-            label.font = .SB16
-        }
         
         return label
     }()
     
-    lazy var freestatelabel: UILabel = {
-        let label = UILabel()
-        let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
-        let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
-        let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
-        let time = start[rangeStartIndex ..< rangeEndIndex]
-        
-        if let enddate = addOneDayToDate(date) {
-            label.text = "\(enddate) \(time) 까지 반납하면 무료!" //위의 date에서 1일 더하기
-        }
-        label.font = .SB16
-        label.textColor = UIColor(named: "blue")
-        
-        return label
-    }()
-    
-    lazy var rentalbutton: UIButton = {
+    lazy var rentalButton: UIButton = {
         let button = UIButton()
         button.setTitle("바로 대여하러 가기", for: .normal)
         button.backgroundColor = UIColor(named: "main")
         button.layer.cornerRadius = 20
-        button.setDimensions(height: 45, width: 242)
+        button.setDimensions(height: 50, width: 242)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .SB16
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        button.layer.shadowOpacity = 0.4
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 6
         
         let goToUserVCAction = UIAction { _ in
             let vc = UserTabBarVC()
@@ -108,210 +75,84 @@ class UserMenuVC: UIViewController {
         return button
     }()
     
-    let warninglabel: UILabel = {
+    let rentalStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "24시간동안 우산 무료로 대여되며, 초과시 1시간당 \n100원의 연체료가 부과됩니다."
-        label.font = .SB12
-        label.textColor = UIColor(named: "red")
-        label.numberOfLines = 0
-        
-        return label
-    }()
-    
-    lazy var excesstimeStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.label1, self.timeStackView])
-        stackview.axis = .vertical
-        stackview.spacing = 20
-        stackview.alignment = .center
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackview
-    }()
-    
-    let label1: UILabel = {
-        let label = UILabel()
-        label.text = "초과시간"
-        label.font = .B16
+        label.text = "대여중"
+        label.font = .B20
         label.textColor = UIColor(named: "black")
         
         return label
     }()
     
-    lazy var timeStackView: UIStackView = { //초록
-        let stackView = UIStackView(arrangedSubviews: [self.timeImageView, self.timeLabel])
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    let timeImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "clock"))
-        
-        return imageView
-    }()
-    
-    lazy var timeLabel: UILabel = {
+    let startLoLabel: UILabel = {
         let label = UILabel()
-        let date = String(start.prefix(10)).replacingOccurrences(of: "-", with: "/")
-        let rangeStartIndex = start.index(start.startIndex, offsetBy: 11)
-        let rangeEndIndex = start.index(start.startIndex, offsetBy: 16)
-        let time = start[rangeStartIndex ..< rangeEndIndex]
-        let datetime = "\(date) \(time)"
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-        if let timeDate = dateFormatter.date(from: String(datetime)) {
-            let currentTime = Date()
-
-            // 두 시간 사이의 차이 계산
-            let calendar = Calendar.current
-            print("현재시간: \(currentTime)")
-            let components = calendar.dateComponents([.hour], from: timeDate, to: currentTime)
-            if let calculatedHours = components.hour {
-                // 시간 차이
-                label.text = "\(calculatedHours)시간"
-                self.hours = calculatedHours
-                print(currentTime)
-                print(timeDate)
-            }
-        } else {
-            print("시간 변환 오류")
-        }
-        
-        label.font = .SB20
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    lazy var feeStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [self.label2, self.moneyStackView])
-        stackview.axis = .vertical
-        stackview.spacing = 20
-        stackview.alignment = .center
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackview
-    }()
-    
-    let label2: UILabel = {
-        let label = UILabel()
-        label.text = "연체료"
-        label.font = .B16
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    lazy var moneyStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.moneyImageView, self.moneylabel])
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    let moneyImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "money"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
-    lazy var moneylabel: UILabel = {
-        let label = UILabel()
-        let money = self.hours * 100
-        label.text = "\(money)원"
-        label.font = .SB20
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    lazy var stateStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.excesstimeStackView, self.feeStackView])
-        stackView.axis = .horizontal
-        stackView.spacing = 50
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackView.distribution = .fillEqually
-        
-        return stackView
-    }()
-    
-    lazy var sellbutton: UIButton = {
-        let button = UIButton()
-        button.setTitle("안 쓰는 우산 판매하기", for: .normal)
-        button.backgroundColor = UIColor(named: "main")
-        button.layer.cornerRadius = 20
-        button.setDimensions(height: 45, width: 342)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .SB16
-        
-        let goToSellVCAction = UIAction { _ in
-            let rentalVC = Rental_ReturnVC()
-            rentalVC.nowFun = "Sell"
-            self.navigationController?.pushViewController(rentalVC, animated: true)
-            }
-            
-        button.addAction(goToSellVCAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var soldbutton: UIButton = {
-        let button = UIButton()
-        button.setTitle("내가 판매한 우산", for: .normal)
-        button.backgroundColor = UIColor(named: "main")
-        button.layer.cornerRadius = 20
-        button.setDimensions(height: 45, width: 342)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .SB16
-        
-        let goTosoldVCAction = UIAction { _ in
-            let soldVC = SoldVC()
-            self.navigationController?.pushViewController(soldVC, animated: true)
-        }
-        
-        button.addAction(goTosoldVCAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    let manageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "관리"
-        label.font = .M16
+        label.text = "대여 매장"
+        label.font = .R15
         label.textColor = UIColor(named: "gray22")
         
         return label
     }()
     
-    lazy var payLabel: UIButton = {
-        let button = UIButton()
-        button.setTitle("연체료 결제", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
+    let startLoNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "매장 이름"
+        label.font = .SB18
+        label.textColor = UIColor(named: "black")
         
-        let goTopaywayVCAction = UIAction { _ in
-            let paywayVC = PaywayVC()
-            paywayVC.money = self.moneylabel.text ?? ""
-            self.navigationController?.pushViewController(paywayVC, animated: true)
-        }
-        
-        button.addAction(goTopaywayVCAction, for: .touchUpInside)
-        
-        return button
+        return label
     }()
     
-    lazy var rentalLabel: UIButton = {
+    let startTimeTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "대여 시작 시간"
+        label.font = .R15
+        label.textColor = UIColor(named: "gray22")
+        
+        return label
+    }()
+    
+    let startTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "시작 시각"
+        label.font = .SB18
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    let recordView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "white")
+        view.layer.cornerRadius = 30
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        return view
+    }()
+    
+    let recordtitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "나의 우산 대여 기록"
+        label.font = .SB18
+        label.textColor = UIColor(named: "black")
+        
+        return label
+    }()
+    
+    lazy var viewStackView: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [self.recordButton, self.arrowImage])
+        stackview.axis = .horizontal
+        stackview.spacing = 0
+        stackview.alignment = .center
+        
+        return stackview
+    }()
+    
+    lazy var recordButton: UIButton = {
         let button = UIButton()
-        button.setTitle("대여기록", for: .normal)
-        button.titleLabel?.font = .SB18
-        button.setTitleColor(.black, for: .normal)
-        button.contentHorizontalAlignment = .left
+        button.setTitle("전체보기", for: .normal)
+        button.layer.cornerRadius = 20
+        button.setTitleColor(UIColor(named: "gray22"), for: .normal)
+        button.titleLabel?.font = .B16
         
         let goTorecordVCAction = UIAction { _ in
             let recordVC = RecordVC()
@@ -321,6 +162,28 @@ class UserMenuVC: UIViewController {
         button.addAction(goTorecordVCAction, for: .touchUpInside)
         
         return button
+    }()
+    
+    lazy var arrowImage: UIImageView = {
+        let imageview = UIImageView(image: UIImage(named: "arrow_gray"))
+        imageview.setDimensions(height: 20, width: 20)
+        
+        return imageview
+    }()
+    
+    lazy var RentalrecordStackview: UIStackView = {
+        let stackview = UIStackView(arrangedSubviews: [])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.axis = .vertical
+        stackview.spacing = 10
+        
+        return stackview
+    }()
+    
+    var contentView: UIView = {
+        let view = UIView()
+       
+        return view
     }()
 
     override func viewDidLoad() {
@@ -332,57 +195,215 @@ class UserMenuVC: UIViewController {
     
     // UI 설정들 관련 method
     func configureUI() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor(named: "light")
         
         view.addSubview(titleStackView)
-        view.addSubview(info)
-
-        view.addSubview(sellbutton)
-        view.addSubview(soldbutton)
-        view.addSubview(manageLabel)
-        view.addSubview(payLabel)
-        view.addSubview(rentalLabel)
+        view.addSubview(recordView)
+        
+        recordView.addSubview(recordtitleLabel)
+        recordView.addSubview(viewStackView)
+        recordView.addSubview(contentView)
         
         titleStackView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 75, paddingLeft: 24)
+        recordView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 235)
         
-        info.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 15, paddingLeft: 24, paddingRight: 24)
+        recordtitleLabel.anchor(top: recordView.topAnchor, left: recordView.leftAnchor, paddingTop: 35, paddingLeft: 24)
+        viewStackView.anchor(top: recordView.topAnchor, right: recordView.rightAnchor, paddingTop: 30, paddingRight: 24)
+        contentView.anchor(top: recordView.topAnchor, left: recordView.leftAnchor, right: recordView.rightAnchor, paddingTop: 30, paddingLeft: 24, paddingRight: 24)
         
-        sellbutton.anchor(top: info.bottomAnchor, left: view.leftAnchor, paddingTop: 15, paddingLeft: 24)
-        soldbutton.anchor(top: sellbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 10, paddingLeft: 24)
+    }
+    
+    func createRecordStackview(date: String, location: String, state: String, timeDifference: Int) -> UIView {
+        let dateLabel = UILabel()
         
-        sellbutton.centerX(inView: view)
-        soldbutton.centerX(inView: view)
-        manageLabel.anchor(top: soldbutton.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 24)
-        payLabel.anchor(top: manageLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 24, paddingRight: 24)
-        rentalLabel.anchor(top: payLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, paddingLeft: 24, paddingRight: 24)
+        let maxDisplayLength = 10 // 최대 표시 길이
+        if date.count > maxDisplayLength {
+            let truncatedText = date.prefix(maxDisplayLength) // 초과하는 부분 생략
+            dateLabel.text = String(transDateString1(dateString: String(truncatedText)))
+        } else {
+            dateLabel.text = date
+        }
+        dateLabel.font = .R16
+        dateLabel.textColor = UIColor(named: "blackact")
         
+        let umbrellaImage = UIImageView(image: UIImage(named: "umbrella_blue"))
+        umbrellaImage.setDimensions(height: 28, width: 28)
+
+        let locationLabel = UILabel()
+        locationLabel.text = location
+        locationLabel.font = .R16
+        locationLabel.textColor = UIColor(named: "blackact_opacity")
+        
+        let clockImage = UIImageView(image: UIImage(named: "clock"))
+        clockImage.setDimensions(height: 19, width: 19)
+        
+        let stateLabel = UILabel()
+        if state == "USE" {
+            stateLabel.text = "대여중"
+        } else if state == "CLEAR" {
+            stateLabel.text = "\(timeDifference)시간 이용"
+        }
+        stateLabel.font = .M16
+        stateLabel.textColor = UIColor(named: "black")
+        
+        let dlStackview = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
+        dlStackview.axis = .vertical
+        dlStackview.alignment = .leading
+        dlStackview.spacing = 5
+        
+        let recordStackview = UIStackView(arrangedSubviews: [dlStackview])
+        recordStackview.axis = .horizontal
+        recordStackview.alignment = .leading
+        recordStackview.distribution = .fill
+        recordStackview.spacing = 5
+        
+        let paddingContainerView = UIView()
+        paddingContainerView.addSubview(recordStackview)
+        paddingContainerView.addSubview(umbrellaImage)
+        paddingContainerView.addSubview(clockImage)
+        paddingContainerView.addSubview(stateLabel)
+        paddingContainerView.backgroundColor = .clear
+        
+        umbrellaImage.anchor(top: paddingContainerView.topAnchor, left: paddingContainerView.leftAnchor, paddingTop: 15, paddingLeft: 8)
+        
+        recordStackview.translatesAutoresizingMaskIntoConstraints = false
+        umbrellaImage.translatesAutoresizingMaskIntoConstraints = false
+        clockImage.translatesAutoresizingMaskIntoConstraints = false
+        stateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            umbrellaImage.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 15),
+            umbrellaImage.leadingAnchor.constraint(equalTo: paddingContainerView.leadingAnchor, constant: 8),
+            umbrellaImage.widthAnchor.constraint(equalToConstant: 28),
+            umbrellaImage.heightAnchor.constraint(equalToConstant: 28),
+            
+            recordStackview.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            recordStackview.leadingAnchor.constraint(equalTo: umbrellaImage.trailingAnchor, constant: 15),
+            recordStackview.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -140),
+            recordStackview.bottomAnchor.constraint(equalTo: paddingContainerView.bottomAnchor, constant: -8),
+
+            clockImage.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            clockImage.leadingAnchor.constraint(equalTo: recordStackview.trailingAnchor, constant: 20),
+            clockImage.widthAnchor.constraint(equalToConstant: 19),
+            clockImage.heightAnchor.constraint(equalToConstant: 19),
+
+            stateLabel.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            stateLabel.leadingAnchor.constraint(equalTo: clockImage.trailingAnchor, constant: 5),
+            stateLabel.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -15),
+        ])
+        
+        let containerView = UIView()
+        containerView.addSubview(paddingContainerView)
+        containerView.backgroundColor = UIColor(named: "light_opacity")
+        containerView.setDimensions(height: 76, width: 342)
+        containerView.layer.cornerRadius = 20
+        
+        
+        paddingContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            paddingContainerView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            paddingContainerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            paddingContainerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            paddingContainerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
+        ])
+        
+        return containerView
+    }
+    
+    func transDateString1(dateString: String) -> String {
+        // DateFormatter를 사용하여 날짜 문자열을 Date로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: dateString) {
+            // Date를 "yyyy년 MM월 dd일" 형식으로 변환
+            let displayFormatter = DateFormatter()
+            displayFormatter.dateFormat = "yyyy년 MM월 dd일"
+            let displayString = displayFormatter.string(from: date)
+
+            // Label에 표시
+            return displayString
+        } else {
+            return "null"
+        }
+    }
+    
+    func transDateString2(dateString: String) -> String {
+        // DateFormatter를 사용하여 날짜 문자열을 Date로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        if let date = dateFormatter.date(from: dateString) {
+            // Date를 "yyyy년 MM월 dd일" 형식으로 변환
+            let displayFormatter = DateFormatter()
+            displayFormatter.dateFormat = "yyyy년 MM월 dd일 HH:mm"
+            let displayString = displayFormatter.string(from: date)
+
+            // Label에 표시
+            return displayString
+        } else {
+            return "null"
+        }
+    }
+    
+    func calculateTimeGap(from startDate: String, to endDate: String) -> Int? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        if let startDate = dateFormatter.date(from: startDate),
+           let endDate = dateFormatter.date(from: endDate) {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour], from: startDate, to: endDate)
+            
+            if let calculatedHours = components.hour {
+                print(calculatedHours)
+                return calculatedHours
+            }
+        }
+        
+        return nil
     }
     
     func showView() {
         if state == "USE" || state == "DELAY" {
-            info.addSubview(statelabel)
-            info.addSubview(freestatelabel)
-            info.addSubview(warninglabel)
-            view.addSubview(stateStackView)
             
-            statelabel.anchor(top: info.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
+            view.addSubview(rentalStateLabel)
+            view.addSubview(startLoLabel)
+            view.addSubview(startLoNameLabel)
+            view.addSubview(startTimeTitleLabel)
+            view.addSubview(startTimeLabel)
             
-            freestatelabel.anchor(top: statelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
-            warninglabel.anchor(top: freestatelabel.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 60)
+            rentalStateLabel.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 40, paddingLeft: 24)
+            startLoLabel.anchor(top: rentalStateLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 23, paddingLeft: 24)
+            startLoNameLabel.anchor(top: startLoLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 3, paddingLeft: 24)
+            startTimeTitleLabel.anchor(top: startLoNameLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 23, paddingLeft: 24)
+            startTimeLabel.anchor(top: startTimeTitleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 3, paddingLeft: 24)
             
-            stateStackView.centerX(inView: info)
-            stateStackView.anchor(top: warninglabel.bottomAnchor, paddingTop: 40)
+            // Check if there is at least one rental record
+            if let firstRecord = rentalRecords.first {
+                let sdate = String(firstRecord.createdAt.prefix(10)).replacingOccurrences(of: "-", with: "/")
+                let srangeStartIndex = firstRecord.createdAt.index(firstRecord.createdAt.startIndex, offsetBy: 11)
+                let srangeEndIndex = firstRecord.createdAt.index(firstRecord.createdAt.startIndex, offsetBy: 16)
+                let stime = firstRecord.createdAt[srangeStartIndex ..< srangeEndIndex]
+                let sdatetime = "\(sdate) \(stime)"
+                
+                // Update labels with information from the first record
+                startLoNameLabel.text = firstRecord.fromShop
+                startTimeLabel.text = transDateString2(dateString: sdatetime)
+            }
+            
         }
         else {
-            info.addSubview(statelabel)
-            view.addSubview(rentalbutton)
+            view.addSubview(rentalLabel)
+            view.addSubview(rentalButton)
             
-            statelabel.anchor(top: info.topAnchor, paddingTop: 90)
-            statelabel.centerX(inView: info)
-            
-            rentalbutton.anchor(top: statelabel.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 84)
-            rentalbutton.centerX(inView: view)
+            rentalLabel.anchor(top: titleStackView.bottomAnchor, left: view.leftAnchor, right:view.rightAnchor, paddingTop: 51.5, paddingLeft: 107, paddingRight: 107)
+            rentalButton.anchor(top: rentalLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 74, paddingRight: 74)
         }
+        
+        recordView.addSubview(RentalrecordStackview)
+        
+        RentalrecordStackview.anchor(top: recordtitleLabel.bottomAnchor, left: view.leftAnchor, paddingTop: 24, paddingLeft: 24, paddingRight: 24)
+        RentalrecordStackview.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        
     }
     
     // 날짜에 1일 더하기
@@ -414,12 +435,12 @@ class UserMenuVC: UIViewController {
                                                                            clearedAt: rentalrecord.clearedAt,
                                                                            process: rentalrecord.process))
                 }
-                print(self.rentalRecords)
                 
                 for record in self.rentalRecords {
                     if record.process == "USE" {
                         self.state = "USE"
-                        self.start = record.createdAt
+                        self.startLo = record.fromShop
+                        self.startTime = record.createdAt
                         break
                     } else if record.process == "CLEAR" {
                         self.state = "CLEAR"
@@ -428,6 +449,7 @@ class UserMenuVC: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    self.updateUIWithRentalRecords()
                     self.showView()
                 }
                 
@@ -436,6 +458,37 @@ class UserMenuVC: UIViewController {
             }
         }
         
+    }
+    
+    func updateUIWithRentalRecords() {
+        var recordsAdded = 0
+        
+        for record in self.rentalRecords {
+            let sdate = String(record.createdAt.prefix(10)).replacingOccurrences(of: "-", with: "/")
+            let srangeStartIndex = record.createdAt.index(record.createdAt.startIndex, offsetBy: 11)
+            let srangeEndIndex = record.createdAt.index(record.createdAt.startIndex, offsetBy: 16)
+            let stime = record.createdAt[srangeStartIndex ..< srangeEndIndex]
+            let sdatetime = "\(sdate) \(stime)"
+            print(sdatetime)
+            
+            let edate = String(record.clearedAt.prefix(10)).replacingOccurrences(of: "-", with: "/")
+            let erangeStartIndex = record.clearedAt.index(record.clearedAt.startIndex, offsetBy: 11)
+            let erangeEndIndex = record.clearedAt.index(record.clearedAt.startIndex, offsetBy: 16)
+            let etime = record.clearedAt[erangeStartIndex ..< erangeEndIndex]
+            let edatetime = "\(edate) \(etime)"
+            print(edatetime)
+            
+            if let timeDifference = calculateTimeGap(from: sdatetime, to: edatetime) {
+                
+                if recordsAdded < numberOfRecordsToShow {
+                    let recordView = self.createRecordStackview(date: record.createdAt, location: record.fromShop, state: record.process, timeDifference: timeDifference)
+                    self.RentalrecordStackview.addArrangedSubview(recordView)
+                    recordsAdded += 1
+                } else {
+                    break
+                }
+            }
+        }
     }
 
 }

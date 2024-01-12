@@ -41,5 +41,6 @@ extension UIFont {
     static let R8 = UIFont(name: BasicFont.regular.rawValue, size: 8)
     static let R13 = UIFont(name: BasicFont.regular.rawValue, size: 13)
     static let R14 = UIFont(name: BasicFont.regular.rawValue, size: 14)
+    static let R15 = UIFont(name: BasicFont.regular.rawValue, size: 15)
     static let R16 = UIFont(name: BasicFont.regular.rawValue, size: 16)
 }
