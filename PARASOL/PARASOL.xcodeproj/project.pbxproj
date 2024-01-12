@@ -91,6 +91,8 @@
 		09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09DD5B572A65308000EF986E /* PARASOL.xcdatamodeld */; };
 		09DD5B5B2A65308000EF986E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5A2A65308000EF986E /* Assets.xcassets */; };
 		09DD5B5E2A65308000EF986E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DD5B5C2A65308000EF986E /* LaunchScreen.storyboard */; };
+		09F2AEDB2B5163DA003C95B0 /* FindIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F2AEDA2B5163D9003C95B0 /* FindIDVC.swift */; };
+		09F2AEDD2B516806003C95B0 /* FindPWVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F2AEDC2B516806003C95B0 /* FindPWVC.swift */; };
 		09F55CC32A83D0DD00AAA4A7 /* UserPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */; };
 		551167192A938EA500177CE6 /* TossPayments in Frameworks */ = {isa = PBXBuildFile; productRef = 551167182A938EA500177CE6 /* TossPayments */; };
 		5511671B2A938F0200177CE6 /* PaymentWidgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5511671A2A938F0200177CE6 /* PaymentWidgetVC.swift */; };
@@ -191,6 +193,8 @@
 		09DD5B5A2A65308000EF986E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09DD5B5D2A65308000EF986E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09DD5B5F2A65308000EF986E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09F2AEDA2B5163D9003C95B0 /* FindIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDVC.swift; sourceTree = "<group>"; };
+		09F2AEDC2B516806003C95B0 /* FindPWVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWVC.swift; sourceTree = "<group>"; };
 		09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentVC.swift; sourceTree = "<group>"; };
 		5511671A2A938F0200177CE6 /* PaymentWidgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentWidgetVC.swift; sourceTree = "<group>"; };
 		5565674C2A8A418C00455BE1 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 				0927F8592B446BBE00DAD77A /* AddressSearchVC.swift */,
 				0941D3A42A80D76700153D92 /* UserJoinVC.swift */,
 				0927F85F2B49A33C00DAD77A /* FindVC.swift */,
+				09F2AEDC2B516806003C95B0 /* FindPWVC.swift */,
+				09F2AEDA2B5163D9003C95B0 /* FindIDVC.swift */,
 				093C28E42A83B6BA00D8E36D /* OwnerStoreVC.swift */,
 				09F55CC22A83D0DD00AAA4A7 /* UserPaymentVC.swift */,
 				09D48BD32A8A8204001F9E41 /* AgreementVC.swift */,
@@ -695,6 +701,7 @@
 				096D1DC62A80CF8800708B51 /* SearchCell.swift in Sources */,
 				093E1BF02A94C3920035E443 /* UmbrellaAPI.swift in Sources */,
 				556567572A8A97A200455BE1 /* MypageManager.swift in Sources */,
+				09F2AEDB2B5163DA003C95B0 /* FindIDVC.swift in Sources */,
 				093E1BEE2A94C3880035E443 /* UmbrellaModel.swift in Sources */,
 				096D1DC22A80CF5600708B51 /* Owner_Rental_ReturnVC.swift in Sources */,
 				09CF04DC2A6534F6002C9F8B /* OwnerVC.swift in Sources */,
@@ -735,6 +742,7 @@
 				09CF04EC2A66B899002C9F8B /* OwnerMenuVC.swift in Sources */,
 				093E1BE62A8D28680035E443 /* image.swift in Sources */,
 				0913631F2A80F13E0028669A /* mapMarker.swift in Sources */,
+				09F2AEDD2B516806003C95B0 /* FindPWVC.swift in Sources */,
 				096D1DB12A80CED000708B51 /* ChangePwVC.swift in Sources */,
 				096D1DB22A80CED000708B51 /* ContractVC.swift in Sources */,
 				09A0A4022A8A9584006FB24E /* AuthManager.swift in Sources */,
