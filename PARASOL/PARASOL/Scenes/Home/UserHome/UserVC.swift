@@ -123,8 +123,8 @@ class UserVC: UIViewController, UISearchBarDelegate {
             for store in stores {
                 let marker = NMFMarker(position: NMGLatLng(lat: store.latitude, lng: store.longitude), iconImage: NMFOverlayImage(name: "map_marker"))
                 marker.iconTintColor = UIColor(named: "black")!
-                marker.width = 41
-                marker.height = 44
+                marker.width = 36
+                marker.height = 46
                 marker.userInfo = ["id": store.id] // 저장한 값 사용시 타입캐스팅 해야 한다.
                 marker.touchHandler = handler
 

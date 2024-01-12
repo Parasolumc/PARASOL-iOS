@@ -20,6 +20,37 @@ class OwnerVC: UIViewController {
     var umbrellaNum = 9
     
     // MARK: [UI components]
+    var storeLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "내 가게"
+        label.font = .B14
+        label.textColor = UIColor(named: "gray11")
+        return label
+    }()
+    
+    var ownerLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "파라솔 사장님"
+        label.font = .B14
+        label.textColor = UIColor(named: "gray11")
+        return label
+    }()
+    
+    lazy var ownerStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.storeLabel, self.ownerLabel])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 0
+        stackView.setDimensions(height: 17, width: screenWidth - 48)
+
+        return stackView
+    }()
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         
@@ -94,24 +125,14 @@ class OwnerVC: UIViewController {
     let rentLabel1: UILabel = {
         var label = UILabel()
         
-        label.text = "손님에게"
-        label.font = .SB16
+        label.text = "손님에게 우산을"
+        label.font = .M12
         label.textColor = UIColor(named: "black")
         
         return label
     }()
     
     let rentLabel2: UILabel = {
-        var label = UILabel()
-        
-        label.text = "우산을"
-        label.font = .SB16
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    let rentLabel3: UILabel = {
         var label = UILabel()
         
         label.text = "빌려줄래요"
@@ -122,7 +143,7 @@ class OwnerVC: UIViewController {
     }()
     
     lazy var rentLabelVStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.rentLabel1, self.rentLabel2, self.rentLabel3])
+        let stackView = UIStackView(arrangedSubviews: [self.rentLabel1, self.rentLabel2])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -138,10 +159,10 @@ class OwnerVC: UIViewController {
        let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 159).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 156).isActive = true
+        view.widthAnchor.constraint(equalToConstant: screenWidth-46).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 110).isActive = true
         view.layer.cornerRadius = 30
-        view.backgroundColor = UIColor(named: "light")
+        view.backgroundColor = UIColor(named: "main")
         view.addSubview(rentLabelVStackView)
         rentLabelVStackView.centerX(inView: view)
         rentLabelVStackView.centerY(inView: view)
@@ -156,24 +177,14 @@ class OwnerVC: UIViewController {
     let returnLabel1: UILabel = {
         var label = UILabel()
         
-        label.text = "손님이"
-        label.font = .SB16
+        label.text = "손님이 우산을"
+        label.font = .M12
         label.textColor = UIColor(named: "black")
         
         return label
     }()
     
     let returnLabel2: UILabel = {
-        var label = UILabel()
-        
-        label.text = "우산을"
-        label.font = .SB16
-        label.textColor = UIColor(named: "black")
-        
-        return label
-    }()
-    
-    let returnLabel3: UILabel = {
         var label = UILabel()
         
         label.text = "반납했어요"
@@ -184,7 +195,7 @@ class OwnerVC: UIViewController {
     }()
     
     lazy var returnLabelVStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.returnLabel1, self.returnLabel2, self.returnLabel3])
+        let stackView = UIStackView(arrangedSubviews: [self.returnLabel1, self.returnLabel2])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -200,10 +211,10 @@ class OwnerVC: UIViewController {
        let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 159).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 156).isActive = true
+        view.widthAnchor.constraint(equalToConstant: screenWidth-46).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 110).isActive = true
         view.layer.cornerRadius = 30
-        view.backgroundColor = UIColor(named: "light")
+        view.backgroundColor = UIColor(named: "main")
         view.addSubview(returnLabelVStackView)
         returnLabelVStackView.centerX(inView: view)
         returnLabelVStackView.centerY(inView: view)
@@ -215,14 +226,14 @@ class OwnerVC: UIViewController {
         return view
     }()
     
-    lazy var buttonHStackView: UIStackView = {
+    lazy var buttonVStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.rentButton, self.returnButton])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.spacing = 24
+        stackView.spacing = 14
 
         return stackView
     }()
@@ -265,6 +276,9 @@ class OwnerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 네비게이션 바를 숨김
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         fetchData()
         
         configureUI()
@@ -274,19 +288,23 @@ class OwnerVC: UIViewController {
     // IBAction 및 사용자 인터랙션과 관련된 메서드 정의
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
+        view.addSubview(ownerStackView)
         view.addSubview(vStackView)
         view.addSubview(umbrellaHStackView)
-        view.addSubview(buttonHStackView)
-        view.addSubview(buyButton)
+        view.addSubview(buttonVStackView)
+//        view.addSubview(buyButton) // 우산 구매 버튼 제외
         
-        vStackView.anchor(top: view.topAnchor, paddingTop: 69)
+        ownerStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0)
+        ownerStackView.centerX(inView: view)
+        vStackView.anchor(top: ownerStackView.bottomAnchor, paddingTop: 9)
         vStackView.centerX(inView: view)
-        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 50)
+        umbrellaHStackView.anchor(top: vStackView.bottomAnchor, paddingTop: 62)
         umbrellaHStackView.centerX(inView: view)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 65)
-        buttonHStackView.centerX(inView: view)
-        buyButton.anchor(top: buttonHStackView.bottomAnchor, paddingTop: 15)
-        buyButton.centerX(inView: view)
+        buttonVStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 63)
+        buttonVStackView.centerX(inView: view)
+//        우산 구매 버튼 제외
+//        buyButton.anchor(top: buttonHStackView.bottomAnchor, paddingTop: 15)
+//        buyButton.centerX(inView: view)
         
     }
     

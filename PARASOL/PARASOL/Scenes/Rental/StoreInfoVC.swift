@@ -33,6 +33,26 @@ class StoreInfoVC: UIViewController {
     // MARK: [UI components]
     var beforeView: String = "" // SumStoreInfoVC or SearchVC
     
+    lazy var mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        // 이미지 세팅
+        if images != [] {
+            let url = URL(string: images[0])
+            imageView.load(url: url!)
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = UIImage(named: "noImage")!
+        }
+        imageView.backgroundColor = UIColor(named: "gray00_opacity")
+        imageView.contentMode = .scaleAspectFill
+        imageView.setDimensions(height: 244, width: screenWidth)
+        imageView.layer.cornerRadius = 0
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         
@@ -42,14 +62,14 @@ class StoreInfoVC: UIViewController {
         return label
     }()
     
-    let findLoadButton:UIButton = {
+    let findLoadButton: UIButton = {
         let button = UIButton()
         
         button.setImage(UIImage(named: "find_load"), for: .normal)
-        button.setDimensions(height: 45, width: 45)
+        button.setDimensions(height: 56, width: 56)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
-        button.layer.cornerRadius = 45 / 2
+        button.layer.cornerRadius = 56 / 2
         button.clipsToBounds = true
         
         return button
@@ -59,7 +79,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "주소"
-        label.font = .M16
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         return label
     }()
@@ -68,7 +88,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "영업시간"
-        label.font = .SB14
+        label.font = .SB16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -76,7 +96,7 @@ class StoreInfoVC: UIViewController {
     
     lazy var workingdayLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -84,7 +104,7 @@ class StoreInfoVC: UIViewController {
     
     lazy var startLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -92,7 +112,7 @@ class StoreInfoVC: UIViewController {
     
     lazy var spacerLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -100,7 +120,7 @@ class StoreInfoVC: UIViewController {
     
     lazy var endLabel: UILabel = {
         let label = UILabel()
-        label.font = .SB14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         
         return label
@@ -123,22 +143,39 @@ class StoreInfoVC: UIViewController {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.spacing = 10
+        stackView.spacing = 8
 
         return stackView
     }()
 
     lazy var vStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.nameLabel, self.addressLabel, self.storeTimeHStackView])
+        let stackView = UIStackView(arrangedSubviews: [self.addressLabel, self.storeTimeHStackView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        stackView.spacing = 2
         
-        stackView.setDimensions(height: 100, width: (screenWidth - 50))
+        stackView.setDimensions(height: 58, width: (screenWidth - 48))
+        
         return stackView
+    }()
+    
+    lazy var separatorLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray33")
+        view.setDimensions(height: 1, width: (screenWidth - 48))
+        
+        return view
+    }()
+    
+    lazy var separatorLineView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "gray33")
+        view.setDimensions(height: 1, width: (screenWidth - 48))
+        
+        return view
     }()
     
     let samplePicsView = UIView()
@@ -155,9 +192,9 @@ class StoreInfoVC: UIViewController {
         let imageView = UIImageView()
         
         imageView.backgroundColor = UIColor(named: "gray00_opacity")
-        imageView.contentMode = .scaleToFill
-        imageView.setDimensions(height: 107, width: 129)
-        imageView.layer.cornerRadius = 20
+        imageView.contentMode = .scaleAspectFill
+        imageView.setDimensions(height: 188, width: 251)
+        imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
 
         return imageView
@@ -176,7 +213,7 @@ class StoreInfoVC: UIViewController {
         let label = UILabel()
         
         label.text = "상점 소개"
-        label.font = .M14
+        label.font = .R16
         label.textColor = UIColor(named: "black")
         label.preferredMaxLayoutWidth = self.labelMaxWidth
         label.lineBreakMode = .byCharWrapping
@@ -228,10 +265,10 @@ class StoreInfoVC: UIViewController {
     lazy var rentalButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("대여", for: .normal)
+        button.setTitle("대여하기", for: .normal)
         button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
+        button.setDimensions(height: 54, width: (screenWidth-56)/2)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
         
@@ -251,10 +288,10 @@ class StoreInfoVC: UIViewController {
     lazy var returnButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("반납", for: .normal)
+        button.setTitle("반납하기", for: .normal)
         button.titleLabel?.font = .SB16
         button.setTitleColor(.black, for: .normal)
-        button.setDimensions(height: 54, width: 126)
+        button.setDimensions(height: 54, width: (screenWidth-56)/2)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(named: "main")
         
@@ -338,27 +375,45 @@ class StoreInfoVC: UIViewController {
     func imageConfigureUI() {
         
         view.backgroundColor = UIColor(named: "white")
+        
+        view.addSubview(mainImageView)
+        view.addSubview(nameLabel)
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
+        view.addSubview(separatorLineView)
+        view.addSubview(introduceLabel)
+        view.addSubview(separatorLineView2)
         view.addSubview(picsScrollView)
         picsScrollView.addSubview(picsStackView)
-        view.addSubview(introduceLabel)
         view.addSubview(umbrellaHStackView)
         view.addSubview(buttonHStackView)
         
-        vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
-        vStackView.centerX(inView: view)
-        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
+        mainImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
+        mainImageView.centerX(inView: view)
         
-        picsScrollView.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 17, paddingLeft: 25)
-        picsScrollView.heightAnchor.constraint(equalToConstant: 107).isActive = true
+        nameLabel.anchor(left: view.leftAnchor, bottom: mainImageView.bottomAnchor, paddingLeft: 24, paddingBottom: 8)
+        
+        vStackView.anchor(top: mainImageView.bottomAnchor, paddingTop: 17.76)
+        vStackView.centerX(inView: view)
+        
+        findLoadButton.anchor(top: mainImageView.bottomAnchor, right: view.rightAnchor, paddingTop: 13.73, paddingRight: 24)
+        
+        separatorLineView.anchor(top: vStackView.bottomAnchor, paddingTop: 8)
+        separatorLineView.centerX(inView: view)
+        
+        introduceLabel.anchor(top: separatorLineView.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
+        
+        separatorLineView2.anchor(top: introduceLabel.bottomAnchor, paddingTop: 18)
+        separatorLineView2.centerX(inView: view)
+        
+        picsScrollView.anchor(top: separatorLineView2.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 21, paddingLeft: 24)
+        picsScrollView.heightAnchor.constraint(equalToConstant: 188).isActive = true
         
         picsStackView.anchor(top: picsScrollView.topAnchor, left: picsScrollView.leftAnchor, bottom: picsScrollView.bottomAnchor, right: picsScrollView.rightAnchor)
         
-        introduceLabel.anchor(top: picsScrollView.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 25)
-        umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 50)
-        umbrellaHStackView.centerX(inView: view)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
+        umbrellaHStackView.anchor(top: separatorLineView2.bottomAnchor, left: view.leftAnchor, paddingTop: 232, paddingLeft: 24)
+        
+        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 22)
         buttonHStackView.centerX(inView: view)
  
     }
@@ -366,19 +421,38 @@ class StoreInfoVC: UIViewController {
     func noneImageConfigureUI() {
         
         view.backgroundColor = UIColor(named: "white")
+        
+        view.addSubview(mainImageView)
+        view.addSubview(nameLabel)
         view.addSubview(vStackView)
         view.addSubview(findLoadButton)
+        view.addSubview(separatorLineView)
         view.addSubview(introduceLabel)
+        view.addSubview(separatorLineView2)
         view.addSubview(umbrellaHStackView)
         view.addSubview(buttonHStackView)
         
-        vStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
+        mainImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor)
+        mainImageView.centerX(inView: view)
+        
+        nameLabel.anchor(left: view.leftAnchor, bottom: mainImageView.bottomAnchor, paddingLeft: 24, paddingBottom: 8)
+        
+        vStackView.anchor(top: mainImageView.bottomAnchor, paddingTop: 17.76)
         vStackView.centerX(inView: view)
-        findLoadButton.anchor(top: vStackView.topAnchor, right: vStackView.rightAnchor)
-        introduceLabel.anchor(top: vStackView.bottomAnchor, left: view.leftAnchor, paddingTop: 17, paddingLeft: 25)
-        umbrellaHStackView.anchor(top: introduceLabel.bottomAnchor, paddingTop: 182)
-        umbrellaHStackView.centerX(inView: view)
-        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 62)
+        
+        findLoadButton.anchor(top: mainImageView.bottomAnchor, right: view.rightAnchor, paddingTop: 13.73, paddingRight: 24)
+        
+        separatorLineView.anchor(top: vStackView.bottomAnchor, paddingTop: 8)
+        separatorLineView.centerX(inView: view)
+        
+        introduceLabel.anchor(top: separatorLineView.bottomAnchor, left: view.leftAnchor, paddingTop: 18, paddingLeft: 24)
+        
+        separatorLineView2.anchor(top: introduceLabel.bottomAnchor, paddingTop: 18)
+        separatorLineView2.centerX(inView: view)
+        
+        umbrellaHStackView.anchor(top: separatorLineView2.bottomAnchor, left: view.leftAnchor, paddingTop: 232, paddingLeft: 24)
+        
+        buttonHStackView.anchor(top: umbrellaHStackView.bottomAnchor, paddingTop: 22)
         buttonHStackView.centerX(inView: view)
  
     }
@@ -474,9 +548,9 @@ class StoreInfoVC: UIViewController {
             imageView.load(url: url!)
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
             imageView.backgroundColor = UIColor(named: "gray00_opacity")
-            imageView.contentMode = .scaleToFill
-            imageView.setDimensions(height: 107, width: 129)
-            imageView.layer.cornerRadius = 20
+            imageView.contentMode = .scaleAspectFill
+            imageView.setDimensions(height: 188, width: 251)
+            imageView.layer.cornerRadius = 8
             imageView.clipsToBounds = true
             
             picsStackView.addArrangedSubview(imageView)
@@ -486,17 +560,33 @@ class StoreInfoVC: UIViewController {
     func setData() {
         self.nameLabel.text = self.store.shopName
         self.addressLabel.text = self.store.roadNameAddress
-        let abbreviatedDay = self.store.times[0].day
-        let fullDay = self.fullDayName(from: abbreviatedDay)
-        self.workingdayLabel.text = fullDay
-        self.startLabel.text = self.store.times[0].openTime
-        self.spacerLabel.text = "-"
-        self.endLabel.text = self.store.times[0].endTime
-        self.introduceLabel.text = self.store.desc
+        if self.store.times.isEmpty {
+            // 시간 설정 없을 때
+            self.isOpenLabel.text = "영업 정보 없음"
+            self.workingdayLabel.text = ""
+            self.startLabel.text = ""
+            self.spacerLabel.text = ""
+            self.endLabel.text = ""
+        } else {
+            // 영업 시간 추가하게 되면 배열 다 읽는 걸로 수정 예정
+            self.isOpenLabel.text = "영업시간"
+            let abbreviatedDay = self.store.times[0].day
+            let fullDay = self.fullDayName(from: abbreviatedDay)
+            self.workingdayLabel.text = fullDay
+            self.startLabel.text = self.store.times[0].openTime
+            self.spacerLabel.text = "-"
+            self.endLabel.text = self.store.times[0].endTime
+        }
+        
+        if self.store.desc == "" {
+            self.introduceLabel.text = "등록된 매장 소개가 없습니다."
+        }else {
+            self.introduceLabel.text = self.store.desc
+        }
         self.umbrellaNum = self.store.availableUmbrella
         self.tag2Label.text = ": " + String(self.umbrellaNum) + "개"
         if images != [] {
-            addPics(pics: images)
+            addPics(pics: Array(images[1...]))
         }
     }
 

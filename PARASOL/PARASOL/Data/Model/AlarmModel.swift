@@ -18,5 +18,10 @@ struct AlarmInformation: Codable {
     let id: Int
     let content, sentTime: String
     let recipientId, shopId: Int
-    let type: String
+    let type, shopName: String
+}
+
+// MARK: - PushAlarmModel
+struct PushAlarmModel: Codable {
+    let fcmToken: String
 }

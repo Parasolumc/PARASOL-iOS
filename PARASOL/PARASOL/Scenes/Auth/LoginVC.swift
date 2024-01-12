@@ -7,6 +7,7 @@
 
 import UIKit
 import Toast_Swift
+import AuthenticationServices // 애플 로그인
 
 class LoginVC: UIViewController {
     
@@ -234,15 +235,6 @@ class LoginVC: UIViewController {
         return stackView
     }()
     
-    let socialLoginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "소셜로그인 추가 예정"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = UIColor(named: "gray11")
-        
-        return label
-    }()
-    
 //    let kakaoLoginButton: UIButton = {
 //        let button = UIButton(type: .system)
 //        button.setImage(UIImage(systemName: "message.circle.fill"), for: .normal)
@@ -250,6 +242,24 @@ class LoginVC: UIViewController {
 //
 //        return button
 //    }()
+    
+    lazy var appleLoginButton:UIButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(named: "apple_login"), for: .normal)
+        button.setDimensions(height: 54, width: 54)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.layer.cornerRadius = 45 / 2
+        button.clipsToBounds = true
+        
+        let appleLoginAction = UIAction { _ in
+            self.doAppleLogin()
+        }
+        button.addAction(appleLoginAction, for: .touchUpInside)
+        
+        return button
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -322,26 +332,11 @@ class LoginVC: UIViewController {
         view.addSubview(loginButton)
         view.addSubview(fndjoinStackView)
         view.addSubview(orStackView)
-        view.addSubview(socialLoginLabel)
 //        view.addSubview(kakaoLoginButton)
+        view.addSubview(appleLoginButton)
         
         self.idTextField.autocapitalizationType = .none
         self.pwTextField.autocapitalizationType = .none
-        
-//        .anchor에서 호출되어 따로 지정하지 않아도 돼서 주석처리
-//        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-//        idTextField.translatesAutoresizingMaskIntoConstraints = false
-//        pwTextField.translatesAutoresizingMaskIntoConstraints = false
-//        idLineView.translatesAutoresizingMaskIntoConstraints = false
-//        pwLineView.translatesAutoresizingMaskIntoConstraints = false
-//        idtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        pwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        idpwtfStackView.translatesAutoresizingMaskIntoConstraints = false
-//        loginButton.translatesAutoresizingMaskIntoConstraints = false
-//        fndjoinStackView.translatesAutoresizingMaskIntoConstraints = false
-//        orStackView.translatesAutoresizingMaskIntoConstraints = false
-//        socialLoginLabel.translatesAutoresizingMaskIntoConstraints = false
-//        kakaoLoginButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.backgroundColor = UIColor(named: "main")
         
@@ -357,14 +352,14 @@ class LoginVC: UIViewController {
         
         orStackView.anchor(top: fndjoinStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 70, paddingRight: 70)
         
-        socialLoginLabel.anchor(top: orStackView.bottomAnchor, paddingTop: 35)
-        socialLoginLabel.centerX(inView: view)
-        
 //        kakaoLoginButton.anchor(top: orStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 724, paddingLeft: 122)
-        
+        appleLoginButton.anchor(top: orStackView.bottomAnchor, paddingTop: 28)
+        appleLoginButton.centerX(inView: view)
     }
     
     // MARK: - Helpers
+    
+    // 로그인 서버 통신
     func login(userID: String, userPW: String) {
         let loginData: LoginModel = LoginModel(email: userID, password: userPW)
         AuthManager.shared.doLogin(loginData: loginData) { result in
@@ -372,7 +367,7 @@ class LoginVC: UIViewController {
             case .success(let data):
                 print(data)
                 if data["check"] as? Bool == true {
-//                    self.view.makeToast("로그인 성공", position: .center, style: self.style)
+                    self.sendFcmToken(fcmToken: UserDefaults.standard.value(forKey: "fcmToken") as! String)
                     self.goToHome(at: UserDefaults.standard.value(forKey: "role") as! String)
                 } else if data["check"] as? Bool == false {
                     self.view.makeToast("로그인 실패", duration: 1.0, position: .center, style: self.style)
@@ -384,6 +379,42 @@ class LoginVC: UIViewController {
             }
         }
     }
+    
+    // 푸쉬 알림 통신
+    func sendFcmToken(fcmToken: String) {
+        let param: PushAlarmModel = PushAlarmModel(fcmToken: fcmToken)
+        AlarmManager.shared.sendFcmToken(param: param) { result in
+            switch result {
+            case .success(let response):
+                print("fcm 토큰 업데이트 서버 통신 성공: \(response)")
+            case .failure(let error):
+                print("fcm 토큰 업데이트 서버 통신 실페: \(error)")
+            }
+            
+        }
+    }
 }
 
+// 애플 로그인
+extension LoginVC: ASAuthorizationControllerDelegate {
+//, ASAuthorizationControllerPresentationContextProviding {
+
+//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+//        <#code#>
+//    }
+
+
+    // 애플 로그인 버튼 클릭시 실행되는 함수
+    func doAppleLogin() {
+        print("애플 로그인 버튼 클릭")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+//        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
 

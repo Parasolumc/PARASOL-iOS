@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0913631F2A80F13E0028669A /* mapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0913631E2A80F13E0028669A /* mapMarker.swift */; };
+		091D7BAE2AFE517A0012C610 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D7BAD2AFE517A0012C610 /* Protocols.swift */; };
 		091F23402A8A26FE00D31F6F /* Agreement1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */; };
 		092037332A810022003FA716 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092037322A810022003FA716 /* TextField.swift */; };
 		0927F85A2B446BBE00DAD77A /* AddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927F8592B446BBE00DAD77A /* AddressSearchVC.swift */; };
@@ -57,6 +58,7 @@
 		09A0A3FE2A8A8B42006FB24E /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */; };
 		09A0A4002A8A92AB006FB24E /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */; };
 		09A0A4022A8A9584006FB24E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0A4012A8A9584006FB24E /* AuthManager.swift */; };
+		09B2A0C72AD2EDB600EA8B53 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09B2A0C62AD2EDB600EA8B53 /* GoogleService-Info.plist */; };
 		09CF04B12A6532E9002C9F8B /* SetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B02A6532E9002C9F8B /* SetLayout.swift */; };
 		09CF04B42A65333D002C9F8B /* SampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B32A65333C002C9F8B /* SampleVC.swift */; };
 		09CF04B72A653355002C9F8B /* SetFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CF04B62A653355002C9F8B /* SetFont.swift */; };
@@ -104,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		0913631E2A80F13E0028669A /* mapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapMarker.swift; sourceTree = "<group>"; };
+		091D7BAD2AFE517A0012C610 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		091F233F2A8A26FE00D31F6F /* Agreement1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agreement1VC.swift; sourceTree = "<group>"; };
 		092037322A810022003FA716 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		0927F8592B446BBE00DAD77A /* AddressSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchVC.swift; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 		09A0A3FD2A8A8B42006FB24E /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		09A0A3FF2A8A92AB006FB24E /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		09A0A4012A8A9584006FB24E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		09B2A0C62AD2EDB600EA8B53 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09B2A0C82AD2EE8400EA8B53 /* PARASOLDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PARASOLDebug.entitlements; sourceTree = "<group>"; };
 		09CF04B02A6532E9002C9F8B /* SetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayout.swift; sourceTree = "<group>"; };
 		09CF04B32A65333C002C9F8B /* SampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleVC.swift; sourceTree = "<group>"; };
 		09CF04B62A653355002C9F8B /* SetFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFont.swift; sourceTree = "<group>"; };
@@ -256,6 +261,7 @@
 				0913631E2A80F13E0028669A /* mapMarker.swift */,
 				093E1BE32A8D1D970035E443 /* QRCodeView.swift */,
 				093E1BEB2A9498FA0035E443 /* QRReaderView.swift */,
+				091D7BAD2AFE517A0012C610 /* Protocols.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -475,6 +481,7 @@
 		09DD5B4D2A65308000EF986E /* PARASOL */ = {
 			isa = PBXGroup;
 			children = (
+				09B2A0C82AD2EE8400EA8B53 /* PARASOLDebug.entitlements */,
 				09DD5B652A65308E00EF986E /* App */,
 				09DD5B662A6530B800EF986E /* Global */,
 				09CF04BE2A6533B3002C9F8B /* Data */,
@@ -495,6 +502,7 @@
 		09DD5B662A6530B800EF986E /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				09B2A0C62AD2EDB600EA8B53 /* GoogleService-Info.plist */,
 				0963D11F2A80DC9D0070D9ED /* Fonts */,
 				09CF04B52A65334D002C9F8B /* Util */,
 				09CF04B22A653325002C9F8B /* Templates */,
@@ -627,6 +635,7 @@
 				0963D12B2A80DD070070D9ED /* Pretendard-Thin.otf in Resources */,
 				0963D1322A80DD070070D9ED /* Pretendard-Bold.otf in Resources */,
 				096D1DC32A80CF5600708B51 /* StoreInfo.storyboard in Resources */,
+				09B2A0C72AD2EDB600EA8B53 /* GoogleService-Info.plist in Resources */,
 				09CF04F82A66B9A4002C9F8B /* Alarm.storyboard in Resources */,
 				09D04EC12A80D1E0002F73A9 /* test.storyboard in Resources */,
 				09CF04DA2A6534EC002C9F8B /* Owner.storyboard in Resources */,
@@ -737,6 +746,7 @@
 				09DD5B592A65308000EF986E /* PARASOL.xcdatamodeld in Sources */,
 				09CF04D22A6534A0002C9F8B /* LoginVC.swift in Sources */,
 				09DD5B512A65308000EF986E /* SceneDelegate.swift in Sources */,
+				091D7BAE2AFE517A0012C610 /* Protocols.swift in Sources */,
 				093C28E52A83B6BA00D8E36D /* OwnerStoreVC.swift in Sources */,
 				09D04EC22A80D1E0002F73A9 /* testVC.swift in Sources */,
 				096D1DB92A80CF1F00708B51 /* PaywayVC.swift in Sources */,
@@ -887,6 +897,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PARASOL/PARASOLDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;

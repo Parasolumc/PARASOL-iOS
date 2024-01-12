@@ -7,8 +7,12 @@
 
 import UIKit
 import CoreData
-import IQKeyboardManagerSwift
-import NMapsMap
+import IQKeyboardManagerSwift // 키보드 매니져
+import NMapsMap // 네이버 지도
+// FirebaseNotification
+import Firebase
+import FirebaseMessaging
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +33,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        // Firebase 설정
+        FirebaseApp.configure()
+        // FirebaseNotification 설정
+        Messaging.messaging().delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { granted, _ in
+                if granted {
+                    print("알림 등록이 완료되었습니다.")
+                }
+            }
+        application.registerForRemoteNotifications()
         
         return true
     }
@@ -92,5 +110,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+
+// MARK: - Push Alarm Activites
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+
+    // foreground 상에서 알림이 보이게끔 해준다.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .badge])
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        
+        // TODO: 서버로 fcm 토큰을 보내기
+        if let fcmToken = fcmToken {
+            print("\n\n\nUnwrapped token: \(fcmToken)")
+            UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        } else {
+            print("fcmToken을 upwrapping 할 수 없습니다.")
+        }
+
+        
+    }
 }
 
