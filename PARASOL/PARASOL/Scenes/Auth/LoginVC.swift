@@ -270,6 +270,15 @@ class LoginVC: UIViewController {
         }
         
         joinButton.addAction(goToselectVCAction, for: .touchUpInside)
+        
+        // ID/PW 찾기 버튼
+        let goTofindVCAction = UIAction {[weak self] _ in
+            guard let self = self else { return }
+            let findVC = FindVC()
+            self.navigationController?.pushViewController(findVC, animated: true)
+        }
+        
+        joinButton.addAction(goTofindVCAction, for: .touchUpInside)
     }
     
     @objc func doLogin() {
