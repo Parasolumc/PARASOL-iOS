@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "clock.png",
+      "filename" : "ep_arrow-up.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "clock (1).png",
+      "filename" : "ep_arrow-up (1).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "clock (2).png",
+      "filename" : "ep_arrow-up (2).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

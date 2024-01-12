@@ -25,6 +25,14 @@ class RecordVC: UIViewController{
         return stackview
     }()
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        
+        return scrollView
+    }()
+    
     // MARK: - Lifecycle
     // 생명주기와 관련된 메서드 (viewDidLoad, viewDidDisappear...)
     override func viewDidLoad() {
@@ -42,13 +50,22 @@ class RecordVC: UIViewController{
         self.navigationItem.title = "대여기록"
         // 네비게이션바 폰트 및 색상 설정
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "black")!, NSAttributedString.Key.font: UIFont(name: "Pretendard-Bold", size: 18)!]
+        self.navigationController?.navigationBar.barTintColor = .white
     }
     
     func configureUI() {
         view.backgroundColor = UIColor(named: "white")
+        
+        view.addSubview(scrollView)
         view.addSubview(RentalrecordStackview)
         
-        RentalrecordStackview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 30, paddingLeft: 24)
+        scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 30, paddingLeft: 24, paddingBottom: 20, paddingRight: 24)
+        scrollView.addSubview(RentalrecordStackview)
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
+        RentalrecordStackview.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
+
+        RentalrecordStackview.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         
     }
     
@@ -59,18 +76,20 @@ class RecordVC: UIViewController{
         let maxDisplayLength = 10 // 최대 표시 길이
         if date.count > maxDisplayLength {
             let truncatedText = date.prefix(maxDisplayLength) // 초과하는 부분 생략
-            dateLabel.text = String(truncatedText)
+            dateLabel.text = String(transDateString(dateString: String(truncatedText)))
         } else {
             dateLabel.text = date
         }
-        dateLabel.font = .SB16
-        dateLabel.textColor = UIColor(named: "black")
-
+        dateLabel.font = .R16
+        dateLabel.textColor = UIColor(named: "blackact")
         
+        let umbrellaImage = UIImageView(image: UIImage(named: "umbrella_blue"))
+        umbrellaImage.setDimensions(height: 28, width: 28)
+
         let locationLabel = UILabel()
         locationLabel.text = location
-        locationLabel.font = .SB16
-        locationLabel.textColor = UIColor(named: "black")
+        locationLabel.font = .R16
+        locationLabel.textColor = UIColor(named: "blackact_opacity")
         
         let clockImage = UIImageView(image: UIImage(named: "clock"))
         clockImage.setDimensions(height: 19, width: 19)
@@ -85,37 +104,55 @@ class RecordVC: UIViewController{
         stateLabel.textColor = UIColor(named: "black")
         
         let dlStackview = UIStackView(arrangedSubviews: [dateLabel, locationLabel])
-        dlStackview.axis = .horizontal
+        dlStackview.axis = .vertical
         dlStackview.alignment = .leading
-        dlStackview.spacing = 10
+        dlStackview.spacing = 5
         
-        let stateStackview = UIStackView(arrangedSubviews: [clockImage, stateLabel])
-        stateStackview.axis = .horizontal
-        stateStackview.alignment = .leading
-        stateStackview.spacing = 9
-        
-        let recordStackview = UIStackView(arrangedSubviews: [dlStackview, stateStackview])
-        recordStackview.axis = .vertical
+        let recordStackview = UIStackView(arrangedSubviews: [dlStackview])
+        recordStackview.axis = .horizontal
         recordStackview.alignment = .leading
         recordStackview.distribution = .fill
         recordStackview.spacing = 5
         
         let paddingContainerView = UIView()
         paddingContainerView.addSubview(recordStackview)
+        paddingContainerView.addSubview(umbrellaImage)
+        paddingContainerView.addSubview(clockImage)
+        paddingContainerView.addSubview(stateLabel)
         paddingContainerView.backgroundColor = .clear
         
+        umbrellaImage.anchor(top: paddingContainerView.topAnchor, left: paddingContainerView.leftAnchor, paddingTop: 15, paddingLeft: 8)
+        
         recordStackview.translatesAutoresizingMaskIntoConstraints = false
+        umbrellaImage.translatesAutoresizingMaskIntoConstraints = false
+        clockImage.translatesAutoresizingMaskIntoConstraints = false
+        stateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
+            umbrellaImage.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 15),
+            umbrellaImage.leadingAnchor.constraint(equalTo: paddingContainerView.leadingAnchor, constant: 8),
+            umbrellaImage.widthAnchor.constraint(equalToConstant: 28),
+            umbrellaImage.heightAnchor.constraint(equalToConstant: 28),
+            
             recordStackview.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
-            recordStackview.leadingAnchor.constraint(equalTo: paddingContainerView.leadingAnchor, constant: 12),
-            recordStackview.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -12),
-            recordStackview.bottomAnchor.constraint(equalTo: paddingContainerView.bottomAnchor, constant: -8)
+            recordStackview.leadingAnchor.constraint(equalTo: umbrellaImage.trailingAnchor, constant: 15),
+            recordStackview.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -140),
+            recordStackview.bottomAnchor.constraint(equalTo: paddingContainerView.bottomAnchor, constant: -8),
+
+            clockImage.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            clockImage.leadingAnchor.constraint(equalTo: recordStackview.trailingAnchor, constant: 20),
+            clockImage.widthAnchor.constraint(equalToConstant: 19),
+            clockImage.heightAnchor.constraint(equalToConstant: 19),
+
+            stateLabel.topAnchor.constraint(equalTo: paddingContainerView.topAnchor, constant: 8),
+            stateLabel.leadingAnchor.constraint(equalTo: clockImage.trailingAnchor, constant: 5),
+            stateLabel.trailingAnchor.constraint(equalTo: paddingContainerView.trailingAnchor, constant: -15),
         ])
         
         let containerView = UIView()
         containerView.addSubview(paddingContainerView)
-        containerView.backgroundColor = UIColor(named: "light")
-        containerView.setDimensions(height: 81, width: 342)
+        containerView.backgroundColor = UIColor(named: "light_opacity")
+        containerView.setDimensions(height: 76, width: 342)
         containerView.layer.cornerRadius = 20
         
         paddingContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -145,6 +182,23 @@ class RecordVC: UIViewController{
         }
         
         return nil
+    }
+    
+    func transDateString(dateString: String) -> String {
+        // DateFormatter를 사용하여 날짜 문자열을 Date로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: dateString) {
+            // Date를 "yyyy년 MM월 dd일" 형식으로 변환
+            let displayFormatter = DateFormatter()
+            displayFormatter.dateFormat = "yyyy년 MM월 dd일"
+            let displayString = displayFormatter.string(from: date)
+
+            // Label에 표시
+            return displayString
+        } else {
+            return "null"
+        }
     }
     
     // MARK: - Helpers
