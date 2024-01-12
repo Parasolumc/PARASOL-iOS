@@ -288,7 +288,7 @@ class LoginVC: UIViewController {
             self.navigationController?.pushViewController(findVC, animated: true)
         }
         
-        joinButton.addAction(goTofindVCAction, for: .touchUpInside)
+        findButton.addAction(goTofindVCAction, for: .touchUpInside)
     }
     
     @objc func doLogin() {

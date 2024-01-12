@@ -14,7 +14,7 @@ final class TossPaymentsViewController: UIViewController {
     lazy var webView: WKWebView = {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(SuccessHandler(self), name: ScriptName.success.rawValue)
-        configuration.userContentController.add(ErrorHandler(self), name: ScriptName.error.rawValue)
+        configuration.userContentController.add(ErrorHandler(error), name: ScriptName.error.rawValue)
         let webView = WKWebView(frame: .zero, configuration: configuration)
         return webView
     }()
@@ -29,6 +29,11 @@ final class TossPaymentsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         webView.navigationDelegate = service
         webView.uiDelegate = self
+#if DEBUG && swift(>=5.8)
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+#endif
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +48,7 @@ final class TossPaymentsViewController: UIViewController {
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
