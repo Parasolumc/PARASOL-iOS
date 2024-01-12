@@ -401,12 +401,6 @@ class AgreementVC : UIViewController {
         btn.backgroundColor = UIColor(named: "gray00")
         btn.clipsToBounds = true
         
-//        btn.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: AgreementVC.self, action: #selector(goToJoinVC))
-//        btn.addGestureRecognizer(tapGesture)
-        
-        //btn.addTarget(AgreementVC.self, action: #selector(goToJoinVC), for: .touchUpInside)
-        
         return btn
     }()
     
@@ -468,11 +462,7 @@ class AgreementVC : UIViewController {
         allCheckBoxBtn.anchor(top: allAgreeView.topAnchor, left: allAgreeLabel.rightAnchor, bottom: allAgreeView.bottomAnchor, right: allAgreeView.rightAnchor, paddingTop: 4, paddingLeft: 71, paddingBottom: 3.5, paddingRight: 21.5)
         FinalFinalStackView.anchor(top: allAgreeView.bottomAnchor, left: view.leftAnchor, bottom: nextButton.topAnchor, right: view.rightAnchor, paddingTop: 43, paddingLeft: 24, paddingBottom: 350, paddingRight: 24)
         nextButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
-        
-//        nextButton.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: AgreementVC.self, action: #selector(goToJoinVC))
-//        nextButton.addGestureRecognizer(tapGesture)
-    }
+        }
     
     @objc func nextButtonTapped() {
         let userJoinVC = UserJoinVC()
@@ -488,21 +478,6 @@ class AgreementVC : UIViewController {
             navigationController?.pushViewController(ownerJoinVC, animated: true)
         }
     }
-    
-//    @objc func goToJoinVC() {
-//        let userJoinVC = UserJoinVC()
-//        let ownerJoinVC = OwnerJoinVC()
-//        
-//        if self.agree == "User" {
-//            userJoinVC.join = "UserJoin"
-//            userJoinVC.userType = "User" // 사용자 유형 전달
-//            self.navigationController?.pushViewController(userJoinVC, animated: true)
-//        } else if self.agree == "Owner" {
-//            ownerJoinVC.join = "OwnerJoin"
-//            ownerJoinVC.userType = "Owner" // 사용자 유형 전달
-//            self.navigationController?.pushViewController(ownerJoinVC, animated: true)
-//        }
-//    }
     
     // 약관별 더보기 버튼 (>)
     func buttonActions() {
